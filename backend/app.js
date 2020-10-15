@@ -40,4 +40,8 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+app.listen(8226, () => {
+  console.log("Server has been started")
+})
+
 module.exports = app;
