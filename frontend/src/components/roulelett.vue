@@ -17,11 +17,10 @@
           <input type="radio" name="options" id="option3"> 저녁
         </label>
       </div>
-      <button type="button" class="btn btn-primary" onclick="sm.action()">돌려돌려!</button>
     </div>
     <div class="border border-light  p-3 mb-4 text-center">
       <div id="sm">
-        <div class="group">
+        <div class="group" onclick="sm.action()">
           <div class="reel"></div>
           <div class="reel"></div>
           <div class="reel"></div>
@@ -33,10 +32,9 @@
 
 <script>
   export default {
-    name: 'roulelett',
+    name: 'roulette',
     data() {
       return {
-        msg: 'Welcome to Your Vue.js App'
       }
     }
   }

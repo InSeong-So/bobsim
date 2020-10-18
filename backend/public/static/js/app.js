@@ -1,4 +1,4 @@
- (function (w) {
+(function (w) {
   let lastTime = 0;
   let vendors = ['webkit', /*'moz',*/ 'o', 'ms'];
   for (let i = 0; i < vendors.length && !w.requestAnimationFrame; i++) {

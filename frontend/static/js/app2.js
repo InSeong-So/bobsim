@@ -1,4 +1,4 @@
- (function (w) {
+(function (w) {
   let lastTime = 0;
   let vendors = ['webkit', /*'moz',*/ 'o', 'ms'];
   for (let i = 0; i < vendors.length && !w.requestAnimationFrame; i++) {
@@ -38,7 +38,7 @@ const sm = {
   r: [],
   reels: [
     ['한식', '중식', '일식', '양식', '분식', '패스트 푸드'],
-    ['순두부', '코다리', '쭈꾸미', '돼지고기', '소고기', '닭고기', '김치찌개', '오리고기'],
+    ['닭갈비', '순두부', '코다리', '쭈꾸미', '찜닭'],
     ['연안식당', '순두부정식', '맛나리식당']
   ],
   $reels: [],
@@ -58,8 +58,8 @@ const sm = {
     }
 
     for (let i = 0; i < 3; i++) {
-      sm.speeds[i] = Math.random() + .5;
-      sm.r[i] = (Math.random() * sm.reels[i].length | 0) * (sm.reels[i].length * 70) / sm.reels[i].length;
+      sm.speeds[i] = Math.random() * sm.reels[i].length + .5;
+      sm.r[i] = (Math.random() * (sm.reels[i].length / 2) | 0) * (sm.reels[i].length * 70) / (sm.reels[i].length / 2);
     }
 
     sm.animate();
@@ -74,9 +74,11 @@ const sm = {
 
     for (let i = 0; i < 3; i++) {
       sm.$reels[i].scrollTop = (sm.speeds[i] / sm.tMax / 2 * (sm.tMax - t) * (sm.tMax - t) + sm.r[i]) % (sm.reels[i].length * 70) | 0;
+      // $reels[i].scrollTop = (speeds[i] / tMax / 2 * (tMax - t) * (tMax - t) + r[i]) % height | 0;
     }
 
     if (t < sm.tMax) {
+      console.log("==구분");
       requestAnimationFrame(sm.animate);
     } else {
       sm.start = 0;
