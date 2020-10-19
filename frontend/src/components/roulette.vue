@@ -33,6 +33,11 @@
 <script>
   export default {
     name: 'roulette',
+    created (){
+      this.$http.get('http://localhost:8226/users').then((response) => {
+        console.log(response);
+      });
+    },
     data() {
       return {
       }
