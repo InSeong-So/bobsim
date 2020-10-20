@@ -10,31 +10,30 @@ CREATE TABLE `mr_members` (
 
 CREATE TABLE `mr_restaurant` (
   `seqNo` int(11) NOT NULL AUTO_INCREMENT,
-  `locale` varchar(1000) DEFAULT NULL,		-- 지역
-  `category` varchar(100) DEFAULT NULL,		-- 음식분류
-  `menu` varchar(1000) DEFAULT NULL,			-- 메뉴명
-  `pay` varchar(1000) DEFAULT NULL,				-- 가격
-  `grade` varchar(2) DEFAULT NULL,				-- 등급
+  `locale` varchar(1000) DEFAULT NULL,		-- 지역(시도)
+  `localeDetail` varchar(1000) DEFAULT NULL,		-- 지역 세부(군구)
   `address` varchar(1000) DEFAULT NULL,		-- 주소
-  `chainYn` varchar(1) DEFAULT NULL,			-- 체인점여부
-  `note` varchar(1000) DEFAULT NULL,			-- 비고
-  PRIMARY KEY (`seqNo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-CREATE TABLE `mr_restaurant` (
-  `seqNo` int(11) NOT NULL AUTO_INCREMENT,
-  `locale` varchar(1000) DEFAULT NULL,		-- 지역
-  `category` varchar(100) DEFAULT NULL,		-- 음식 분류
+  `category` varchar(100) DEFAULT NULL,		-- 음식 분류(한식,중식,일식,양식,분식,패스트푸드)
   `restaurantNm` varchar(1000) NOT NULL,  -- 음식점 이름
-  `menu` varchar(1000) DEFAULT NULL,			-- 음식점 메뉴명
-  `pay` varchar(1000) DEFAULT NULL,				-- 가격
-  `grade` varchar(2) DEFAULT NULL,				-- 등급
-  `address` varchar(1000) DEFAULT NULL,		-- 주소
+  `grade` varchar(2) DEFAULT NULL,				-- 개인 평점(5점 만점)
+  `number` varchar(20) DEFAULT NULL,      -- 전화번호
+  `openTime` varchar(15) DEFAULT NULL,		-- 영업 시간(평일-00:00,주말-00:00)
+  `restDay`  varchar(20) DEFAULT NULL,    -- 휴점일(매주00일)
   `chainYn` varchar(1) DEFAULT NULL,			-- 체인점여부
   `note` varchar(1000) DEFAULT NULL,			-- 비고
+  `updateYmd` varchar(8) DEFAULT NULL,    -- 최신화
   PRIMARY KEY (`seqNo`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
+CREATE TABLE `mr_menu` (
+  `seqNo` int(11) NOT NULL AUTO_INCREMENT,
+  `restaurantNm` varchar(1000) NOT NULL,  -- 음식점 이름
+  `menu` varchar(1000) DEFAULT NULL,			-- 음식점 메뉴명
+  `pay` varchar(1000) DEFAULT NULL,				-- 가격(단위:원)
+  `grade` varchar(2) DEFAULT NULL,				-- 개인 평점(5점 만점)
+  `note` varchar(1000) DEFAULT NULL,			-- 비고
+  PRIMARY KEY (`seqNo`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `mr_confirm` (
      `seqNo` int(11) NOT NULL AUTO_INCREMENT,
