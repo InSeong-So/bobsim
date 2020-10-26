@@ -1,67 +1,51 @@
-# 밥심으로!
+# 밥심 프로젝트 채널
 
-## 설계 전 프로토타입(이미지)
-- 컨셉
+😉프로젝트의 문서 산출물을 관리하는 채널 😉
 
-<div align=center>
+[WELCOME to BOBSIM API](https://isso.gitbook.io/bobsim/)
 
-<img src="img/01.concept.jpg" alt="컨셉" width="500"/>
+## 기획 / 설계
 
-</div>
+---
 
-- DB 테이블
+[[밥심 REST API 설계(GitBook)](https://isso.gitbook.io/bobsim/)](https://www.notion.so/REST-API-GitBook-729d328ad8cd4b7db0f6ceaa5bd4e761)
 
-<div align=center>
+[UI 설계](https://www.notion.so/UI-537b6601d3bf44818199905794c67b4f)
 
-<img src="img/02.table.jpg" alt="테이블" width="500"/>
+[Tech Stack](https://www.notion.so/Tech-Stack-0bbc7d95b3e846a59731620573c8bc69)
 
-</div>
+[Database 설계](https://www.notion.so/Database-65ba4e067d304c5db130dbc3f73c6f50)
 
-- UI 디자인
+[Pseudoocde](https://www.notion.so/Pseudoocde-dc13d69c25b84d149506eace5cabc793)
 
-<div align=center>
+## 로드맵
 
-<img src="img/03.design.jpg" alt="디자인" width="500"/>
+---
 
-</div>
+[프로젝트 로드맵](https://www.notion.so/b6061829af254d7eb77d97e3f69040e8)
 
-<br>
+[프로젝트 일정 관리](https://www.notion.so/f38890a58a644ec5839b0347c0bcee98)
 
-## 설계(임시)
-### 개요
-- 페이지는 두 개로 구성
-  - 데이터 입력 화면
-    - 상호명 : key 값
-    - SEQ_NO : 상호명+지역+구분
-    - 추가 키 : 사전 검색 등 키워드로 확인 가능한 조건
-    - 지역 : 체인점 여부, 동명 업체 필터
-    - 메뉴 : 한식/중식/일식/양식/분식/패스트푸드 등
-  - 룰렛 화면
-    - 최대한 심플할 것 : 지역(Combo), 구분(Check), 식사시간 구분(Radio)
-    - 특정 기간 내 동일한 메뉴 미출력
-      - 옵션 체크박스로 기간 내 중복허용 가능
-      - 주 단위로 겹치는 메뉴 미출력
-    - 룰렛 후 결과 값을 최종 선택
-      - 확정된 룰렛 결과는 Log로 기록
-    - 당일 날짜 기준 한 번 확정된 음식점은 당일 더 이상 룰렛에서 나오지 않게 제거
-      - ex) 아침에 백반집이라면 점심에 백반집이 나오지 않음
-- 아침, 점심, 저녁 식사 구분으로 쌓인 데이터 기반으로 큐레이팅 서비스 확장 가능
-  - ex) 오늘 이 메뉴 어때요? / 아침에 자주 가는 음식점!
+## 회의록
 
-<br>
+---
 
-### 테이블
-- 회원 테이블
-- 메뉴 테이블
-- 음식점 테이블
-- 메뉴 확정 테이블
+🖋️ 회의록
 
-<br>
+## 개발 관련 참고 자료
 
-### 개발 스택
-- Vue.js
-- Node.js
-- MariaDB(MySQL)
+---
 
-<hr>
-<br>
+[프론트엔드 코드 컨벤션](https://www.notion.so/d9f39c2f25fb47fa9288f0d9a6a96ee7)
+
+[프론트엔드 문서 정리](https://www.notion.so/4139c1961d2e4047b5fdb1ceb5cd0ddc)
+
+[백엔드 코드 컨벤션](https://www.notion.so/eb40a6ef61b8430d80e3f6beebb77de7)
+
+[백엔드 문서 정리](https://www.notion.so/410473b5352249f2b5d4c6727986bdfb)
+
+## 프로젝트 공지/메모
+
+---
+
+[라즈베리파이 등 서비스 로그인 정보](https://www.notion.so/4c58b3d6cd274700b0d2b57019f36d24)
