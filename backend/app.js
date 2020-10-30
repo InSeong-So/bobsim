@@ -3,20 +3,21 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const historyFallback = require('connect-history-api-fallback');
 const db = require('./src/database/config');
 
 let app = express();
 
-app.use(require('connect-history-api-fallback')());
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
+app.use(express.static('public'));
 app.use(cookieParser());
-app.use(express.static('public'))
+app.use(logger('dev'));
+app.use(historyFallback());
 
 app.route('/').get((req, res) => {
     res.render('index') // index.html render
