@@ -1,8 +1,17 @@
 <template>
   <div class="container-fluid">
-    <div class="row jumbotron jumbotron-fluid">
-      <div class="container">
-        <h1 class="display-4" style="font-weight: bold;">한국인은 밥심!</h1>
+<!--    <div class="row jumbotron jumbotron-fluid">-->
+<!--      <div class="container">-->
+<!--        <h1 class="display-4" style="font-weight: bold;">한국인은 밥심!</h1>-->
+<!--      </div>-->
+<!--    </div>-->
+    <div class="border border-light  p-3 mb-4 text-center">
+      <div id="sm">
+        <div class="group" onclick="sm.action()">
+          <div class="reel"></div>
+          <div class="reel"></div>
+          <div class="reel"></div>
+        </div>
       </div>
     </div>
     <div class="border border-light  p-3 mb-4 text-center">
@@ -18,29 +27,19 @@
         </label>
       </div>
     </div>
-    <div class="border border-light  p-3 mb-4 text-center">
-      <div id="sm">
-        <div class="group" onclick="sm.action()">
-          <div class="reel"></div>
-          <div class="reel"></div>
-          <div class="reel"></div>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
 <script>
   export default {
     name: 'roulette',
-    created (){
-      this.$http.get('http://localhost:8226/users').then((response) => {
-        console.log(response);
-      });
+    created() {
+      // this.$http.get('http://localhost:8226/users').then((response) => {
+      //   console.log(response);
+      // });
     },
     data() {
-      return {
-      }
+      return {}
     }
   }
 </script>
