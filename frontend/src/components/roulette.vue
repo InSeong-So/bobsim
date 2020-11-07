@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid">
+  <div class="contentFrame">
 <!--    <div class="row jumbotron jumbotron-fluid">-->
 <!--      <div class="container">-->
 <!--        <h1 class="display-4" style="font-weight: bold;">한국인은 밥심!</h1>-->

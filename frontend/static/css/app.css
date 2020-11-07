@@ -14,7 +14,6 @@ body {
   padding: 0;
   background: #232323;
   color: #cdcdcd;
-  font-family: "Avenir Next", "Avenir", sans-serif;
 }
 
 div, h1, button, p {
@@ -22,22 +21,11 @@ div, h1, button, p {
   padding: 0
 }
 
-button {
-  font-family: inherit;
-  font-size: inherit;
-  font-style: inherit;
-  font-weight: inherit
-}
-
 a:active, a:focus {
   outline: 0
 }
 
 /* } */
-
-body, input, select, textarea {
-  font: 18px/18px "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
 
 #sm {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eeeeee', endColorstr='#cccccc', GradientType=0);
@@ -96,6 +84,7 @@ body, input, select, textarea {
 .reel p:nth-child(3) {
   color: #630
 }
+
 /*룰렛css 끝*/
 
 /*left*/
@@ -310,7 +299,7 @@ body, input, select, textarea {
 }
 
 .dropdown:before {
-  font-family: FontAwesome;
+  font-family: "Font Awesome 5 Free";
   content: "\f105";
   transition: all .4s;
   padding-right: 5px;
@@ -320,7 +309,7 @@ body, input, select, textarea {
 }
 
 .dropdown.active:before {
-  font-family: FontAwesome;
+  font-family: "Font Awesome 5 Free";
   content: '\f107';
   transition: all .4s;
   padding-right: 5px;
@@ -330,4 +319,11 @@ body, input, select, textarea {
 .leftMenu:not(.openMenu) li > .dropdownlist {
   pointer-events: none;
   height: 0;
+}
+
+.contentFrame {
+  margin-left: 50px;
+  width: calc(100% - 50px);
+  padding-right: 15px;
+  padding-left: 15px;
 }
