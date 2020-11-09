@@ -4,7 +4,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const historyFallback = require('connect-history-api-fallback');
-const db = require('./src/database/config');
+const db = require('./src/database/config/connectionConfig');
 
 let app = express();
 
