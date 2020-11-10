@@ -4,10 +4,12 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const historyFallback = require('connect-history-api-fallback');
-const db = require('./src/database/config/connectionConfig');
+const mysql = require('mysql');
+const dbConnection = require('./src/database/config/connectionConfig');
+const query = require('./src/database/query/rouletteQuery');
 
-let app = express();
-
+const app = express();
+const connection = mysql.createConnection(dbConnection);
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -22,6 +24,27 @@ app.use(historyFallback());
 app.route('/').get((req, res) => {
     res.render('index') // index.html render
 });
+
+app.route('/rouletteInit')
+    .get((req, res) => {
+        try {
+            let combo = {
+                cd: [],
+                cd_nm: []
+            };
+            let codes = [];
+            connection.query(query.combo01, (err, rows) => {
+                for (let i in rows) {
+                    combo.cd.push(rows[i]['cd']);
+                    combo.cd_nm.push(rows[i]['cd_nm']);
+                }
+                res.json(combo);
+            });
+        } catch (err) {
+            res.send(err);
+        }
+    })
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

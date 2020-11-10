@@ -1,80 +1,339 @@
 /* CSS reset { */
-body, div, h1, button, p {
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
   margin: 0;
-  padding: 0
+  padding: 0;
 }
 
-button {
-  font-family: inherit;
-  font-size: inherit;
-  font-style: inherit;
-  font-weight: inherit
+body {
+  margin: 0;
+  padding: 0;
+  background: #232323;
+  color: #cdcdcd;
+}
+
+div, h1, button, p {
+  margin: 0;
+  padding: 0
 }
 
 a:active, a:focus {
   outline: 0
 }
-
 /* } */
 
-body, input, select, textarea {
-  font: 18px/18px "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-
-#sm {
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eeeeee', endColorstr='#cccccc', GradientType=0);
-  width: 100%;
-  margin: 10px auto 20px;
-  padding: 20px;
-}
-
-.group, .reel {
-  display: inline-block;
-}
-
-.group {
-  border-radius: 30px;
-  padding: 20px 0 20px 20px;
-}
-
-.reel {
-  background: #fff;
-  background: -moz-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(241, 241, 241, 1) 50%, rgba(225, 225, 225, 1) 51%, rgba(246, 246, 246, 1) 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(255, 255, 255, 1)), color-stop(50%, rgba(241, 241, 241, 1)), color-stop(51%, rgba(225, 225, 225, 1)), color-stop(100%, rgba(246, 246, 246, 1)));
-  background: -webkit-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(241, 241, 241, 1) 50%, rgba(225, 225, 225, 1) 51%, rgba(246, 246, 246, 1) 100%);
-  background: -o-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(241, 241, 241, 1) 50%, rgba(225, 225, 225, 1) 51%, rgba(246, 246, 246, 1) 100%);
-  background: -ms-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(241, 241, 241, 1) 50%, rgba(225, 225, 225, 1) 51%, rgba(246, 246, 246, 1) 100%);
-  background: linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(241, 241, 241, 1) 50%, rgba(225, 225, 225, 1) 51%, rgba(246, 246, 246, 1) 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f6f6f6', GradientType=0);
-  text-align: center;
-  float: left;
-  padding: 0 10px;
-  width: 30%;
-  height: 100px;
+/* left menu { */
+.leftMenu {
+  height: 100%;
+  background-color: #00838f;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 50px;
   overflow: hidden;
+  transition: .5s cubic-bezier(.8, .5, .2, 1.4);
+}
+
+.hamburger {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #00CED1;
+  float: right;
   margin-right: 5px;
+  margin-top: 5px;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0px 3px 4px rgba(0, 0, 0, .5);
+  position: relative;
+  transform: rotate(0deg);
+}
+
+.hamburger.open {
+  background-color: #00008B;
+  transition: all ease .5s;
+}
+
+.hamburger:hover {
+  box-shadow: none;
+  transition: all ease .5s;
+  transform: rotate(360deg);
+
+}
+
+.hamburger span {
+  width: 60%;
+  height: 3px;
+  background-color: #000;
+  display: block;
+  border-radius: 1px;
+  float: left;
+  margin-left: 20%;
+  transition: all ease .3s;
+}
+
+.hamburger span:nth-child(1) {
+  margin-top: 13px;
+}
+
+.hamburger span:nth-child(2) {
+  margin-top: 3px;
+}
+
+.hamburger span:nth-child(3) {
+  margin-top: 3px;
+}
+
+.open span:nth-child(1) {
+  background-color: #fff;
+  transform: rotate(45deg);
+  transition-timing-function: ease-in-out;
+  position: absolute;
+  top: 5px;
+  right: 8px;
+  width: 25px;
+  transition: all ease .5s;
   border-radius: 10px;
 }
 
-.reel div {
+.open span:nth-child(2) {
+  background-color: #fff;
+  transition-timing-function: ease-in-out;
+  margin-top: 18px;
+  opacity: 0;
+  transition: all ease .5s;
+}
+
+.open span:nth-child(3) {
+  background-color: #fff;
+  transform: rotate(-45deg);
+  transition-timing-function: ease-in-out;
+  margin-top: 0px;
+  position: absolute;
+  top: 18px;
+  right: 8px;
+  width: 25px;
+  transition: all ease .5s;
+  border-radius: 10px;
+}
+
+.openMenu {
+  width: 250px;
+  transition: all ease 1s;
+  overflow: hidden;
+  transition: .5s cubic-bezier(.8, .5, .2, 1.4);
+}
+
+.leftMenuList {
+  margin-top: 70px;
+  list-style: none;
+  padding: 0;
+}
+
+.leftMenuList li {
+  width: 250px;
+  /* height: 40px; */
+  line-height: 40px;
+  color: #fff;
+  border-bottom: 1px solid #00bcd6;
+  padding: 5px;
+  font-size: 13px;
+}
+
+.leftMenuList li:hover {
+  background-color: #00bcd6;
+  transition: all ease .5s;
+  cursor: pointer;
+
+}
+
+.leftMenuList li a {
+  text-decoration: none;
+  color: #fff;
+}
+
+.leftMenuList li a svg {
+  width: 40px;
+  height: 40px;
+  float: left;
+  margin-left: 5px;
+}
+
+.leftMenuList li a span {
+  text-decoration: none;
+  color: #fff;
+  margin-right: 15px;
+  width: 100%;
+}
+
+.leftMenuList i.fa {
+  font-size: 25px;
+  padding: 9px;
+  width: 30px;
+  text-align: center;
+}
+
+.leftMenuList li ul li {
+  padding: 0px;
+  line-height: 30px;
+  transition: all .4s;
+  box-sizing: border-box;
+}
+
+
+.leftMenuList li ul li:hover {
+  background: #4DD0E1;
+  transition: all .4s;
+
+}
+
+.leftMenuList li ul li ul li {
+  padding: 5px;
+  background: #B2EBF2;
+}
+
+.leftMenuList li ul li ul li a span {
+  color: #00838f;
+}
+
+.leftMenuList li ul li ul li:hover {
+  background: #B2EBF2;
+}
+
+.dropdown {
+  color: #fff;
+  text-decoration: none;
+  display: block;
   position: relative;
-  top: -48px;
 }
 
-.reel p {
-  font-weight: bold;
-  height: 60px;
+.active + .dropdownlist {
+  width: 100%;
+  height: auto;
+  line-height: 30px;
+  padding: 0px;
+  margin-left: 0px;
+  background: #4DD0E1;
+
+}
+
+.hide + .dropdownlist {
+  height: 0px;
+}
+
+.active + .dropdownlist:hover {
+  background: #00bcd6;
+}
+
+.dropdownlist {
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.dropdown:before {
+  font-family: "Font Awesome 5 Free";
+  content: "\f105";
+  font-weight: 900;
+  transition: all .4s;
+  padding-right: 5px;
+  right: 15px;
+  position: absolute;
+  top: 4px;
+}
+
+.dropdown.active:before {
+  font-family: "Font Awesome 5 Free";
+  content: '\f107';
+  font-weight: 900;
+  transition: all .4s;
+  padding-right: 5px;
+
+}
+
+.leftMenu:not(.openMenu) li > .dropdownlist {
+  pointer-events: none;
+  height: 0;
+}
+
+.contentFrame {
+  margin-left: 50px;
+  width: calc(100% - 50px);
+  padding-right: 15px;
+  padding-left: 15px;
+}
+/* } left menu */
+
+/* roulette { */
+.slot-machine {
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eeeeee', endColorstr='#cccccc', GradientType=0);
+  width: 100%;
+  margin: 10px auto;
+  padding: 20px;
+  height: 200px;
+}
+
+.slot .slot__window, .slot__wrap .slot__item {
+  display: inline-block;
+}
+
+.slot {
+  width: 33%;
+  height: 156px;
+  margin: 10px 0px;
+  padding: 0 20px;
+  float: left;
+}
+
+.slot__window {
+  background: #78acff;
+  text-align: center;
+  float: left;
+  padding: 0 10px;
+  width: 100%;
+  height: 100px;
+  overflow: hidden;
+  margin: 5px;
+  border-radius: 10px;
+}
+
+.slot__item {
+  background: #c7e9ff;
+  background-image: -moz-linear-gradient(top, rgba(199, 233, 255, 1) 0%, rgba(185, 219, 241, 1) 50%, rgba(169, 203, 225, 1) 51%, rgba(246, 246, 246, 1) 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(199, 233, 255, 1)), color-stop(50%, rgba(185, 219, 241, 1)), color-stop(51%, rgba(169, 203, 225, 1)), color-stop(100%, rgba(246, 246, 246, 1)));
+  background: -webkit-linear-gradient(top, rgba(199, 233, 255, 1) 0%, rgba(185, 219, 241, 1) 50%, rgba(169, 203, 225, 1) 51%, rgba(246, 246, 246, 1) 100%);
+  background: -o-linear-gradient(top, rgba(199, 233, 255, 1) 0%, rgba(185, 219, 241, 1) 50%, rgba(169, 203, 225, 1) 51%, rgba(246, 246, 246, 1) 100%);
+  background: -ms-linear-gradient(top, rgba(199, 233, 255, 1) 0%, rgba(185, 219, 241, 1) 50%, rgba(169, 203, 225, 1) 51%, rgba(246, 246, 246, 1) 100%);
+  background: linear-gradient(top, rgba(199, 233, 255, 1) 0%, rgba(185, 219, 241, 1) 50%, rgba(169, 203, 225, 1) 51%, rgba(246, 246, 246, 1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f6f6f6', GradientType=0);
   margin-top: 10px;
+  height: 80px;
+  width: 100%;
+  border-radius: 20px;
+  text-align: center;
+  color: #020091;
+  font-weight: bold;
+  line-height: 80px;
 }
+/* } roulette */
 
-.reel p:nth-child(1) {
-  color: #c60
+/* util(etc) { */
+.row.vertical-divider {
+  overflow: hidden;
 }
-
-.reel p:nth-child(2) {
-  color: #690
+.row.vertical-divider > div[class^="col-"] {
+  text-align: center;
+  border-left: 3px dotted #515b61;
+  border-right: 3px dotted #515b61;
 }
-
-.reel p:nth-child(3) {
-  color: #630
+.row.vertical-divider div[class^="col-"]:first-child {
+  border-left: none;
 }
+.row.vertical-divider div[class^="col-"]:last-child {
+  border-right: none;
+}
+/* } */

@@ -2,8 +2,8 @@
   <div class="contentFrame">
     <div class="jumbotron mt-3 mb-3">
       <h1 class="display-4">한국인은 밥심!</h1>
-      <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to
-        featured content or information.</p>
+      <p class="lead">한국인은 밥심으로 산다고 했습니다.</p>
+      <p class="lead">영양의 균형과 건강한 하루를 위해 밥은 선택이 아닌 필수입니다!</p>
       <hr class="my-4">
       <div class="row vertical-divider">
         <div class="col-6 btn-group btn-group-toggle" data-toggle="buttons">
@@ -51,38 +51,55 @@
     }
 
   const slotMachine = {
+    beforeCreate() {
+      this.$http.get('http://localhost:3000/rouletteInit').then((response) => {
+        Vue.set(this.slots[0], "items", response.data.cd_nm.shuffle());
+      });
+    },
+    mounted() {
+      this.init();
+    },
     data: function () {
       return {
-        slots: [{
-          title: "구분",
-          items: [
-            "today",
-            "next week",
-            "last year",
-            "tomorrow",
-            "yesterday",
-          ]
-        }, {
-          title: "종류",
-          items: [
-            "at home",
-            "at work",
-            "at school",
-            "at the gym",
-            "at the park",
-            "at the beach",
-            "at the sidewalk",
-            "at the city",
-          ]
-        }, {
-          title: "메뉴",
-          items: [
-            "cycling",
-            "walking",
-            "swimming",
-            "flying",
-          ]
-        }],
+        slots:
+          [
+            {
+              title: "구분",
+              // 기본값
+              items:
+                [
+                  "한식",
+                  "패스트푸드",
+                  "중식",
+                  "일식",
+                  "분식",
+                ]
+            },
+            {
+              title: "음식점",
+              items:
+                [
+                  "at home",
+                  "at work",
+                  "at school",
+                  "at the gym",
+                  "at the park",
+                  "at the beach",
+                  "at the sidewalk",
+                  "at the city",
+                ]
+            },
+            {
+              title: "메뉴",
+              items:
+                [
+                  "cycling",
+                  "walking",
+                  "swimming",
+                  "flying",
+                ]
+            }
+          ],
         opts: null,
         startedAt: null,
       }
@@ -102,15 +119,18 @@
       "</div>",
 
     methods: {
+      init: function () {
+        this.$http.defaults.headers.post['Content-Type'] = 'application/json';
+      },
       start: function () {
         if (this.opts) {
           return
         }
 
         this.opts = this.slots.map((data, i) => {
-          const slot = this.$refs.slots[i]
+          const slot = this.$refs.slots[i];
           const choice = Math.floor(Math.random() * data.items.length)
-          console.log("choice", i, data.items[choice])
+          // console.log("choice", i, data.items[choice])
 
           const opts = {
             el: slot.querySelector('.slot__wrap'),
@@ -146,7 +166,7 @@
           opt.el.style.transform = "translateY(" + pos + "px)"
 
           if (timeDiff > opt.duration) {
-            console.log('finished', opt, pos, opt.finalPost)
+            // console.log('finished', opt, pos, opt.finalPos)
             opt.isFinished = true
           }
         })
@@ -154,7 +174,7 @@
         if (this.opts.every(o => o.isFinished)) {
           this.opts = null
           this.startedAt = null
-          console.log('finished')
+          // console.log('finished')
         } else {
           next(this.animate)
         }
@@ -162,7 +182,7 @@
     }
   }
 
-  // import $ from '../../static/js/jquery-3.4.1.min';
+  import $ from '../../static/js/jquery-3.4.1.min';
 
   import Vue from "vue";
   import router from "../router";
@@ -172,11 +192,6 @@
     name: 'roulette',
     components: {
       slotMachine
-    },
-    createdBefore() {
-      // this.$http.get('http://localhost:8226/users').then((response) => {
-      //   console.log(response);
-      // });
     },
     data() {
       return {}

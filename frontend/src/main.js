@@ -8,9 +8,27 @@ import Axios from 'axios'
 Vue.config.productionTip = false
 /* default */
 
-/* axios { */
+/* axios */
 Vue.prototype.$http = Axios;
-/* } axios */
+/* axios */
+
+/* custom javascript */
+Array.prototype.shuffle = function(){
+  let length = this.length;
+
+  while(length){
+    let index = Math.floor((length--) * Math.random());
+
+    let temp = this[length];
+
+    this[length] = this[index];
+
+    this[index] = temp;
+  }
+
+  return this;
+}
+/* custom javascript */
 
 /* eslint-disable no-new */
 new Vue({
