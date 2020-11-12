@@ -24,6 +24,7 @@ div, h1, button, p {
 a:active, a:focus {
   outline: 0
 }
+
 /* } */
 
 /* left menu { */
@@ -260,13 +261,21 @@ a:active, a:focus {
   height: 0;
 }
 
+/* } left menu */
+
+/* main { */
 .contentFrame {
   margin-left: 50px;
   width: calc(100% - 50px);
   padding-right: 15px;
   padding-left: 15px;
 }
-/* } left menu */
+
+.contentFrame hr {
+  border-top: 2px solid rgba(0, 0, 0, .1);
+}
+
+/* main { */
 
 /* roulette { */
 .slot-machine {
@@ -319,21 +328,26 @@ a:active, a:focus {
   font-weight: bold;
   line-height: 80px;
 }
+
 /* } roulette */
 
 /* util(etc) { */
 .row.vertical-divider {
   overflow: hidden;
 }
+
 .row.vertical-divider > div[class^="col-"] {
   text-align: center;
-  border-left: 3px dotted #515b61;
-  border-right: 3px dotted #515b61;
+  border-left: 1px solid rgba(0, 0, 0, .1);
+  border-right: 1px solid rgba(0, 0, 0, .1);
 }
+
 .row.vertical-divider div[class^="col-"]:first-child {
   border-left: none;
 }
+
 .row.vertical-divider div[class^="col-"]:last-child {
   border-right: none;
 }
+
 /* } */
