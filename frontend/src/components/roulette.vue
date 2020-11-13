@@ -52,8 +52,12 @@
 
   const slotMachine = {
     beforeCreate() {
+      // 로딩 이미지 추가할 것, axios interceptor
       this.$http.get('http://localhost:3000/rouletteInit').then((response) => {
-        Vue.set(this.slots[0], "items", response.data.cd_nm.shuffle());
+        Vue.set(this.target[0], "items", response.data[0].cd_nm.shuffle());
+        Vue.set(this.target, 1, response.data[1]);
+
+        console.log("loading complete");
       });
     },
     mounted() {
@@ -61,47 +65,61 @@
     },
     data: function () {
       return {
+        target:
+          [
+            {
+              // 구분
+              items:
+                []
+            },
+            {
+              cd:[],
+              cd_nm:[]
+            },
+            {
+              items:
+                []
+            }
+          ],
         slots:
           [
             {
               title: "구분",
-              // 기본값
               items:
                 [
                   "한식",
-                  "패스트푸드",
+                  "양식",
                   "중식",
                   "일식",
-                  "분식",
+                  "패스트푸드",
                 ]
             },
             {
               title: "음식점",
               items:
                 [
-                  "at home",
-                  "at work",
-                  "at school",
-                  "at the gym",
-                  "at the park",
-                  "at the beach",
-                  "at the sidewalk",
-                  "at the city",
+                  "백반집", // 한식
+                  "레스토랑", // 양식
+                  "중국집", // 중식
+                  "일식집", // 일식
+                  "패스트푸드점", // 패스트푸드
                 ]
             },
-            {
-              title: "메뉴",
-              items:
-                [
-                  "cycling",
-                  "walking",
-                  "swimming",
-                  "flying",
-                ]
-            }
+            // {
+            //   title: "메뉴",
+            //   items:
+            //     [
+            //       "제육볶음", // 한식
+            //       "피자", // 양식
+            //       "짜장면", // 중식
+            //       "초밥", // 일식
+            //       "햄버거", // 패스트푸드
+            //     ]
+            // }
           ],
         opts: null,
         startedAt: null,
+        pickItem : {}
       }
     },
 
@@ -120,9 +138,12 @@
 
     methods: {
       init: function () {
+        // POST 세팅
         this.$http.defaults.headers.post['Content-Type'] = 'application/json';
       },
       start: function () {
+
+        // 룰렛을 돌리고 있을 때 다시 돌리는 걸 방지
         if (this.opts) {
           return
         }
@@ -130,6 +151,28 @@
         this.opts = this.slots.map((data, i) => {
           const slot = this.$refs.slots[i];
           const choice = Math.floor(Math.random() * data.items.length)
+          switch (i) {
+            case 0: {
+              Vue.set(this.pickItem, "category", this.target[i].items[choice]);
+              Vue.set(data.items, choice, this.target[i].items[choice]);
+            }
+              break;
+            case 1: {
+              const pickItem = this.pickItem.category;
+              const targetItem = this.target[i];
+              const cd_nm = targetItem.cd_nm.filter(function(n, idx){
+                return targetItem.cd[idx] == pickItem;
+              })
+
+              Vue.set(data.items, choice, cd_nm[choice]);
+            }
+              break;
+            // case 2: {
+            //
+            // }
+            //   break;
+          }
+
           // console.log("choice", i, data.items[choice])
 
           const opts = {
@@ -142,6 +185,7 @@
           }
           return opts
         })
+
         next(this.animate)
       },
 
