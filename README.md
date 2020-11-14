@@ -7,8 +7,7 @@
 ## 기획 / 설계
 
 ---
-
-[[밥심 REST API 설계(GitBook)](https://isso.gitbook.io/bobsim/)](https://www.notion.so/REST-API-GitBook-729d328ad8cd4b7db0f6ceaa5bd4e761)
+[밥심 REST API 설계(GitBook)](https://isso.gitbook.io/bobsim/)
 
 [UI 설계](https://www.notion.so/UI-537b6601d3bf44818199905794c67b4f)
 
