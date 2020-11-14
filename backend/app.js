@@ -26,19 +26,34 @@ app.route('/').get((req, res) => {
 });
 
 app.route('/rouletteInit')
-    .get((req, res) => {
+    .get(async (req, res) => {
         try {
-            let combo = {
+            let combo01 = {
                 cd: [],
                 cd_nm: []
             };
+
+            let combo02 = {
+                cd: [],
+                cd_nm : []
+            };
+
             let codes = [];
-            connection.query(query.combo01, (err, rows) => {
-                for (let i in rows) {
-                    combo.cd.push(rows[i]['cd']);
-                    combo.cd_nm.push(rows[i]['cd_nm']);
+
+            await connection.query(query.combo01 + query.combo02, (err, rows) => {
+                for (let i in rows[0]) {
+                    combo01.cd.push(rows[0][i]['cd']);
+                    combo01.cd_nm.push(rows[0][i]['cd_nm']);
                 }
-                res.json(combo);
+                for (let i in rows[1]) {
+                    combo02.cd.push(rows[1][i]['category']);
+                    combo02.cd_nm.push(rows[1][i]['restaurantNm']);
+                }
+
+                codes.push(combo01);
+                codes.push(combo02);
+
+                res.json(codes);
             });
         } catch (err) {
             res.send(err);
