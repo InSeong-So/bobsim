@@ -290,8 +290,16 @@ a:active, a:focus {
   display: inline-block;
 }
 
-.slot {
-  width: 33%;
+.slot:first-child {
+  width: 30%;
+  height: 156px;
+  margin: 10px 0px;
+  padding: 0 20px;
+  float: left;
+}
+
+.slot:last-child {
+  width: 70%;
   height: 156px;
   margin: 10px 0px;
   padding: 0 20px;

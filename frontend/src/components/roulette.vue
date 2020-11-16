@@ -73,8 +73,8 @@
                 []
             },
             {
-              cd:[],
-              cd_nm:[]
+              cd: [],
+              cd_nm: []
             },
             {
               items:
@@ -119,7 +119,7 @@
           ],
         opts: null,
         startedAt: null,
-        pickItem : {}
+        pickItem: {}
       }
     },
 
@@ -151,6 +151,7 @@
         this.opts = this.slots.map((data, i) => {
           const slot = this.$refs.slots[i];
           const choice = Math.floor(Math.random() * data.items.length)
+          console.log(choice);
           switch (i) {
             case 0: {
               Vue.set(this.pickItem, "category", this.target[i].items[choice]);
@@ -160,20 +161,23 @@
             case 1: {
               const pickItem = this.pickItem.category;
               const targetItem = this.target[i];
-              const cd_nm = targetItem.cd_nm.filter(function(n, idx){
+              const cd_nm = targetItem.cd_nm.filter(function (n, idx) {
                 return targetItem.cd[idx] == pickItem;
               })
 
               Vue.set(data.items, choice, cd_nm[choice]);
             }
               break;
-            // case 2: {
-            //
-            // }
-            //   break;
+            case 2: {
+
+            }
+              break;
+            default: {
+            }
+              break;
           }
 
-          // console.log("choice", i, data.items[choice])
+          console.log("choice", i, data.items[choice])
 
           const opts = {
             el: slot.querySelector('.slot__wrap'),
@@ -210,7 +214,7 @@
           opt.el.style.transform = "translateY(" + pos + "px)"
 
           if (timeDiff > opt.duration) {
-            // console.log('finished', opt, pos, opt.finalPos)
+            console.log('finished', opt, pos, opt.finalPos)
             opt.isFinished = true
           }
         })

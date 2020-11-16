@@ -7,6 +7,8 @@ const historyFallback = require('connect-history-api-fallback');
 const mysql = require('mysql');
 const dbConnection = require('./src/database/config/connectionConfig');
 const query = require('./src/database/query/rouletteQuery');
+const cors = require('cors');
+
 
 const app = express();
 const connection = mysql.createConnection(dbConnection);
@@ -20,6 +22,7 @@ app.use(express.static('public'));
 app.use(cookieParser());
 app.use(logger('dev'));
 app.use(historyFallback());
+app.use(cors());
 
 app.route('/').get((req, res) => {
     res.render('index') // index.html render
