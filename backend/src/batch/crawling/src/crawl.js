@@ -1,71 +1,62 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
 
-let html = "";
-let searchKeyword = encodeURI("각산동");
+function getHtml(searchKeyword, pageCnt) {
+    return new Promise(function (resolve, reject) {
+        searchKeyword = encodeURI(searchKeyword);
 
-async function getHtml() {
-    try {
-        return await axios.get("https://www.mangoplate.com/search/" + searchKeyword + "?keyword=" + searchKeyword + "&page=1");
-    } catch (error) {
-        console.error(error);
-    }
-}
+        const param = {
+            url: 'https://www.mangoplate.com',
+            path: "/search/" + searchKeyword + "?keyword=" + searchKeyword + "&page=" + pageCnt,
+        };
 
-async function getTestHtml() {
-    if (!html) {
-        html = await getHtml();
-    }
 
-    const $ = cheerio.load(html.data);
-    let smp = {};
-    $(".search-list-restaurants-inner-wrap li")
-        .find("div")
-        .each(function (index, elem) {
-            console.log(
-                $(this)
-                    // .find("div")
-                    .html()
-                    // .find("div")
-                    // .text()
-                    // .trim()
-                    // .replace(/(?:\t|\n|\s|\r|\r\n)/gi, "")
-            );
-
-            // switch (
-            //     $(this)
-            //         .find("div")
-            //         .text()
-            //         .trim()
-            //     ) {
-            //     case "거래일":
-            //         smp[`date`] = $(this)
-            //             .find("td")
-            //             .text()
-            //             .replace(/([\t|\n|\s])/gi, "");
-            //         break;
-            //     case "최대":
-            //         smp[`max`] = $(this)
-            //             .find("td")
-            //             .text()
-            //             .replace(/([\t|\n|\s])/gi, "");
-            //         break;
-            //     case "최소":
-            //         smp[`min`] = $(this)
-            //             .find("td")
-            //             .text()
-            //             .replace(/([\r|\n|\s])/gi, "");
-            //         break;
-            //     case "평균":
-            //         smp[`avg`] = $(this)
-            //             .find("td")
-            //             .text()
-            //             .replace(/([\r|\n|\s])/gi, "");
-            //         break;
-            // }
+        // const url = "https://www.mangoplate.com/search/" + searchKeyword + "?keyword=" + searchKeyword + "&page=" + pageCnt;
+        axios.get(param, function (response) {
+            console.log(response);
+            if (response) {
+                resolve(response)
+            }
+            reject(new Error("Request is failed"));
         });
-
-    return smp;
+    });
 }
 
-module.exports = {getTestHtml};
+function getTestHtml(searchKeyword, pageCnt) {
+    const html = "";
+
+    getHtml(searchKeyword, pageCnt).then(function (responseData) {
+        html = responseData;
+    }).catch(function (err) {
+        console.log(err);
+    });
+
+    if(!html) return [];
+
+    return new Promise(function (resolve, reject) {
+        const $ = cheerio.load(html.data);
+        let restaurantInfo = [];
+        $(".search-list-restaurants-inner-wrap")
+            .find($(".list-restaurant-item"))
+            .each(function (index, elem) {
+                const idx = pageCnt + "-" + (index + 1);
+                const aText = $(this).find("a").text().trim().replace(/(?:\t|\n|\s|\r|\r\n)/gi, "");
+                const pText = $(this).find("p").text().replace(/(?:\t|\n|[0-9]|,)/gi, "").trim();
+                const pArray = pText.split("-");
+                const pCategory = pArray[1].trim()
+                if (aText && pText) {
+                    let loopJson = {};
+                    loopJson["index"] = idx;
+                    loopJson["nm"] = aText;
+                    // loopJson["info"] = pText;
+                    loopJson["locale"] = pArray[0].trim();
+                    loopJson["category"] = pArray[1].trim();
+                    restaurantInfo.push(loopJson);
+                }
+            });
+
+        resolve(restaurantInfo);
+    });
+}
+
+module.exports = {getTestHtml, getHtml};
