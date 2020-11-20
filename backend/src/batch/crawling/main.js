@@ -1,4 +1,4 @@
-const {getTestHtml, getHtml} = require("./src/crawl.js");
+const {getTestHtml} = require("./src/crawl.js");
 const cron = require("node-cron");
 
 const mysql = require("mysql");
@@ -20,16 +20,11 @@ function getLoopParameter() {
     });
 }
 
-function handleAsync(searchKeyword) {
+async function handleAsync(searchKeyword) {
     const returnArr = [];
 
     for (let i = 1; i < 11; i++) {
-        // const temp = getTestHtml(searchKeyword, i);
-        getHtml(searchKeyword, i).then(r => {
-            console.log(r);
-        });
-        break;
-
+        const temp = await getTestHtml(searchKeyword, i);
         if (temp.length < 1) break;
         returnArr.push(...temp);
     }
@@ -39,11 +34,12 @@ function handleAsync(searchKeyword) {
 
 function batchCrawling() {
     getLoopParameter().then(function (resolveData) {
-        let sigungu = resolveData;
+        let code = resolveData;
 
-        for (let value of sigungu) {
-            getHtml(value, 1);
-            // handleAsync(value);
+        for (let value of code) {
+            handleAsync(value).catch(function (err) {
+                console.log(err);
+            });
         }
     });
 }
