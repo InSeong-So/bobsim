@@ -3,5 +3,6 @@ module.exports = {
     getSigungu:
         "select location,\n" +
         "       locationDetail\n" +
-        "  from bs_sigungu"
+        "  from bs_sigungu\n" +
+        " where useYn = 'Y' "
 };
