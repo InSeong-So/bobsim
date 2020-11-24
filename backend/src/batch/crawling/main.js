@@ -1,4 +1,4 @@
-const {getRestaurantList} = require("./src/crawl.js");
+const {getMangoplateHtml} = require("./src/axiosModule.js");
 const cheerio = require('cheerio');
 const fs = require('fs');
 const cron = require("node-cron");
@@ -24,45 +24,61 @@ batchCrawling = callback => {
 }
 
 batchCrawling((searchKeyword) => {
-    getRestaurantList(searchKeyword).then(resolve => {
+    getMangoplateHtml(searchKeyword).then(resolve => {
         let restaurantInfo = [];
-
         const result = Promise.all(resolve.map((html) => {
-                const $ = cheerio.load(html);
+                try {
+                    const $ = cheerio.load(html);
 
-                if ($(".list-restaurant").length < 1) return;
+                    if ($(".list-restaurant").length < 1) return;
 
-                $(".search-list-restaurants-inner-wrap")
-                    .find($(".list-restaurant-item"))
-                    .each(function (index, elem) {
-                        const idx = 1 + "-" + (index + 1);
-                        const aText = $(this).find("a").text().trim().replace(/(?:\t|\n|\s|\r|\r\n)/gi, "");
-                        const pText = $(this).find("p").text().replace(/(?:\t|\n|[0-9]|,)/gi, "").trim();
-                        const pArray = pText.split("-");
-                        if (aText && pText) {
-                            let loopJson = {};
-                            loopJson["index"] = idx;
-                            loopJson["nm"] = aText;
-                            // loopJson["info"] = pText;
-                            loopJson["locale"] = pArray[0].trim();
-                            loopJson["category"] = pArray[1].trim();
-                            restaurantInfo.push(loopJson);
-                        }
-                    })
+                    $(".search-list-restaurants-inner-wrap")
+                        .find($(".list-restaurant-item"))
+                        .each(function (index, elem) {
+                            // const idx = 1 + "-" + (index + 1);
+                            const aText = $(this).find("a").text().trim().replace(/(?:\t|\n|\s|\r|\r\n)/gi, "");
+                            const pText = $(this).find("p").text().replace(/(?:\t|\n|[0-9]|,)/gi, "").trim();
+                            const pArray = pText.split("-");
+                            const pArraySplit = pArray[0].split(" ");
+                            if (aText && pText) {
+                                // let loopJson = {};
+                                let loopJson = [];
+                                // loopJson["index"] = idx;
+                                // loopJson["info"] = pText;
+                                // loopJson["locale"] = pArraySplit[0].trim();
+                                // loopJson["localeDetail"] = pArraySplit[1].trim();
+                                // loopJson["restaurantNm"] = aText;
+                                // loopJson["category"] = pArray[1].trim();
+                                loopJson.push(pArraySplit[0].trim());
+                                loopJson.push(pArraySplit[1].trim());
+                                loopJson.push(aText);
+                                loopJson.push(pArray[1].trim());
+                                loopJson.push("Y");
+                                loopJson.push("망고플레이트");
+                                restaurantInfo.push(loopJson);
+                            }
+                        })
+                } catch (error) {
+                }
             })
         );
         writeJsonFile(restaurantInfo);
     });
-
 });
 
 writeJsonFile = (restaurantList) => {
     const obj = {
-        restaurantList : restaurantList
+        restaurantList: restaurantList
     };
 
     let json = JSON.stringify(obj);
-    fs.writeFile('crawlData.json', json, 'utf8', res => {
+    fs.writeFile('isResult.json', json, 'utf8', res => {
+        connection.query(query.setCrawlingRestaurantList, [restaurantList], (err, row) => {
+            if(err){
+                console.log(err);
+            }
+        })
+
         console.log("변환완료!");
     });
 };

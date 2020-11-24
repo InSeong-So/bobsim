@@ -4,5 +4,16 @@ module.exports = {
         "select location,\n" +
         "       locationDetail\n" +
         "  from bs_sigungu\n" +
-        " where useYn = 'Y' "
+        " where useYn = 'Y' ",
+    setCrawlingRestaurantList:
+        "insert into bs_restaurant\n" +
+        "  (\n" +
+        "    `locale`,\n" +
+        "    `localeDetail`,\n" +
+        "    `restaurantNm`,\n" +
+        "    `category`,\n" +
+        "    `crawlingYn`,\n" +
+        "    `crawlingSite`\n" +
+        "  )\n" +
+        " values ?;"
 };
