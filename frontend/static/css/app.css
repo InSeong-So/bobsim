@@ -37,6 +37,7 @@ a:active, a:focus {
   width: 50px;
   overflow: hidden;
   transition: .5s cubic-bezier(.8, .5, .2, 1.4);
+  z-index: 1;
 }
 
 .hamburger {
@@ -127,6 +128,7 @@ a:active, a:focus {
   transition: all ease 1s;
   overflow: hidden;
   transition: .5s cubic-bezier(.8, .5, .2, 1.4);
+  z-index: 1;
 }
 
 .leftMenuList {
@@ -253,12 +255,12 @@ a:active, a:focus {
   font-weight: 900;
   transition: all .4s;
   padding-right: 5px;
-
 }
 
 .leftMenu:not(.openMenu) li > .dropdownlist {
   pointer-events: none;
   height: 0;
+  z-index: 1;
 }
 
 /* } left menu */

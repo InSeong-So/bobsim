@@ -54,10 +54,7 @@
     beforeCreate() {
       // 로딩 이미지 추가할 것, axios interceptor
       this.$http.get('http://localhost:3000/rouletteInit').then((response) => {
-        Vue.set(this.target[0], "items", response.data[0].cd_nm.shuffle());
-        Vue.set(this.target, 1, response.data[1]);
-
-        console.log("loading complete");
+        Vue.set(this.loadData, "restaurantList", response.data);
       });
     },
     mounted() {
@@ -65,26 +62,13 @@
     },
     data: function () {
       return {
-        target:
-          [
-            {
-              // 구분
-              items:
-                []
-            },
-            {
-              cd: [],
-              cd_nm: []
-            },
-            {
-              items:
-                []
-            }
-          ],
+        loadData: {
+          restaurantList: []
+        },
         slots:
           [
             {
-              title: "구분",
+              title: "식사류",
               items:
                 [
                   "한식",
@@ -119,7 +103,6 @@
           ],
         opts: null,
         startedAt: null,
-        pickItem: {}
       }
     },
 
@@ -148,40 +131,25 @@
           return
         }
 
+        const item = this.loadData.restaurantList;
+        const randomNumber = item.length;
+        const choice_origin = Math.floor(Math.random() * randomNumber);
+
         this.opts = this.slots.map((data, i) => {
           const slot = this.$refs.slots[i];
-          const choice = Math.floor(Math.random() * data.items.length)
-          console.log(choice);
-          switch (i) {
-            case 0: {
-              Vue.set(this.pickItem, "category", this.target[i].items[choice]);
-              Vue.set(data.items, choice, this.target[i].items[choice]);
-            }
-              break;
-            case 1: {
-              const pickItem = this.pickItem.category;
-              const targetItem = this.target[i];
-              const cd_nm = targetItem.cd_nm.filter(function (n, idx) {
-                return targetItem.cd[idx] == pickItem;
-              })
+          const choice_view = Math.floor(Math.random() * data.items.length)
 
-              Vue.set(data.items, choice, cd_nm[choice]);
-            }
-              break;
-            case 2: {
-
-            }
-              break;
-            default: {
-            }
-              break;
+          if (i == 0) {
+            Vue.set(data.items, choice_view, item[choice_origin].category);
+          } else {
+            Vue.set(data.items, choice_view, item[choice_origin].restaurantNm);
           }
 
-          console.log("choice", i, data.items[choice])
+          // console.log("choice", i, item[choice_origin].restaurantNm)
 
           const opts = {
             el: slot.querySelector('.slot__wrap'),
-            finalPos: choice * 90,
+            finalPos: choice_view * 90,
             startOffset: 2000 + Math.random() * 500 + i * 500,
             height: data.items.length * 90,
             duration: 3000 + i * 700, // milliseconds
@@ -214,7 +182,7 @@
           opt.el.style.transform = "translateY(" + pos + "px)"
 
           if (timeDiff > opt.duration) {
-            console.log('finished', opt, pos, opt.finalPos)
+            // console.log('finished', opt, pos, opt.finalPos)
             opt.isFinished = true
           }
         })
@@ -244,6 +212,41 @@
     data() {
       return {}
     }
-    , methods: {}
+    , methods: {
+      getLocation: function () {
+        return new Promise((resolve, reject) => {
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {mmmm
+              // console.log(position.coords.latitude + ' ' + position.coords.longitude);
+              resolve({x: position.coords.longitude, y: position.coords.latitude});
+            }, function (error) {
+              reject({x: "", y: ""});
+              // console.error(error);
+            }, {
+              enableHighAccuracy: false,
+              maximumAge: 0,
+              timeout: Infinity
+            });
+          } else {
+            console.log("not supported");
+            reject({x: "", y: ""});
+          }
+        });
+      }
+
+    }
+    , created() {
+
+      this.getLocation().then((resolve, reject) => {
+        let params = new URLSearchParams();
+        params.append('x', resolve.x);
+        params.append('y', resolve.y);
+        this.$http.post('http://localhost:3000/getAddress', params).then((response) => {
+        }).catch((err) => {
+
+        });
+      });
+
+    }
   }
 </script>
