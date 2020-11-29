@@ -46,13 +46,15 @@ app.route('/rouletteInit')
         new Promise((resolve, reject) => {
             try {
                 let codes = [];
-                connection.query(query.combo02, (err, rows) => {
-                    for (let i in rows) {
-                        const temp = {
-                            category: rows[i]['category'],
-                            restaurantNm: rows[i]['restaurantNm']
-                        };
-                        codes.push(temp);
+                connection.query(query.combo01 + query.combo02, (err, rows) => {
+                    if (!rows.length > 0) {
+                        for (let i in rows[1]) {
+                            const temp = {
+                                category: rows[1][i]['category'],
+                                restaurantNm: rows[1][i]['restaurantNm']
+                            };
+                            codes.push(temp);
+                        }
                     }
 
                     resolve(res.json(codes));
