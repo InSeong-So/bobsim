@@ -216,7 +216,7 @@
       getLocation: function () {
         return new Promise((resolve, reject) => {
           if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function (position) {mmmm
+            navigator.geolocation.getCurrentPosition(function (position) {
               // console.log(position.coords.latitude + ' ' + position.coords.longitude);
               resolve({x: position.coords.longitude, y: position.coords.latitude});
             }, function (error) {

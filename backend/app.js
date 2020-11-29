@@ -8,10 +8,11 @@ const mysql = require('mysql');
 const dbConnection = require('./src/database/config/connectionConfig');
 const query = require('./src/database/query/rouletteQuery');
 const cors = require('cors');
-
-
+// npm module
 const app = express();
 const connection = mysql.createConnection(dbConnection);
+// sis module
+const {getCurrentAddress} = require("./src/util/axiosModule");
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -28,39 +29,38 @@ app.route('/').get((req, res) => {
     res.render('index') // index.html render
 });
 
+app.route('/getAddress')
+    .post((req, res) => {
+        const param = {
+            x: req.body.x,
+            y: req.body.y
+        };
+
+        console.log(param);
+
+        getCurrentAddress(param);
+    })
+
 app.route('/rouletteInit')
-    .get(async (req, res) => {
-        try {
-            let combo01 = {
-                cd: [],
-                cd_nm: []
-            };
+    .get((req, res) => {
+        new Promise((resolve, reject) => {
+            try {
+                let codes = [];
+                connection.query(query.combo02, (err, rows) => {
+                    for (let i in rows) {
+                        const temp = {
+                            category: rows[i]['category'],
+                            restaurantNm: rows[i]['restaurantNm']
+                        };
+                        codes.push(temp);
+                    }
 
-            let combo02 = {
-                cd: [],
-                cd_nm : []
-            };
-
-            let codes = [];
-
-            await connection.query(query.combo01 + query.combo02, (err, rows) => {
-                for (let i in rows[0]) {
-                    combo01.cd.push(rows[0][i]['cd']);
-                    combo01.cd_nm.push(rows[0][i]['cd_nm']);
-                }
-                for (let i in rows[1]) {
-                    combo02.cd.push(rows[1][i]['category']);
-                    combo02.cd_nm.push(rows[1][i]['restaurantNm']);
-                }
-
-                codes.push(combo01);
-                codes.push(combo02);
-
-                res.json(codes);
-            });
-        } catch (err) {
-            res.send(err);
-        }
+                    resolve(res.json(codes));
+                });
+            } catch (err) {
+                reject(res.send(err));
+            }
+        })
     })
 
 
