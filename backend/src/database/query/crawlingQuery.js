@@ -4,7 +4,8 @@ module.exports = {
         "select location,\n" +
         "       locationDetail\n" +
         "  from bs_sigungu\n" +
-        " where useYn = 'Y' ",
+        " where location = '서울'\n" +
+        "   and locationDetail = '강동구'\n",
     setCrawlingRestaurantList:
         "insert into bs_restaurant\n" +
         "  (\n" +

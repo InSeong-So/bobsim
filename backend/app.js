@@ -37,12 +37,14 @@ app.route('/rouletteInit')
                     x: req.query.x,
                     y: req.query.y
                 };
+
                 getCurrentAddress(param).then((data) => {
                     const regionName = data[0].road_address != null
-                        ? data[0].road_address.region_1depth_name + " " + data[0].road_address.region_2depth_name
-                        : data[0].address.region_1depth_name + " " + data[0].address.region_2depth_name;
+                        ? data[0].road_address.region_1depth_name + "-" + data[0].road_address.region_2depth_name
+                        : data[0].address.region_1depth_name + "-" + data[0].address.region_2depth_name;
                     let codes = [];
-                    connection.query(query.thisRegionRestaurantList, (err, rows) => {
+                    const queryParam = [regionName.split("-")[0], regionName.split("-")[1]];
+                    connection.query(query.thisRegionRestaurantList, queryParam, (err, rows) => {
                         if (rows.length > 0) {
                             for (let i in rows) {
                                 const temp = {

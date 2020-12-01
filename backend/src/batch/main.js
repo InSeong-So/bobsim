@@ -24,6 +24,9 @@ batchCrawling = callback => {
 }
 
 batchCrawling((searchKeyword) => {
+    console.log("검색 지역 : " + searchKeyword);
+    let localeArray = String(searchKeyword).split(" ");
+    let locale = localeArray[0];
     getMangoplateHtml(searchKeyword).then(resolve => {
         let restaurantInfo = [];
         const result = Promise.all(resolve.map((html) => {
@@ -41,8 +44,8 @@ batchCrawling((searchKeyword) => {
                             const pArraySplit = pArray[0].split(" ");
                             if (aText && pText) {
                                 let loopJson = [];
-                                loopJson.push(pArraySplit[0].trim());
-                                loopJson.push(pArraySplit[1].trim());
+                                loopJson.push(pArraySplit[1].trim() == "" ? locale : pArraySplit[0].trim());
+                                loopJson.push(pArraySplit[1].trim() == "" ? pArraySplit[0].trim() : pArraySplit[1].trim());
                                 loopJson.push(aText);
                                 loopJson.push(pArray[1].trim());
                                 loopJson.push("Y");
@@ -51,7 +54,7 @@ batchCrawling((searchKeyword) => {
                             }
                         })
                 } catch (error) {
-                    // TODO
+                    console.log(error);
                 }
             })
         );
@@ -63,16 +66,14 @@ writeJsonFile = (restaurantList) => {
     const obj = {
         restaurantList: restaurantList
     };
-
     let json = JSON.stringify(obj);
     fs.writeFile('isResult.json', json, 'utf8', res => {
         connection.query(query.setCrawlingRestaurantList, [restaurantList], (err, row) => {
             if (err) {
-                // TODO
+                console.log(err);
             }
-        })
-
-        console.log("변환완료!");
+            console.log("변환완료!");
+        });
     });
 };
 

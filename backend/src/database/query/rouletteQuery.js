@@ -21,6 +21,7 @@ module.exports = {
         "       bs_common t2\n" +
         " where 1 = 1\n" +
         "   and t2.idx_cd = '/SY02'\n" +
-        // "   and t1.localeDetail = '대덕구'\n" +
+        "   and t1.locale = ?\n" +
+        "   and t1.localeDetail = ?\n" +
         "   and t2.cd_nm = t1.category;"
 };
