@@ -73,21 +73,22 @@ const getKakaoMapJson = searchKeyword => {
 }
 
 const getCurrentAddress = locationInfo => {
-    const longitude = locationInfo.x;
-    const latitude = locationInfo.y;
-    const url = "https://dapi.kakao.com/v2/local/geo/coord2address.json?x=" + longitude + "&y=" + latitude;
+    return new Promise((resolve, reject) => {
+        const longitude = locationInfo.x;
+        const latitude = locationInfo.y;
+        const url = "https://dapi.kakao.com/v2/local/geo/coord2address.json?x=" + longitude + "&y=" + latitude;
 
-    let config = {
-        headers: {
-            "Authorization": "KakaoAK " + api.getKaKaoKey().rest
+        let config = {
+            headers: {
+                "Authorization": "KakaoAK " + api.getKaKaoKey().rest
+            }
         }
-    }
 
-    axios.get(url, config).then(response => {
-        const documents = response.data.documents;
-        console.log(documents);
-    }).catch((err) => {
-        // TODO
+        axios.get(url, config).then(response => {
+            resolve(response.data.documents);
+        }).catch((err) => {
+            reject(err);
+        })
     })
 };
 

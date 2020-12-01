@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 /* axios */
-import Axios from 'axios'
+import Axios from './common/parangHttps'
 
 /* default */
 Vue.config.productionTip = false
@@ -13,10 +13,10 @@ Vue.prototype.$http = Axios;
 /* axios */
 
 /* custom javascript */
-Array.prototype.shuffle = function(){
+Array.prototype.shuffle = function () {
   let length = this.length;
 
-  while(length){
+  while (length) {
     let index = Math.floor((length--) * Math.random());
 
     let temp = this[length];

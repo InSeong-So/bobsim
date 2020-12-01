@@ -1,4 +1,4 @@
-let PARANG = {
+const parangApp = {
   /**
    * (s)가 null | "" | undefined 이면 (d)로 대체
    * @member global
@@ -7,7 +7,7 @@ let PARANG = {
    * @param {Object} d
    * @return {Object}
    */
-  nvl: function(s, d) {
+  nvl: function (s, d) {
     return (s == null || s == "" || s == undefined) ? (d == null ? "" : d) : s;
   },
 
@@ -21,11 +21,11 @@ let PARANG = {
    * @param {String} e
    * @return {String}
    */
-  joinStr: function(arr, delim, s, e) {
+  joinStr: function (arr, delim, s, e) {
     delim = nvl(delim, ",");
     s = nvl(s);
     e = nvl(e);
-    return $.protify(arr).inject([], function(array, item) {
+    return $.protify(arr).inject([], function (array, item) {
       array.push(s + item + e);
       return array;
     }).join(delim);
@@ -38,10 +38,10 @@ let PARANG = {
    * @param {Array} arr
    * @return {Array}
    */
-  getUniqueArray: function(duplicateArray, type) {
+  getUniqueArray: function (duplicateArray, type) {
     let uniqueArray = [];
     if (Array.isArray(duplicateArray)) {
-      $.each(duplicateArray, function(index, element) {
+      $.each(duplicateArray, function (index, element) {
         if ($.inArray(element, uniqueArray) === -1) uniqueArray.push(element);
       });
     } else {
@@ -88,7 +88,7 @@ let PARANG = {
    * @param {String|Element} element
    * @returns {Jquery}
    */
-  getjQueryObj: function(element) {
+  getjQueryObj: function (element) {
     return (typeof element == "string" && element != "") ? $("#" + element) : $(element);
   },
 
@@ -100,10 +100,10 @@ let PARANG = {
    * @param maxLength
    * @return
    */
-  applyStyle: function(e, textAlign, imeMode, maxLength) {
+  applyStyle: function (e, textAlign, imeMode, maxLength) {
     e = returnjQueryObj(e);
-    if (textAlign) e.css({ textAlign: textAlign });
-    if (imeMode) e.css({ imeMode: imeMode });
+    if (textAlign) e.css({textAlign: textAlign});
+    if (imeMode) e.css({imeMode: imeMode});
     if (maxLength != null) {
       e.attr("maxLength", maxLength);
       e.attr("size", maxLength + 2);
@@ -121,7 +121,7 @@ let PARANG = {
    *          pageMethod
    * @return none
    */
-  plusClass: function(className, tagType, addClassName) {
+  plusClass: function (className, tagType, addClassName) {
     if ($("." + className).parents(tagType).hasClass(addClassName) != true) {
       console.log($(this));
       // $(this).addClass(addClassName);
@@ -141,7 +141,7 @@ let PARANG = {
    *          optData
    * @return none
    */
-  movePage: function(pageUrl, pageMethod, optData) {
+  movePage: function (pageUrl, pageMethod, optData) {
     if (pageMethod == null || pageMethod == '' || pageMethod == undefined) {
       pageMethod = 'get';
     }
@@ -175,23 +175,24 @@ let PARANG = {
     form.submit();
   },
 
-  fileUpload: function() {
+  fileUpload: function () {
     let fileTarget = $('.filebox .upload-hidden');
-    fileTarget.on('change', function() {
+    fileTarget.on('change', function () {
       if (window.FileReader) {
         // 파일명 추출
         let filename = $(this)[0].files[0].name;
       } else {
         // Old IE 파일명 추출
         let filename = $(this).val().split('/').pop().split('\\').pop();
-      };
+      }
+      ;
       $(this).siblings('.upload-name').val(filename);
     });
 
     // preview image
     let imgTarget = $('.preview-image .upload-hidden');
 
-    imgTarget.on('change', function() {
+    imgTarget.on('change', function () {
       let parent = $(this).parent();
       parent.children('.upload-display').remove();
 
@@ -201,7 +202,7 @@ let PARANG = {
           return;
 
         let reader = new FileReader();
-        reader.onload = function(e) {
+        reader.onload = function (e) {
           let src = e.target.result;
           parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img src="' + src + '" class="upload-thumb"></div></div>');
         }
@@ -217,7 +218,7 @@ let PARANG = {
     });
   },
 
-  getElapsedTime: function(time) {
+  getElapsedTime: function (time) {
     let min = 60 * 1000;
     let c = new Date()
     let d = new Date(time);
@@ -244,7 +245,7 @@ let PARANG = {
     return result.formatted;
   },
 
-  datetimeConvert: function(v) {
+  datetimeConvert: function (v) {
     let format = new Date(v);
     let year = format.getFullYear();
     let month = format.getMonth() + 1;
@@ -271,7 +272,7 @@ let PARANG = {
     return year + "-" + month + "-" + date + " " + hour + ":" + min + ":" + sec;
   },
 
-  perNoToDate: function(val) {
+  perNoToDate: function (val) {
     let target = 0;
     let compare = "234567892345";
     for (let i = 0; i < 12; i++) {
@@ -282,13 +283,13 @@ let PARANG = {
     return Number(val.charAt(12)) == target;
   },
 
-  mergeTableTr: function() {
+  mergeTableTr: function () {
     let mergeElement = "";
     let mergeCnt = 0;
     let mergeRowNum = 0;
 
     // dynamicRowspan이라는 attribute를 가진 tr을 대상으로 반복문을 실행
-    $('tr[dynamicRowspan]').each(function(row) {
+    $('tr[dynamicRowspan]').each(function (row) {
 
       if (row > 2) {
         let tr = $(this);
@@ -307,7 +308,7 @@ let PARANG = {
     });
   },
 
-  base64ToFile: function(dataUrl) {
+  base64ToFile: function (dataUrl) {
     let fileName = this.fileName;
 
     let arr = dataUrl.split(',');
@@ -320,21 +321,21 @@ let PARANG = {
       u8arr[len] = byteString.charCodeAt(len);
     }
 
-    return new File([u8arr], fileName, { type: mime });
+    return new File([u8arr], fileName, {type: mime});
   },
 
-  isIE: function() {
+  isIE: function () {
     if (navigator.userAgent.indexOf("MSIE") >= 0 || navigator.userAgent.indexOf("Trident") >= 0)
       return true;
     else
       return false;
   },
 
-  startsWith: function(str, p) {
+  startsWith: function (str, p) {
     return p == str.toString().substr(0, p.length);
   },
 
-  toTimeObject: function(time) {
+  toTimeObject: function (time) {
     let year = time.substr(0, 4);
     let month = time.substr(4, 2) - 1; // 1월=0,12월=11
     let day = time.substr(6, 2);
@@ -342,17 +343,19 @@ let PARANG = {
     let hour = "00";
     try {
       hour = time.substr(8, 2);
-    } catch (e) {}
+    } catch (e) {
+    }
 
     let min = "00";
     try {
       min = time.substr(10, 2);
-    } catch (e) {}
+    } catch (e) {
+    }
 
     return new Date(year, month, day, hour, min);
   },
 
-  getMobileOs: function() {
+  getMobileOs: function () {
     let userAgent = navigator.userAgent || navigator.vendor || window.opera;
     if (/windows phone/i.test(userAgent)) {
       return "Windows Phone";
@@ -367,7 +370,7 @@ let PARANG = {
     return "unknown";
   },
 
-  getMobileUUID: function() {
+  getMobileUUID: function () {
     let mobileUUID = "";
     let userAgent = navigator.userAgent;
     let indexOfDeviceId = userAgent.toLowerCase().indexOf("deviceid");
@@ -385,29 +388,26 @@ let PARANG = {
     return mobileUUID;
   },
 
-  isApp: function(platform) {
+  isApp: function (platform) {
     platform = platform || getMobileOS();
 
     //if(platform =="Android" && typeof API == "undefined" ) return; //이건 앱아니다
     //if(platform =="iOS" && (window.webkit == undefined || window.webkit.messageHandlers == undefined )) return; //이건 앱아니다
     let b = false;
     switch (platform) {
-      case "Android":
-      {
+      case "Android": {
         if (typeof API != "undefined") {
           b = true;
         }
       }
         break;
-      case "iOS":
-      {
+      case "iOS": {
         if (window.webkit != undefined && window.webkit.messageHandlers != undefined) {
           b = true;
         }
       }
         break;
-      case "unknown":
-      {
+      case "unknown": {
         b = false;
       }
         break;
@@ -416,7 +416,7 @@ let PARANG = {
     return b;
   },
 
-  maxStringConvert: function(str, limit) {
+  maxStringConvert: function (str, limit) {
     let strL = str.length;
     let byte = 0;
     let cnt = 0;
@@ -443,7 +443,7 @@ let PARANG = {
     return result;
   },
 
-  getBrowserType: function() {
+  getBrowserType: function () {
     let _ua = navigator.userAgent;
     let rv = -1;
     //IE 11,10,9,8
@@ -520,4 +520,16 @@ let PerformanceCheck = {
       'originalData': costTimes
     }
   },
+}
+
+const kakaoApiConfig = {
+  // 마우스 휠로 지도 확대,축소 가능 여부 설정
+  setZoomable(map, zoomable) {
+    map.setZoomable(zoomable);
+  },
+  // 버튼 클릭에 따라 지도 이동 기능을 막거나 풀고 싶은 경우에는 map.setDraggable 함수를 사용
+  setDraggable(map, draggable) {
+    // 마우스 드래그로 지도 이동 가능여부를 설정합니다
+    map.setDraggable(draggable);
+  }
 }

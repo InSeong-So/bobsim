@@ -29,35 +29,35 @@ app.route('/').get((req, res) => {
     res.render('index') // index.html render
 });
 
-app.route('/getAddress')
-    .post((req, res) => {
-        const param = {
-            x: req.body.x,
-            y: req.body.y
-        };
-
-        console.log(param);
-
-        getCurrentAddress(param);
-    })
-
 app.route('/rouletteInit')
-    .get((req, res) => {
+    .post((req, res) => {
         new Promise((resolve, reject) => {
             try {
-                let codes = [];
-                connection.query(query.combo01 + query.combo02, (err, rows) => {
-                    if (!rows.length > 0) {
-                        for (let i in rows[1]) {
-                            const temp = {
-                                category: rows[1][i]['category'],
-                                restaurantNm: rows[1][i]['restaurantNm']
-                            };
-                            codes.push(temp);
+                const param = {
+                    x: req.query.x,
+                    y: req.query.y
+                };
+                getCurrentAddress(param).then((data) => {
+                    const regionName = data[0].road_address != null
+                        ? data[0].road_address.region_1depth_name + " " + data[0].road_address.region_2depth_name
+                        : data[0].address.region_1depth_name + " " + data[0].address.region_2depth_name;
+                    let codes = [];
+                    connection.query(query.thisRegionRestaurantList, (err, rows) => {
+                        if (rows.length > 0) {
+                            for (let i in rows) {
+                                const temp = {
+                                    category: rows[i]['category'],
+                                    restaurantNm: rows[i]['restaurantNm']
+                                };
+                                codes.push(temp);
+                            }
                         }
-                    }
 
-                    resolve(res.json(codes));
+                        resolve(res.json(codes));
+                    });
+                }).catch(err => {
+                    // TODO
+                    res.send(err);
                 });
             } catch (err) {
                 reject(res.send(err));
