@@ -53,4 +53,6 @@
 
 # 참고
 - 개인 프로젝트
-  - 수정중
+  - api : kakao map
+  - 크롤링 : nodejs cheerio
+  
