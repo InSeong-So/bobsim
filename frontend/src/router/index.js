@@ -9,7 +9,8 @@ export default new Router({
     {
       path: '/',
       name: 'roulette',
-      component: roulette
+      component: roulette,
+      props:true,
     },
   ]
 })

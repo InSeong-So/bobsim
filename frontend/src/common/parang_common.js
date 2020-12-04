@@ -521,15 +521,3 @@ let PerformanceCheck = {
     }
   },
 }
-
-const kakaoApiConfig = {
-  // 마우스 휠로 지도 확대,축소 가능 여부 설정
-  setZoomable(map, zoomable) {
-    map.setZoomable(zoomable);
-  },
-  // 버튼 클릭에 따라 지도 이동 기능을 막거나 풀고 싶은 경우에는 map.setDraggable 함수를 사용
-  setDraggable(map, draggable) {
-    // 마우스 드래그로 지도 이동 가능여부를 설정합니다
-    map.setDraggable(draggable);
-  }
-}
