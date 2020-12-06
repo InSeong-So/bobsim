@@ -184,29 +184,39 @@
 </template>
 
 <script>
+  import Vue from "vue";
+
   export default {
-    name: 'App'
-    , mounted() {
-      document.querySelector(".hamburger").onclick = function () {
-        let element = document.querySelector(".leftMenu");
-        element.classList.toggle("openMenu");
+    name: 'App',
+    data() {
+      return {}
+    },
+    mounted() {
+      this.setLeftMenu();
+    },
+    methods: {
+      setLeftMenu() {
+        document.querySelector(".hamburger").onclick = function () {
+          let element = document.querySelector(".leftMenu");
+          element.classList.toggle("openMenu");
 
-        let hamburger = document.querySelector(".hamburger");
-        hamburger.classList.toggle("open");
+          let hamburger = document.querySelector(".hamburger");
+          hamburger.classList.toggle("open");
 
-        let closeAccordion = document.getElementsByClassName('dropdown');
-        let i = 0;
-        for (let i = 0; i < closeAccordion.length; i++) {
-          closeAccordion[i].classList.remove('active');
+          let closeAccordion = document.getElementsByClassName('dropdown');
+          let i = 0;
+          for (let i = 0; i < closeAccordion.length; i++) {
+            closeAccordion[i].classList.remove('active');
+          }
         }
-      }
 
-      let dropdown = document.getElementsByClassName('dropdown');
-      for (let i = 0; i < dropdown.length; i++) {
-        dropdown[i].onclick = function () {
-          this.classList.toggle('active');
+        let dropdown = document.getElementsByClassName('dropdown');
+        for (let i = 0; i < dropdown.length; i++) {
+          dropdown[i].onclick = function () {
+            this.classList.toggle('active');
+          }
         }
-      }
+      },
     }
   }
 </script>
