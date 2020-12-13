@@ -314,6 +314,8 @@
   import Vue from "vue";
   import router from "../router";
   import App from "../App";
+  import Vuetify from '../../static/js/vuetify-v1.5.14.min';
+  Vue.use(Vuetify);
 
   export default {
     name: 'roulette',
