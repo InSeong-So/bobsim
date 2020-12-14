@@ -5,7 +5,7 @@ import router from './router'
 import Axios from './common/parangHttps'
 
 /* default */
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 /* default */
 
 /* axios */

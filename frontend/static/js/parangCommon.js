@@ -521,3 +521,46 @@ let PerformanceCheck = {
     }
   },
 }
+
+const apiMap = {
+  // variable
+  geoCoder: {},
+  mapContainer: document.getElementById('map'), // 지도를 표시할 div
+  mapOption: {
+    center: {},
+    level: 3 // 지도의 확대 레벨
+  },
+  // getter
+  getGeoCoder: function () {
+    return this.geoCoder;
+  },
+  // setter
+  setGeoCoder: function (geoCoder) {
+    this.geoCoder = geoCoder;
+  },
+  // method
+  init: function (locations) {
+    this.mapOption.center = new kakao.maps.LatLng(locations.y, locations.x); // 지도의 중심좌표
+  },
+  searchAddrFromCoords: function (coords, geocoder, callback) {
+    // 좌표로 행정동 주소 정보를 요청합니다
+    this.geoCoder.coord2RegionCode(coords.getLng(), coords.getLat(), callback);
+  },
+  searchDetailAddrFromCoords(coords, callback) {
+    // 좌표로 법정동 상세 주소 정보를 요청합니다
+    this.geoCoder.coord2Address(coords.getLng(), coords.getLat(), callback);
+  },
+  // 지도 좌측상단에 지도 중심좌표에 대한 주소정보를 표출하는 함수입니다
+  displayCenterInfo(result, status) {
+    if (status === kakao.maps.services.Status.OK) {
+      var infoDiv = document.getElementById('centerAddr');
+      for (var i = 0; i < result.length; i++) {
+        // 행정동의 region_type 값은 'H' 이므로
+        if (result[i].region_type === 'H') {
+          infoDiv.innerHTML = result[i].address_name;
+          break;
+        }
+      }
+    }
+  }
+}
