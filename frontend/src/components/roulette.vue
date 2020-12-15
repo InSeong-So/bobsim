@@ -45,10 +45,53 @@
     </div>
     <!-- 4. 리뷰 -->
     <div class="jumbotron mt-3 mb-3">
-      <div id="map" style="width:100%;height:350px;"></div>
+      <div class="map_wrap">
+        <div id="map" style="width:100%;height:350px;">
+          <div class="hAddr">
+            <span class="title">지도중심기준 행정동 주소정보</span>
+            <span id="centerAddr"></span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
+<style>
+  .map_wrap {
+    position: relative;
+    width: 100%;
+    height: 350px;
+  }
+
+  .title {
+    font-weight: bold;
+    display: block;
+  }
+
+  .hAddr {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    border-radius: 2px;
+    background: #fff;
+    background: rgba(255, 255, 255, 0.8);
+    z-index: 1;
+    padding: 5px;
+  }
+
+  #centerAddr {
+    display: block;
+    margin-top: 2px;
+    font-weight: normal;
+  }
+
+  .bAddr {
+    padding: 5px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+</style>
 <script>
   const next = window.requestAnimationFrame ||
     window.webkitRequestAnimationFrame ||
@@ -232,19 +275,6 @@
       "      label='E-mail'" +
       "      required" +
       "    ></v-text-field>" +
-      "    <v-select" +
-      "      v-model='select'" +
-      "      :items='items'" +
-      "      :rules='[v => !!v || 'Item is required']'" +
-      "      label='Item'" +
-      "      required" +
-      "    ></v-select>" +
-      "    <v-checkbox" +
-      "      v-model='checkbox'" +
-      "      :rules='[v => !!v || 'You must agree to continue!']'" +
-      "      label='Do you agree?'" +
-      "      required" +
-      "    ></v-checkbox>" +
       "    <v-btn" +
       "      :disabled='!valid'" +
       "      color='success'" +
@@ -315,6 +345,7 @@
   import router from "../router";
   import App from "../App";
   import Vuetify from '../../static/js/vuetify-v1.5.14.min';
+
   Vue.use(Vuetify);
 
   export default {
@@ -325,6 +356,9 @@
           x: "",
           y: ""
         },
+        mapValue: {
+          geoCoder: {}
+        }
       }
     },
     methods: {
@@ -350,18 +384,21 @@
       setMap() {
         this.getLocation().then(resolve => {
           Vue.set(this, "currentLocation", resolve);
-          const mapContainer = document.getElementById('map'), // 지도를 표시할 div
-            mapOption = {
-              center: new kakao.maps.LatLng(resolve.y, resolve.x), // 지도의 중심좌표
-              level: 3 // 지도의 확대 레벨
-            };
-
-          // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
-          const map = new kakao.maps.Map(mapContainer, mapOption);
+          apiMap.init(resolve);
+          // 지도를 표시할 div와 지도 옵션으로  지도를 생성합니다
+          const map = new kakao.maps.Map(apiMap.mapContainer, apiMap.mapOption);
           map.setZoomable(false);
           map.setDraggable(false);
           // 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
           const mapTypeControl = new kakao.maps.MapTypeControl();
+
+          // 주소-좌표 변환 객체를 생성합니다
+          apiMap.setGeoCoder(new kakao.maps.services.Geocoder());
+          const marker = new kakao.maps.Marker(); // 클릭한 위치를 표시할 마커입니다
+          const infowindow = new kakao.maps.InfoWindow({zindex: 1}); // 클릭한 위치에 대한 주소를 표시할 인포윈도우입니다
+
+          // 현재 지도 중심좌표로 주소를 검색해서 지도 좌측 상단에 표시합니다
+          apiMap.searchAddrFromCoords(map.getCenter(), apiMap.displayCenterInfo);
 
           // 지도에 컨트롤을 추가해야 지도위에 표시됩니다
           // kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
