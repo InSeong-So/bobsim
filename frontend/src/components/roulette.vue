@@ -47,7 +47,7 @@
     <div class="jumbotron mt-3 mb-3">
       <div class="map_wrap">
         <div id="map" style="width:100%;height:350px;">
-          <div class="hAddr">
+          <div class="hAddr" style="z-index:2">
             <span class="title">지도중심기준 행정동 주소정보</span>
             <span id="centerAddr"></span>
           </div>
@@ -280,22 +280,7 @@
       "      color='success'" +
       "      class='mr-4'" +
       "      @click='validate'" +
-      "    >" +
-      "      Validate" +
-      "    </v-btn>" +
-      "    <v-btn" +
-      "      color='error'" +
-      "      class='mr-4'" +
-      "      @click='reset'" +
-      "    >" +
-      "      Reset Form" +
-      "    </v-btn>" +
-      "    <v-btn" +
-      "      color='warning'" +
-      "      @click='resetValidation'" +
-      "    >" +
-      "      Reset Validation" +
-      "    </v-btn>" +
+      "    >등록</v-btn>" +
       "  </v-form>",
     data: function () {
       return {
