@@ -52,7 +52,7 @@
 ---
 
 # 참고
-- 개인 프로젝트
+- 사용 라이브러리
   - api : kakao map
   - 크롤링 : nodejs cheerio
-  
+  - vue : vuetify
