@@ -56,3 +56,6 @@
   - api : kakao map
   - 크롤링 : nodejs cheerio
   - vue : vuetify
+
+- 이슈
+  - vuetify css 미적용 이슈
