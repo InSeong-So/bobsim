@@ -259,6 +259,7 @@
 
   const vCustomForm = {
     template:
+      " <v-app>" +
       "  <v-form ref='form2'" +
       "    v-model='valid'" +
       "    lazy-validation>" +
@@ -281,7 +282,8 @@
       "      class='mr-4'" +
       "      @click='validate'" +
       "    >등록</v-btn>" +
-      "  </v-form>",
+      "  </v-form>" +
+      "</v-app>",
     data: function () {
       return {
         valid: true,
