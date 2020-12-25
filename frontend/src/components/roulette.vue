@@ -1,60 +1,62 @@
 <template>
-  <div class="contentFrame">
-    <!-- 1. 안내 -->
-    <div class="jumbotron mt-3 mb-3">
-      <h1 class="display-4">한국인은 밥심!</h1>
-      <p class="lead">한국인은 밥심으로 산다고 했습니다.</p>
-      <p class="lead">영양의 균형과 건강한 하루를 위해 밥은 선택이 아닌 필수입니다!</p>
-      <hr class="my-4">
-      <div class="row vertical-divider">
-        <div class="col-6 btn-group btn-group-toggle" data-toggle="buttons">
-          <label class="btn btn-secondary active">
-            <input type="radio" name="alcohol" id="alcohol1"> 반주
-          </label>
-          <label class="btn btn-secondary">
-            <input type="radio" name="alcohol" id="alcohol2"> 회식
-          </label>
-          <label class="btn btn-secondary">
-            <input type="radio" name="alcohol" id="alcohol3"> 혼술
-          </label>
-          <label class="btn btn-secondary">
-            <input type="radio" name="alcohol" id="alcohol4" checked> 해당없음
-          </label>
-        </div>
-        <div class="col-6 btn-group btn-group-toggle" data-toggle="buttons">
-          <label class="btn btn-info active">
-            <input type="radio" name="mealTime" id="mealTime1"> 아침
-          </label>
-          <label class="btn btn-info">
-            <input type="radio" name="mealTime" id="mealTime2" checked> 점심
-          </label>
-          <label class="btn btn-info">
-            <input type="radio" name="mealTime" id="mealTime3"> 저녁
-          </label>
-          <label class="btn btn-info">
-            <input type="radio" name="mealTime" id="mealTime4"> 간식(야식)
-          </label>
+  <v-app>
+    <div class="contentFrame">
+      <!-- 1. 안내 -->
+      <div class="jumbotron mt-3 mb-3">
+        <h1 class="display-4">한국인은 밥심!</h1>
+        <p class="lead">한국인은 밥심으로 산다고 했습니다.</p>
+        <p class="lead">영양의 균형과 건강한 하루를 위해 밥은 선택이 아닌 필수입니다!</p>
+        <hr class="my-4">
+        <div class="row vertical-divider">
+          <div class="col-6 btn-group btn-group-toggle" data-toggle="buttons">
+            <label class="btn btn-secondary active">
+              <input type="radio" name="alcohol" id="alcohol1"> 반주
+            </label>
+            <label class="btn btn-secondary">
+              <input type="radio" name="alcohol" id="alcohol2"> 회식
+            </label>
+            <label class="btn btn-secondary">
+              <input type="radio" name="alcohol" id="alcohol3"> 혼술
+            </label>
+            <label class="btn btn-secondary">
+              <input type="radio" name="alcohol" id="alcohol4" checked> 해당없음
+            </label>
+          </div>
+          <div class="col-6 btn-group btn-group-toggle" data-toggle="buttons">
+            <label class="btn btn-info active">
+              <input type="radio" name="mealTime" id="mealTime1"> 아침
+            </label>
+            <label class="btn btn-info">
+              <input type="radio" name="mealTime" id="mealTime2" checked> 점심
+            </label>
+            <label class="btn btn-info">
+              <input type="radio" name="mealTime" id="mealTime3"> 저녁
+            </label>
+            <label class="btn btn-info">
+              <input type="radio" name="mealTime" id="mealTime4"> 간식(야식)
+            </label>
+          </div>
         </div>
       </div>
-    </div>
-    <!-- 2. 룰렛 -->
-    <slot-machine ref="slot-machine" :currentLocation="currentLocation"></slot-machine>
-    <!-- 3. 등록 / 검증 -->
-    <div class="jumbotron mt-3 mb-3">
-      <v-custom-form></v-custom-form>
-    </div>
-    <!-- 4. 리뷰 -->
-    <div class="jumbotron mt-3 mb-3">
-      <div class="map_wrap">
-        <div id="map" style="width:100%;height:350px;">
-          <div class="hAddr" style="z-index:2">
-            <span class="title">지도중심기준 행정동 주소정보</span>
-            <span id="centerAddr"></span>
+      <!-- 2. 룰렛 -->
+      <slot-machine ref="slot-machine" :currentLocation="currentLocation"></slot-machine>
+      <!-- 3. 등록 / 검증 -->
+      <div class="jumbotron mt-3 mb-3">
+        <v-custom-form></v-custom-form>
+      </div>
+      <!-- 4. 리뷰 -->
+      <div class="jumbotron mt-3 mb-3">
+        <div class="map_wrap">
+          <div id="map" style="width:100%;height:350px;">
+            <div class="hAddr" style="z-index:2">
+              <span class="title">지도중심기준 행정동 주소정보</span>
+              <span id="centerAddr"></span>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </v-app>
 </template>
 <style>
   .map_wrap {
@@ -259,7 +261,6 @@
 
   const vCustomForm = {
     template:
-      " <v-app>" +
       "  <v-form ref='form2'" +
       "    v-model='valid'" +
       "    lazy-validation>" +
@@ -282,8 +283,7 @@
       "      class='mr-4'" +
       "      @click='validate'" +
       "    >등록</v-btn>" +
-      "  </v-form>" +
-      "</v-app>",
+      "  </v-form>",
     data: function () {
       return {
         valid: true,
