@@ -263,3 +263,4 @@ yarn-error.log
 
 # End of https://www.toptal.com/developers/gitignore/api/node,macos,jetbrains+all,visualstudiocode,vuejs,vue
 backend/src/enviroment
+vuetify-v1.5.14.min.css
