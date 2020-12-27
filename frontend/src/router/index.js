@@ -5,6 +5,16 @@ import login from '@/components/login'
 
 Vue.use(Router)
 
+const requireAuth = () => (from, to, next) => {
+  const isAuthenticated = false
+
+  if (isAuthenticated) {
+    return next()
+  }
+
+  next('/login')
+}
+
 export default new Router({
   routes: [
     {
@@ -12,6 +22,7 @@ export default new Router({
       name: 'roulette',
       component: roulette,
       props: true,
+      beforeEnter: requireAuth,
     },
     {
       path: '/login',

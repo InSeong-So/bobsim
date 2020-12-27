@@ -3,6 +3,8 @@ import App from './App'
 import router from './router'
 /* axios */
 import Axios from './common/parangHttps'
+/* auth */
+import store from './store'
 
 /* default */
 Vue.config.productionTip = false;
@@ -33,6 +35,7 @@ Array.prototype.shuffle = function () {
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
+  store,
   router,
   components: {App},
   template: '<App/>'

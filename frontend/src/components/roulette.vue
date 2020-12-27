@@ -449,7 +449,10 @@
       }
     },
     created() {
-      // TODO
+      this.$http.getLoginAuth().then(resolve => {
+        if(!resolve) console.log("hello!");
+        console.log(resolve.data);
+      });
     },
     mounted() {
       this.setMap();
