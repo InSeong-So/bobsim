@@ -10,7 +10,9 @@ const sisEncrypts = password => {
     });
 }
 
-sisEncrypts('테스트완료다 요것들아!!').then((result, err) => {
-    if (err) throw err;
-    console.log("The derived key is : " + result);
-});
+// sisEncrypts('테스트완료다 요것들아!!').then((result, err) => {
+//     if (err) throw err;
+//     console.log("The derived key is : " + result);
+// });
+
+module.exports = {sisEncrypts}

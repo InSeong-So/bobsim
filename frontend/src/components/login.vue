@@ -1,48 +1,50 @@
 <template>
   <v-app>
-    <div class="contentFrame">
-      <div class="materialContainer">
-        <div class="box">
-          <div class="title">어서오세요!</div>
-          <div class="input">
-            <label for="name">아이디</label>
-            <input type="text" name="name" id="name">
-            <span class="spin"></span>
+    <v-form @submit.prevent="authLogin(name, password)">
+      <div class="contentFrame">
+        <div class="materialContainer">
+          <div class="box">
+            <div class="title">어서오세요!</div>
+            <div class="input">
+              <label for="name">아이디</label>
+              <input type="text" name="name" id="name" v-model="name">
+              <span class="spin"></span>
+            </div>
+            <div class="input">
+              <label for="pass">비밀번호</label>
+              <input type="password" name="pass" id="pass" v-model="password">
+              <span class="spin"></span>
+            </div>
+            <div class="button login">
+              <button><span>로그인</span> <i class="fa fa-check"></i></button>
+            </div>
+            <a href="" class="pass-forgot">비밀번호가 기억나지 않으신가요?</a>
           </div>
-          <div class="input">
-            <label for="pass">비밀번호</label>
-            <input type="password" name="pass" id="pass">
-            <span class="spin"></span>
-          </div>
-          <div class="button login">
-            <button><span>로그인</span> <i class="fa fa-check"></i></button>
-          </div>
-          <a href="" class="pass-forgot">비밀번호가 기억나지 않으신가요?</a>
-        </div>
-        <div class="overbox">
-          <div class="material-button alt-2"><span class="shape"></span></div>
-          <div class="title">등록하기</div>
-          <div class="input">
-            <label for="regname">아이디</label>
-            <input type="text" name="regname" id="regname">
-            <span class="spin"></span>
-          </div>
-          <div class="input">
-            <label for="regpass">비밀번호</label>
-            <input type="password" name="regpass" id="regpass">
-            <span class="spin"></span>
-          </div>
-          <div class="input">
-            <label for="reregpass">비밀번호 확인</label>
-            <input type="password" name="reregpass" id="reregpass">
-            <span class="spin"></span>
-          </div>
-          <div class="button">
-            <button><span>다음</span></button>
+          <div class="overbox">
+            <div class="material-button alt-2"><span class="shape"></span></div>
+            <div class="title">등록하기</div>
+            <div class="input">
+              <label for="regname">아이디</label>
+              <input type="text" name="regname" id="regname">
+              <span class="spin"></span>
+            </div>
+            <div class="input">
+              <label for="regpass">비밀번호</label>
+              <input type="password" name="regpass" id="regpass">
+              <span class="spin"></span>
+            </div>
+            <div class="input">
+              <label for="reregpass">비밀번호 확인</label>
+              <input type="password" name="reregpass" id="reregpass">
+              <span class="spin"></span>
+            </div>
+            <div class="button">
+              <button><span>다음</span></button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </v-form>
   </v-app>
 </template>
 <script>
@@ -58,10 +60,24 @@
   export default {
     name: 'login',
     data() {
-      return {}
+      return {
+        name: "",
+        password: ""
+      }
     },
     methods: {
-      // TODO
+      authLogin(name, password) {
+        let params = new URLSearchParams();
+        params.append('id', name);
+        params.append('password', password);
+
+        this.$http.getLoginAuth(params).then(resolve => {
+          if (!resolve) console.log("hello!");
+          console.log(resolve.data);
+        }).catch(err => {
+          console.log(err);
+        });
+      }
     },
     created() {
       // TODO

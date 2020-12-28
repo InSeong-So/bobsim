@@ -22,7 +22,7 @@ export default new Router({
       name: 'roulette',
       component: roulette,
       props: true,
-      beforeEnter: requireAuth,
+      beforeEnter: requireAuth(),
     },
     {
       path: '/login',

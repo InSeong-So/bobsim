@@ -4,7 +4,7 @@ module.exports = {
         "select cd,\n" +
         "       cd_nm \n" +
         "  from bs_common\n" +
-        " where idx_cd = '/SY01';"
+        " where idx_cd = '/SY01'"
     , conditionCombo01:
         "select cd,\n" +
         "       cd_nm\n" +
@@ -13,7 +13,7 @@ module.exports = {
         "   and cond_cd1 = (select cd\n" +
         "                     from bs_common\n" +
         "                    where idx_cd = '/SY01'\n" +
-        "                      and cd_nm = '한식');"
+        "                      and cd_nm = '한식')"
     , thisRegionRestaurantList:
         "select t1.category,\n" +
         "       t1.restaurantNm\n" +
@@ -23,5 +23,5 @@ module.exports = {
         "   and t2.idx_cd = '/SY02'\n" +
         "   and t1.locale = ?\n" +
         "   and t1.localeDetail = ?\n" +
-        "   and t2.cd_nm = t1.category;"
+        "   and t2.cd_nm = t1.category"
 };

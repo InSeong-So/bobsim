@@ -6,13 +6,17 @@ const logger = require('morgan');
 const historyFallback = require('connect-history-api-fallback');
 const mysql = require('mysql');
 const dbConnection = require('./src/database/config/connectionConfig');
-const query = require('./src/database/query/rouletteQuery');
+const queryFactory = {
+    rouletteQuery: require('./src/database/query/rouletteQuery'),
+    authQuery: require('./src/database/query/authQuery')
+}
 const cors = require('cors');
 // npm module
 const app = express();
 const connection = mysql.createConnection(dbConnection);
 // sis module
 const {getCurrentAddress} = require("./src/util/axiosModule");
+const {sisEncrypts} = require("./src/util/cryptoModule");
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -44,7 +48,7 @@ app.route('/rouletteInit')
                         : data[0].address.region_1depth_name + "-" + data[0].address.region_2depth_name;
                     let codes = [];
                     const queryParam = [regionName.split("-")[0], regionName.split("-")[1]];
-                    connection.query(query.thisRegionRestaurantList, queryParam, (err, rows) => {
+                    connection.query(queryFactory.rouletteQuery.thisRegionRestaurantList, queryParam, (err, rows) => {
                         if (rows.length > 0) {
                             for (let i in rows) {
                                 const temp = {
@@ -65,7 +69,35 @@ app.route('/rouletteInit')
                 reject(res.send(err));
             }
         })
-    })
+    });
+
+app.route('/login')
+    .post((req, res) => {
+        new Promise((resolve, reject) => {
+            try {
+                const id = req.query.id;
+                const password = req.query.password;
+                console.log(id);
+                console.log(password);
+                sisEncrypts(password).then((data) => {
+                    const queryParam = [id, data];
+
+                    console.log(queryParam);
+                    connection.query(queryFactory.authQuery.signUp, queryParam, (err, row) => {
+                        if (err) {
+                            res.send(err);
+                        }
+                        res.send("success");
+                    });
+                }).catch(err => {
+                    // TODO
+                    res.send(err);
+                });
+            } catch (err) {
+                reject(res.send(err));
+            }
+        })
+    });
 
 
 // catch 404 and forward to error handler

@@ -8,10 +8,11 @@ export default {
       params: param
     })
   },
-  getLoginAuth() {
+  getLoginAuth(param) {
     return Send({
-      url: '/',
+      url: '/login',
       method: 'post',
+      params: param
     })
   }
 }
