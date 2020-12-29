@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-form @submit.prevent="authLogin(name, password)">
+    <v-form @submit.prevent="authLogin()">
       <div class="contentFrame">
         <div class="materialContainer">
           <div class="box">
@@ -22,24 +22,25 @@
           </div>
           <div class="overbox">
             <div class="material-button alt-2"><span class="shape"></span></div>
-            <div class="title">등록하기</div>
+            <div class="title">가입하기</div>
             <div class="input">
-              <label for="regname">아이디</label>
-              <input type="text" name="regname" id="regname">
+              <label for="regName">아이디</label>
+              <input type="text" name="regName" id="regName" v-model="regName">
               <span class="spin"></span>
             </div>
             <div class="input">
-              <label for="regpass">비밀번호</label>
-              <input type="password" name="regpass" id="regpass">
+              <label for="regPassword">비밀번호</label>
+              <input type="password" name="regPassword" id="regPassword" v-model="regPassword">
               <span class="spin"></span>
             </div>
             <div class="input">
-              <label for="reregpass">비밀번호 확인</label>
-              <input type="password" name="reregpass" id="reregpass">
+              <label for="reRegPassword">비밀번호 확인</label>
+              <input type="password" name="reRegPassword" id="reRegPassword" v-model="reRegPassword"
+                     @change.prevent="reRegPasswordCheck()">
               <span class="spin"></span>
             </div>
             <div class="button">
-              <button><span>다음</span></button>
+              <button @click="authRegistration(name, password)"><span>등록</span></button>
             </div>
           </div>
         </div>
@@ -62,18 +63,69 @@
     data() {
       return {
         name: "",
-        password: ""
+        password: "",
+        //
+        regName: "",
+        regPassword: "",
+        reRegPassword: "",
       }
     },
     methods: {
-      authLogin(name, password) {
+      reRegPasswordCheck() {
+        const regPassword = this.regPassword;
+        const reRegPassword = this.reRegPassword;
+        if (regPassword !== reRegPassword) {
+          alert("동일한 비밀번호를 입력해주세요.");
+          Vue.set(this, "reRegPassword", "");
+          $("#reRegPassword").focus();
+        }
+      },
+      authRegistration(name, password) {
         let params = new URLSearchParams();
         params.append('id', name);
         params.append('password', password);
 
+        this.$http.setAuthRegistration(params).then(resolve => {
+          alert("등록되었습니다. 가입하신 아이디로 로그인 해주세요.");
+          if (!$(".alt-2").hasClass('material-button')) {
+            $(".shape").css({
+              "width": "100%",
+              "height": "100%",
+              "transform": "rotate(0deg)"
+            })
+
+            setTimeout(function () {
+              $(".overbox").css({
+                "overflow": "initial"
+              })
+            }, 600)
+
+            $(".alt-2").animate({
+              "width": "140px",
+              "height": "140px"
+            }, 500, function () {
+              $(".box").removeClass("back");
+
+              $(".alt-2").removeClass('active')
+            });
+
+            $(".overbox .title").fadeOut(300);
+            $(".overbox .input").fadeOut(300);
+            $(".overbox .button").fadeOut(300);
+            $(".alt-2").addClass('material-buton');
+          }
+        }).catch(err => {
+          console.log(err);
+        });
+      },
+      authLogin() {
+        let params = new URLSearchParams();
+        params.append('id', this.name);
+        params.append('password', this.password);
+
         this.$http.getLoginAuth(params).then(resolve => {
-          if (!resolve) console.log("hello!");
-          console.log(resolve.data);
+          console.log(resolve);
+          alert("맛있는 식사 되세요!");
         }).catch(err => {
           console.log(err);
         });
@@ -124,7 +176,6 @@
           "height": "500px",
           "top": "-250px",
           "left": "-250px",
-
         }, 600);
         $("button", this).addClass('active');
       })
@@ -194,6 +245,7 @@
       // TODO
     },
   }
+
 </script>
 <style>
   /* login { */
@@ -539,7 +591,7 @@
   }
 
   .overbox .title {
-    width: 80%;
+    width: 100%;
   }
 
   .overbox .input {

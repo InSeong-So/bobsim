@@ -5,8 +5,8 @@ module.exports = {
         "       locationDetail\n" +
         "  from bs_sigungu\n" +
         " where location = '서울'\n" +
-        "   and locationDetail = '강동구'\n",
-    setCrawlingRestaurantList:
+        "   and locationDetail = '강동구'\n"
+    , setCrawlingRestaurantList:
         "insert into bs_restaurant\n" +
         "  (\n" +
         "    `locale`,\n" +

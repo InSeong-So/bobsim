@@ -8,6 +8,13 @@ export default {
       params: param
     })
   },
+  setAuthRegistration(param) {
+    return Send({
+      url: '/registration',
+      method: 'post',
+      params: param
+    })
+  },
   getLoginAuth(param) {
     return Send({
       url: '/login',

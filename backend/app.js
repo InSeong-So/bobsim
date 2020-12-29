@@ -71,19 +71,15 @@ app.route('/rouletteInit')
         })
     });
 
-app.route('/login')
+app.route('/registration')
     .post((req, res) => {
         new Promise((resolve, reject) => {
             try {
                 const id = req.query.id;
                 const password = req.query.password;
-                console.log(id);
-                console.log(password);
                 sisEncrypts(password).then((data) => {
                     const queryParam = [id, data];
-
-                    console.log(queryParam);
-                    connection.query(queryFactory.authQuery.signUp, queryParam, (err, row) => {
+                    connection.query(queryFactory.authQuery.authRegistration, queryParam, (err, row) => {
                         if (err) {
                             res.send(err);
                         }
@@ -95,6 +91,55 @@ app.route('/login')
                 });
             } catch (err) {
                 reject(res.send(err));
+            }
+        })
+    });
+
+app.route('/login')
+    .post((req, res) => {
+        new Promise((resolve, reject) => {
+            let result = {
+                success: true,
+                msg: "success",
+                detail: ""
+            };
+
+            try {
+                const id = req.query.id;
+                const password = req.query.password;
+                sisEncrypts(password).then((data) => {
+                    const queryParam = [id, data];
+                    connection.query(queryFactory.authQuery.authLogin, queryParam, (err, row) => {
+                        console.log(row);
+
+                        if (err) {
+                            result.success = false;
+                            result.msg = "fail";
+                            result.detail = err;
+                            //
+                            res.send(result);
+                        }
+
+                        if(row.length > 0)
+                        {
+                            result.detail = row;
+                            //
+                            res.send(result);
+                        }
+                    });
+                }).catch(err => {
+                    result.success = false;
+                    result.msg = "fail";
+                    result.detail = err;
+                    //
+                    res.send(result);
+                });
+            } catch (err) {
+                result.success = false;
+                result.msg = "fail";
+                result.detail = err;
+                //
+                reject(res.send(result));
             }
         })
     });
