@@ -1,4 +1,4 @@
-const {encrypts} = require("../enviroment/properties");
+const {encrypts} = require("../../../root/enviroment/properties");
 const crypto = require('crypto');
 
 const sisEncrypts = password => {

@@ -16,7 +16,7 @@
               <span class="spin"></span>
             </div>
             <div class="button login">
-              <button><span>로그인</span> <i class="fa fa-check"></i></button>
+              <button><span id="loginButton">로그인</span> <i class="fa fa-check"></i></button>
             </div>
             <a href="" class="pass-forgot">비밀번호가 기억나지 않으신가요?</a>
           </div>
@@ -40,7 +40,7 @@
               <span class="spin"></span>
             </div>
             <div class="button">
-              <button @click="authRegistration(name, password)"><span>등록</span></button>
+              <button @click.prevent="authRegistration()"><span>등록</span></button>
             </div>
           </div>
         </div>
@@ -65,6 +65,8 @@
         name: "",
         password: "",
         //
+        message: "",
+        //
         regName: "",
         regPassword: "",
         reRegPassword: "",
@@ -80,10 +82,10 @@
           $("#reRegPassword").focus();
         }
       },
-      authRegistration(name, password) {
+      authRegistration() {
         let params = new URLSearchParams();
-        params.append('id', name);
-        params.append('password', password);
+        params.append('id', this.regName);
+        params.append('password', this.regPassword);
 
         this.$http.setAuthRegistration(params).then(resolve => {
           alert("등록되었습니다. 가입하신 아이디로 로그인 해주세요.");
@@ -119,17 +121,34 @@
         });
       },
       authLogin() {
-        let params = new URLSearchParams();
-        params.append('id', this.name);
-        params.append('password', this.password);
+        const name = this.name;
+        const password = this.password;
 
-        this.$http.getLoginAuth(params).then(resolve => {
-          console.log(resolve);
-          alert("맛있는 식사 되세요!");
-        }).catch(err => {
-          console.log(err);
-        });
-      }
+        if (!name || !password) return;
+
+        $("#loginButton").empty();
+
+        let params = new URLSearchParams();
+        params.append('id', name);
+        params.append('password', password);
+
+        this.$store
+          .dispatch("LOGIN", params)
+          .then(() => this.redirect())
+          .catch(({message}) => (this.msg = message));
+      },
+      redirect() {
+        const {search} = window.location;
+        const tokens = search.replace(/^\?/, "").split("&");
+        const {returnPath} = tokens.reduce((qs, tkn) => {
+          const pair = tkn.split("=")
+          qs[pair[0]] = decodeURIComponent(pair[1])
+          return qs
+        }, {})
+
+        // 리다이렉트 처리
+        this.$router.push(returnPath)
+      },
     },
     created() {
       // TODO
@@ -165,7 +184,7 @@
       });
 
       $(".button").click(function (e) {
-        var pX = e.pageX,
+        let pX = e.pageX,
           pY = e.pageY,
           oX = parseInt($(this).offset().left),
           oY = parseInt($(this).offset().top);
@@ -249,7 +268,6 @@
 </script>
 <style>
   /* login { */
-
   .contentFrame {
     background-image: url(https://lh4.googleusercontent.com/-XplyTa1Za-I/VMSgIyAYkHI/AAAAAAAADxM/oL-rD6VP4ts/w1184-h666/Android-Lollipop-wallpapers-Google-Now-Wallpaper-2.png);
     background-position: center;
@@ -524,6 +542,7 @@
     transform: scale(0);
     -webkit-transform: scale(0);
     -ms-transform: scale(0);
+    color: white;
   }
 
   .button.login button.active i.fa {

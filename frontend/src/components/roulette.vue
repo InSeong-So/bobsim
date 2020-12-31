@@ -449,7 +449,9 @@
       }
     },
     created() {
-      // TODO
+      this.$http.getAuthToken().then(resolve => {
+        console.log(resolve);
+      });
     },
     mounted() {
       this.setMap();

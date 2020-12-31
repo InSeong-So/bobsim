@@ -21,5 +21,11 @@ export default {
       method: 'post',
       params: param
     })
+  },
+  getAuthToken() {
+    return Send({
+      url: '/me',
+      method: 'get'
+    })
   }
 }

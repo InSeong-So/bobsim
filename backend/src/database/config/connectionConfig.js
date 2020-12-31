@@ -1,4 +1,4 @@
-const {db} = require("../../enviroment/properties");
+const {db} = require("../../../../root/enviroment/properties");
 
 module.exports = {
     host: db.getDbHost(),

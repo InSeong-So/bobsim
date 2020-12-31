@@ -8,7 +8,7 @@ module.exports = {
         " values (?, ?)"
     , authLogin:
         "select userId,\n" +
-        "       password, \n" +
+        //"       password, \n" +
         "       note \n" +
         "  from bs_members\n" +
         " where userId = ?\n" +

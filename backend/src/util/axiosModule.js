@@ -1,5 +1,5 @@
 const axios = require("axios");
-const {api} = require("../enviroment/properties")
+const {api} = require("../../../root/enviroment/properties")
 
 const getMangoplateHtml = searchKeywords => {
     let urls = [];
