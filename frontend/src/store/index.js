@@ -13,7 +13,7 @@ export default new Vuex.Store({
   },
   getters: {},
   mutations: {
-    LOGIN(state, {accessToken}) {
+    LOGIN(state, accessToken) {
       state.accessToken = accessToken
     },
     LOGOUT(state) {
@@ -22,14 +22,16 @@ export default new Vuex.Store({
   },
   actions: {
     LOGIN({commit}, params) {
-      return $http.getLoginAuth(params).then(resolve => {
-        commit("LOGIN", resolve);
-
-        $http.defaults.headers.common['Authorization'] = `bobsim ${resolve.accessToken}`;
-        alert("맛있는 식사 되세요!");
-      }).catch(err => {
-        console.log(err);
-      });
+      return new Promise(syncResult => {
+        $http.getLoginAuth(params).then(resolve => {
+          console.log(resolve);
+          $http.Send.defaults.headers.common['Authorization'] = `bobsim ${resolve}`;
+          syncResult(commit("LOGIN", resolve));
+          console.log("맛있는 식사 되세요!");
+        }).catch(err => {
+          console.log(err);
+        });
+      })
     },
     LOGOUT({commit}) {
       commit("LOGOUT")

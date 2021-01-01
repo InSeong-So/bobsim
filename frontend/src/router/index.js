@@ -12,7 +12,7 @@ const requireAuth = () => (from, to, next) => {
     return next()
   }
 
-  next('/login')
+  next('/login?returnPath=/')
 }
 
 export default new Router({

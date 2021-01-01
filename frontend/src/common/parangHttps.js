@@ -1,6 +1,7 @@
 import Send from './send'
 
 export default {
+  Send,
   getRouletteData(param) {
     return Send({
       url: '/rouletteInit',
@@ -27,5 +28,5 @@ export default {
       url: '/me',
       method: 'get'
     })
-  }
+  },
 }

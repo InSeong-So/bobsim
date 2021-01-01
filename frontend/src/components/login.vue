@@ -132,10 +132,12 @@
         params.append('id', name);
         params.append('password', password);
 
-        this.$store
-          .dispatch("LOGIN", params)
-          .then(() => this.redirect())
-          .catch(({message}) => (this.msg = message));
+        this.$store.dispatch("LOGIN", params).then(data => {
+          console.log(this.$store);
+          this.redirect();
+        }).catch(({message}) => {
+          this.msg = message
+        });
       },
       redirect() {
         const {search} = window.location;
@@ -144,7 +146,9 @@
           const pair = tkn.split("=")
           qs[pair[0]] = decodeURIComponent(pair[1])
           return qs
-        }, {})
+        }, {});
+
+        console.log(returnPath);
 
         // 리다이렉트 처리
         this.$router.push(returnPath)
