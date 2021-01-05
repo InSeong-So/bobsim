@@ -76,7 +76,7 @@
   - Node.js
   - Express.js
   - cheerio.js
-  - scrypto.js
+  - ~~scrypto.js~~ encrypt.js
 
 - DataBase
   - MariaDB(MySQL)
