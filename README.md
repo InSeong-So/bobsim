@@ -9,6 +9,8 @@
 
 </div>
 
+<br>
+
 - DB 테이블
 
 <div align=center>
@@ -16,6 +18,8 @@
 <img src="img/02.table.jpg" alt="테이블" width="500"/>
 
 </div>
+
+<br>
 
 - UI 디자인
 
