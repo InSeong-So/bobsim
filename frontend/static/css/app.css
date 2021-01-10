@@ -28,19 +28,6 @@ a:active, a:focus {
 
 /* } */
 
-/* main { */
-.contentFrame {
-  width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
-}
-
-.contentFrame hr {
-  border-top: 2px solid rgba(0, 0, 0, .1);
-}
-
-/* main { */
-
 /* roulette { */
 .slot-machine {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eeeeee', endColorstr='#cccccc', GradientType=0);

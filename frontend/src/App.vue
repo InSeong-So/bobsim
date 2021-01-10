@@ -2,17 +2,23 @@
   <div id="app">
     <div class="w3-top">
       <div class="w3-row w3-padding w3-black">
-        <div class="w3-col s3">
+        <div class="w3-col s2">
           <a href="#" class="w3-button w3-block w3-black">HOME</a>
         </div>
-        <div class="w3-col s3">
+        <div class="w3-col s2">
           <a href="#about" class="w3-button w3-block w3-black">ABOUT</a>
         </div>
-        <div class="w3-col s3">
-          <a href="#menu" class="w3-button w3-block w3-black">MENU</a>
+        <div class="w3-col s2">
+          <a href="#recommended" class="w3-button w3-block w3-black">RECOMMENDED</a>
         </div>
-        <div class="w3-col s3">
+        <div class="w3-col s2">
           <a href="#where" class="w3-button w3-block w3-black">WHERE</a>
+        </div>
+        <div class="w3-col s2">
+          <a href="#inc" class="w3-button w3-block w3-black">Inc.</a>
+        </div>
+        <div class="w3-col s2">
+          <a href="#mypage" class="w3-button w3-block w3-black">MY PAGE</a>
         </div>
       </div>
     </div>
@@ -29,11 +35,10 @@
       return {}
     },
     mounted() {
-      this.setLeftMenu();
+      // TODO
     },
     methods: {
-      setLeftMenu() {
-      },
+      // TODO
     },
   }
 </script>
