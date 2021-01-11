@@ -95,6 +95,7 @@
   - Crawling : nodejs cheerio
   - vue : vuetify
   - crypto : node scrypto
+  - w3school template
 
 - 이슈
   - ~~vuetify css 미적용 이슈~~ *해결*
