@@ -3,13 +3,13 @@
     <!-- Header with image -->
     <header class="bgimg w3-display-container w3-grayscale-min" id="home">
       <div class="w3-display-bottomleft w3-center w3-padding-large w3-hide-small">
-        <span class="w3-tag">Open from 6am to 5pm</span>
+        <span class="w3-tag">Copyright hyunparang. All rights reserved.</span>
       </div>
       <div class="w3-display-middle w3-center">
         <span class="w3-text-white" style="font-size:90px">THE<br>BOBSIM</span>
       </div>
       <div class="w3-display-bottomright w3-center w3-padding-large">
-        <span class="w3-text-white">15 Adr street, 5015</span>
+        <span class="w3-text-white">소곤소곤 프로젝트</span>
       </div>
     </header>
 
@@ -29,7 +29,7 @@
             <p><i>"반주? 회식? 야식?" 원하는 시간별로, 식사별로 주변의 음식점과 메뉴를 확인하세요!</i></p>
           </div>
           <p><span class="w3-tag"><strong>회원이시라면</strong></span> : 자신만의 리스트 만들기; 리뷰와 평점으로 맞춤형 리스트 제공;</p>
-<!--          <p><span class="w3-tag"><strong>비회원이라도 : </strong></span> 원하는 지역의 식사별 맛집 추천 받기; 새로운 맛집 등록하기;</p>-->
+          <!--          <p><span class="w3-tag"><strong>비회원이라도 : </strong></span> 원하는 지역의 식사별 맛집 추천 받기; 새로운 맛집 등록하기;</p>-->
           <p><strong>비회원이라도</strong> : 원하는 지역의 식사별 맛집 추천 받기; 새로운 맛집 등록하기;</p>
         </div>
       </div>
@@ -44,16 +44,16 @@
 
           <div class="w3-row w3-center w3-card w3-padding">
             <a href="javascript:void(0)" onclick="openMenu(event, 'Breakfast');" id="tabLink01">
-              <div class="w3-col s3 tabLink">Breakfast</div>
+              <div class="w3-col s3 tabLink">아침</div>
             </a>
             <a href="javascript:void(0)" onclick="openMenu(event, 'Lunch');" id="tabLink02">
-              <div class="w3-col s3 tabLink">Lunch</div>
+              <div class="w3-col s3 tabLink">점심</div>
             </a>
             <a href="javascript:void(0)" onclick="openMenu(event, 'Dinner');" id="tabLink03">
-              <div class="w3-col s3 tabLink">Dinner</div>
+              <div class="w3-col s3 tabLink">저녁</div>
             </a>
             <a href="javascript:void(0)" onclick="openMenu(event, 'MidnightSnack');" id="tabLink04">
-              <div class="w3-col s3 tabLink">Midnight Snack</div>
+              <div class="w3-col s3 tabLink">야식</div>
             </a>
           </div>
 
@@ -95,8 +95,8 @@
 
       <hr/>
 
-      <!-- Contact/Area Container -->
-      <div class="w3-container" id="where" style="padding-bottom:32px;">
+      <!-- 3. 등록 / 검증 -->
+      <div class="w3-container" id="record">
         <div class="w3-content" style="max-width:700px">
 
           <h5 class="w3-center w3-padding-48"><span class="w3-tag w3-wide">WHERE TO FIND US</span></h5>
@@ -106,43 +106,33 @@
             understand your needs and we will cater the food to satisfy the biggerst criteria of them all, both look
             and taste.</p>
           <p><strong>Reserve</strong> a table, ask for today's special or just send us a message:</p>
-          <form action="/action_page.php" target="_blank">
-            <p><input class="w3-input w3-padding-16 w3-border" type="text" placeholder="Name" required name="Name">
-            </p>
-            <p><input class="w3-input w3-padding-16 w3-border" type="number" placeholder="How many people" required
-                      name="People"></p>
-            <p><input class="w3-input w3-padding-16 w3-border" type="datetime-local" placeholder="Date and time"
-                      required name="date" value="2020-11-16T20:00"></p>
-            <p><input class="w3-input w3-padding-16 w3-border" type="text"
-                      placeholder="Message \ Special requirements" required name="Message"></p>
-            <p>
-              <button class="w3-button w3-black" type="submit">SEND MESSAGE</button>
-            </p>
-          </form>
+          <v-custom-form></v-custom-form>
         </div>
       </div>
 
-      <!-- End page content -->
-    </div>
+      <hr/>
 
-    <hr/>
+      <!-- 2. 룰렛 -->
+      <slot-machine ref="slot-machine" :currentLocation="currentLocation"></slot-machine>
 
-    <!-- 2. 룰렛 -->
-    <slot-machine ref="slot-machine" :currentLocation="currentLocation"></slot-machine>
-    <!-- 3. 등록 / 검증 -->
-    <div class="jumbotron mt-3 mb-3">
-      <v-custom-form></v-custom-form>
-    </div>
-    <!-- 4. 리뷰 -->
-    <div class="jumbotron mt-3 mb-3">
-      <div class="map_wrap">
-        <div id="map" style="width:100%;height:350px;">
-          <div class="hAddr" style="z-index:2">
-            <span class="title">지도중심기준 행정동 주소정보</span>
-            <span id="centerAddr"></span>
+      <hr/>
+
+      <!-- 4. 리뷰 -->
+      <!-- 3. 등록 / 검증 -->
+      <div class="w3-container" id="where" style="padding-bottom:32px;">
+        <div class="w3-content" style="max-width:700px">
+          <h5 class="w3-center w3-padding-48"><span class="w3-tag w3-wide">WHERE TO FIND US</span></h5>
+          <div class="map_wrap">
+            <div id="map" style="width:100%;height:350px;">
+              <div class="hAddr" style="z-index:2">
+                <span class="title">지도중심기준 행정동 주소정보</span>
+                <span id="centerAddr"></span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+      <!-- End page content -->
     </div>
   </v-app>
 </template>
@@ -165,7 +155,6 @@
     border-radius: 2px;
     background: #fff;
     background: rgba(255, 255, 255, 0.8);
-    z-index: 1;
     padding: 5px;
   }
 
@@ -186,7 +175,7 @@
     background-position: center;
     background-size: cover;
     background-image: url("../../static/images/platter-2009590_1920.jpg");
-    min-height: 15%;
+    min-height: 20%;
   }
 
   .menu {
@@ -222,13 +211,15 @@
 
   const slotMachine = {
     template:
-      "<div class='border border-light p-3 mb-4 text-center slot-machine'>" +
-      "  <div class='slot' v-for='slot in slots' ref='slots' @click='start'>" +
-      "    <h2 style='color:#d1e3ff;'>{{ slot.title }}</h2>" +
-      "    <div class='slot__window'>" +
-      "      <div class='slot__wrap'>" +
-      "        <div class='slot__item' v-for='opt in slot.items'>{{ opt }}</div>" +
-      "        <div class='slot__item slot__item--copy' >{{ slot.items[0] }}</div>" +
+      "<div class='w3-container' id='recommend' style='padding-bottom:32px;'>" +
+      "  <div class='w3-content text-center slot-machine' style='max-width:700px'>" +
+      "    <div class='slot' v-for='slot in slots' ref='slots' @click='start'>" +
+      "      <h2 style='color:#d1e3ff;'>{{ slot.title }}</h2>" +
+      "      <div class='slot__window'>" +
+      "        <div class='slot__wrap'>" +
+      "          <div class='slot__item' v-for='opt in slot.items'>{{ opt }}</div>" +
+      "          <div class='slot__item slot__item--copy' >{{ slot.items[0] }}</div>" +
+      "        </div> " +
       "      </div> " +
       "    </div> " +
       "  </div> " +

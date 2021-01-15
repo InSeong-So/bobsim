@@ -12,14 +12,17 @@
           <a href="#recommended" class="w3-button w3-block w3-black">RECOMMENDED</a>
         </div>
         <div class="w3-col s2">
+          <a href="#where" class="w3-button w3-block w3-black">RECORD</a>
+        </div>
+        <div class="w3-col s2">
           <a href="#where" class="w3-button w3-block w3-black">WHERE</a>
         </div>
         <div class="w3-col s2">
-          <a href="#inc" class="w3-button w3-block w3-black">Inc.</a>
+          <a href="#inc" class="w3-button w3-block w3-black">CONTACT</a>
         </div>
-        <div class="w3-col s2">
-          <a href="#mypage" class="w3-button w3-block w3-black">MY PAGE</a>
-        </div>
+<!--        <div class="w3-col s2">-->
+<!--          <a href="#mypage" class="w3-button w3-block w3-black">MY PAGE</a>-->
+<!--        </div>-->
       </div>
     </div>
     <router-view/>
