@@ -26,7 +26,7 @@
           <p>바쁜 일상 속 무엇을 먹을지 고민하다 시간이 지체되거나,</p>
           <p>의견을 통일하지 못해 구내식당을 이용하는 당신에게 맞춤 메뉴를 추천합니다!</p>
           <div class="w3-panel w3-leftbar w3-light-grey">
-            <p><i>"반주? 회식? 야식?" 원하는 시간별로, 식사별로 주변의 음식점과 메뉴를 확인하세요!</i></p>
+            <p><i>"디저트? 저녁? 회식?" 원하는 시간별로, 식사별로 주변의 음식점과 메뉴를 확인하세요!</i></p>
           </div>
           <p><span class="w3-tag"><strong>회원이시라면</strong></span> : 자신만의 리스트 만들기; 리뷰와 평점으로 맞춤형 리스트 제공;</p>
           <!--          <p><span class="w3-tag"><strong>비회원이라도 : </strong></span> 원하는 지역의 식사별 맛집 추천 받기; 새로운 맛집 등록하기;</p>-->
@@ -43,53 +43,40 @@
           <h5 class="w3-center w3-padding-48"><span class="w3-tag w3-wide">THE RECOMMENDED</span></h5>
 
           <div class="w3-row w3-center w3-card w3-padding">
-            <a href="javascript:void(0)" onclick="openMenu(event, 'Breakfast');" id="tabLink01">
-              <div class="w3-col s3 tabLink">아침</div>
-            </a>
-            <a href="javascript:void(0)" onclick="openMenu(event, 'Lunch');" id="tabLink02">
-              <div class="w3-col s3 tabLink">점심</div>
-            </a>
-            <a href="javascript:void(0)" onclick="openMenu(event, 'Dinner');" id="tabLink03">
-              <div class="w3-col s3 tabLink">저녁</div>
-            </a>
-            <a href="javascript:void(0)" onclick="openMenu(event, 'MidnightSnack');" id="tabLink04">
-              <div class="w3-col s3 tabLink">야식</div>
-            </a>
+            <div class="w3-col s2 tabLink">
+              <v-btn color="primary" dark @click="recommendedClick('아침')">아침</v-btn>
+            </div>
+            <div class="w3-col s2 tabLink">
+              <v-btn color="primary" dark @click="recommendedClick('점심')">점심</v-btn>
+            </div>
+            <div class="w3-col s2 tabLink">
+              <v-btn color="primary" dark @click="recommendedClick('저녁')">저녁</v-btn>
+            </div>
+            <div class="w3-col s2 tabLink">
+              <v-btn color="primary" dark @click="recommendedClick('디저트')">디저트</v-btn>
+            </div>
+            <div class="w3-col s2 tabLink">
+              <v-btn color="primary" dark @click="recommendedClick('야식')">야식</v-btn>
+            </div>
+            <div class="w3-col s2 tabLink">
+              <v-btn color="primary" dark @click="recommendedClick('술')">술</v-btn>
+            </div>
           </div>
 
-          <div id="Eat" class="w3-container menu w3-padding-48 w3-card">
-            <h5>Bread Basket</h5>
-            <p class="w3-text-grey">Assortment of fresh baked fruit breads and muffins 5.50</p><br>
+          <v-dialog v-model="dialog" persistent>
+            <v-card>
+              <v-card-title class="headline"></v-card-title>
+              <v-card-text>
+                <slot-machine ref="slot-machine" :currentLocation="currentLocation"></slot-machine>
+              </v-card-text>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="green darken-1" flat @click="dialog = false">Disagree</v-btn>
+                <v-btn color="green darken-1" flat @click="dialog = false">Agree</v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
 
-            <h5>Honey Almond Granola with Fruits</h5>
-            <p class="w3-text-grey">Natural cereal of honey toasted oats, raisins, almonds and dates 7.00</p><br>
-
-            <h5>Belgian Waffle</h5>
-            <p class="w3-text-grey">Vanilla flavored batter with malted flour 7.50</p><br>
-
-            <h5>Scrambled eggs</h5>
-            <p class="w3-text-grey">Scrambled eggs, roasted red pepper and garlic, with green onions 7.50</p><br>
-
-            <h5>Blueberry Pancakes</h5>
-            <p class="w3-text-grey">With syrup, butter and lots of berries 8.50</p>
-          </div>
-
-          <div id="Drinks" class="w3-container menu w3-padding-48 w3-card">
-            <h5>Coffee</h5>
-            <p class="w3-text-grey">Regular coffee 2.50</p><br>
-
-            <h5>Chocolato</h5>
-            <p class="w3-text-grey">Chocolate espresso with milk 4.50</p><br>
-
-            <h5>Corretto</h5>
-            <p class="w3-text-grey">Whiskey and coffee 5.00</p><br>
-
-            <h5>Iced tea</h5>
-            <p class="w3-text-grey">Hot tea, except not hot 3.00</p><br>
-
-            <h5>Soda</h5>
-            <p class="w3-text-grey">Coke, Sprite, Fanta, etc. 2.50</p>
-          </div>
         </div>
       </div>
 
@@ -99,21 +86,17 @@
       <div class="w3-container" id="record">
         <div class="w3-content" style="max-width:700px">
 
-          <h5 class="w3-center w3-padding-48"><span class="w3-tag w3-wide">WHERE TO FIND US</span></h5>
+          <h5 class="w3-center w3-padding-48"><span class="w3-tag w3-wide">SHARE OR RECORD YOUR RESTAURANT</span></h5>
 
-          <p>Find us at some address at some place.</p>
-          <p><span class="w3-tag">FYI!</span> We offer full-service catering for any event, large or small. We
-            understand your needs and we will cater the food to satisfy the biggerst criteria of them all, both look
-            and taste.</p>
-          <p><strong>Reserve</strong> a table, ask for today's special or just send us a message:</p>
+          <p>자신만의 맛집을 등록하거나, 공유하세요!</p>
+          <p><span class="w3-tag">잠깐!</span> 밥심에서는 개인정보를 필요로 하지 않습니다.</p>
+          <p>순수한 맛집 리스트, 맛있는 식사 코스 등을 등록하고 공유할 수 있습니다.</p>
+          <div class="w3-panel w3-leftbar w3-light-grey">
+            <p><i><strong>자신만의 리스트를 만들고 평점과 리뷰를 작성한 뒤 친구들과 공유하세요!</strong></i></p>
+          </div>
           <v-custom-form></v-custom-form>
         </div>
       </div>
-
-      <hr/>
-
-      <!-- 2. 룰렛 -->
-      <slot-machine ref="slot-machine" :currentLocation="currentLocation"></slot-machine>
 
       <hr/>
 
@@ -130,6 +113,12 @@
               </div>
             </div>
           </div>
+        </div>
+      </div>
+
+      <div class="w3-container" id="contact" style="padding-bottom:32px;">
+        <div class="w3-content" style="max-width:700px">
+          <h5 class="w3-center w3-padding-48"><span class="w3-tag w3-wide">CONTACT TO THIS</span></h5>
         </div>
       </div>
       <!-- End page content -->
@@ -446,6 +435,7 @@
     name: 'roulette',
     data() {
       return {
+        dialog: false,
         currentLocation: {
           x: "",
           y: ""
@@ -553,6 +543,9 @@
             }
           }
         }
+      },
+      recommendedClick: function () {
+        Vue.set(this, 'dialog', true);
       }
     },
     created() {
@@ -565,7 +558,8 @@
     },
     components: {
       slotMachine,
-      vCustomForm
+      vCustomForm,
+
     },
   }
 </script>
