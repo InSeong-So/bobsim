@@ -94,13 +94,12 @@
           <div class="w3-panel w3-leftbar w3-light-grey">
             <p><i><strong>자신만의 리스트를 만들고 평점과 리뷰를 작성한 뒤 친구들과 공유하세요!</strong></i></p>
           </div>
-          <v-custom-form></v-custom-form>
+          <v-btn color='success' class='mr-4'>등록하기</v-btn>
         </div>
       </div>
 
       <hr/>
 
-      <!-- 4. 리뷰 -->
       <!-- 3. 등록 / 검증 -->
       <div class="w3-container" id="where" style="padding-bottom:32px;">
         <div class="w3-content" style="max-width:700px">
@@ -116,12 +115,58 @@
         </div>
       </div>
 
-      <div class="w3-container" id="contact" style="padding-bottom:32px;">
+      <div class="w3-container mb-3" id="contact" style="padding-bottom:32px;">
         <div class="w3-content" style="max-width:700px">
           <h5 class="w3-center w3-padding-48"><span class="w3-tag w3-wide">CONTACT TO THIS</span></h5>
+          <p>Find us at some address at some place.</p>
+          <p><span class="w3-tag">FYI!</span> We offer full-service catering for any event, large or small. We
+            understand your needs and we will cater the food to satisfy the biggerst criteria of them all, both look
+            and taste.</p>
+          <p><strong>Reserve</strong> a table, ask for today's special or just send us a message:</p>
+          <form action="/action_page.php" target="_blank">
+            <div class="w3-col s6">
+              <input class="w3-input w3-padding-16 w3-border" type="text" placeholder="Name" required name="Name">
+            </div>
+            <div class="w3-col s6">
+              <input class="w3-input w3-padding-16 w3-border" type="number" placeholder="How many people" required
+                     name="People">
+            </div>
+            <p><input class="w3-input w3-padding-16 w3-border" type="text"
+                      placeholder="Message \ Special requirements" required name="Message"></p>
+            <p>
+              <button class="w3-button w3-black" type="submit">SEND MESSAGE</button>
+            </p>
+          </form>
         </div>
       </div>
       <!-- End page content -->
+      <v-footer
+        dark
+        height="auto"
+      >
+        <v-card
+          flat
+          tile
+          class="white--text text-xs-center"
+          style="width:100%"
+        >
+          <v-card-text>
+            <v-btn
+              v-for="icon in icons"
+              :key="icon"
+              class="mx-3 white--text"
+              icon
+            >
+              <v-icon size="24px">{{ icon }}</v-icon>
+            </v-btn>
+          </v-card-text>
+
+          <v-card-text class="white--text">
+            &copy;2018 — <strong>Vuetify</strong>
+          </v-card-text>
+        </v-card>
+      </v-footer>
+
     </div>
   </v-app>
 </template>
@@ -436,6 +481,11 @@
     data() {
       return {
         dialog: false,
+        icons: [
+          'fab fa-github',
+          'fab fa-google-plus',
+          'fab fa-linkedin',
+        ],
         currentLocation: {
           x: "",
           y: ""
