@@ -49,12 +49,12 @@
   </v-app>
 </template>
 <script>
-  import $ from '../../static/js/jquery-3.4.1.min';
+  import $ from '../../../static/js/jquery-3.4.1.min';
 
   import Vue from "vue";
-  import router from "../router";
-  import App from "../App";
-  import Vuetify from '../../static/js/vuetify-v1.5.14.min';
+  import router from "../../router";
+  import App from "../../App";
+  import Vuetify from '../../../static/js/vuetify-v1.5.14.min';
 
   Vue.use(Vuetify);
 

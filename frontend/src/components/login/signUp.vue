@@ -1,71 +1,77 @@
 <template>
-  <v-app>
-    <v-layout justify-space-around>
-      <v-flex xs5>
-        <v-card>
-          <v-img
-            src="../../../static/images/signup.jpg"
-            height="150px"
-          >
-          </v-img>
+  <div style="height: 100vh;">
+    <v-app class="w3-sand">
+      <v-layout justify-space-around>
+        <v-flex xs5>
+          <v-card>
+            <v-img
+              src="../../../static/images/signup.jpg"
+              height="150px"
+            >
+            </v-img>
 
-          <v-card-title primary-title>
-            <div class="col-12">
-              <div class="headline">이메일로 회원가입하기</div>
-              <span class="grey--text">SNS로 회원가입하기
-                <v-btn icon @click="show = !show">
+            <v-card-title primary-title>
+              <div class="col-12">
+                <div class="headline">이메일로 회원가입하기</div>
+                <span class="grey--text" @click="show = !show" style="cursor: pointer;">SNS로 회원가입하기
+                <v-btn icon>
                   <v-icon>{{ show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
                 </v-btn>
               </span>
-              <v-card-text v-show="show">
-                <img src="../../../static/images/icons/kakao/ko/kakao_login_medium_wide.png" width="300" height="45"/>
-                <img src="../../../static/images/icons/naver/naver.png" height="45"/>
-              </v-card-text>
+                <v-card-text v-show="show">
+                  <div class="snsLoginSection">
+                    <ul class="snsLogin">
+                      <li><a href="#" class="sns_naver_icon">네이버 로그인</a></li>
+                      <li><a href="#" class="sns_kakao_icon">카카오 로그인</a></li>
+                    </ul>
+                  </div>
+                </v-card-text>
+              </div>
+            </v-card-title>
+            <v-card-actions>
+              <div class="col-12" v-show="!show">
+                <v-text-field
+                  v-model="regEmail"
+                  :counter="10"
+                  label="이메일 주소"
+                  required
+                ></v-text-field>
+                <v-text-field
+                  v-model="regName"
+                  :counter="10"
+                  label="닉네임"
+                  required
+                ></v-text-field>
+                <v-text-field
+                  v-model="regPassword"
+                  :counter="10"
+                  label="비밀번호"
+                  required
+                ></v-text-field>
+                <v-text-field
+                  v-model="reRegPassword"
+                  :counter="10"
+                  label="비밀번호 확인"
+                  required
+                ></v-text-field>
+              </div>
+            </v-card-actions>
+            <div class="text-xs-center">
+              <div>
+                <v-btn color="primary" dark>가입하기
+                  <v-icon dark right>check_circle</v-icon>
+                </v-btn>
+                <v-btn dark @click="goHome">
+                  <v-icon dark left>remove_circle</v-icon>
+                  돌아가기
+                </v-btn>
+              </div>
             </div>
-          </v-card-title>
-          <v-card-actions>
-            <div class="col-12" v-show="!show">
-              <v-text-field
-                v-model="regEmail"
-                :counter="10"
-                label="이메일 주소"
-                required
-              ></v-text-field>
-              <v-text-field
-                v-model="regName"
-                :counter="10"
-                label="닉네임"
-                required
-              ></v-text-field>
-              <v-text-field
-                v-model="regPassword"
-                :counter="10"
-                label="비밀번호"
-                required
-              ></v-text-field>
-              <v-text-field
-                v-model="reRegPassword"
-                :counter="10"
-                label="비밀번호 확인"
-                required
-              ></v-text-field>
-            </div>
-          </v-card-actions>
-          <div class="text-xs-center">
-            <div>
-              <v-btn color="primary" dark>가입하기
-                <v-icon dark right>check_circle</v-icon>
-              </v-btn>
-              <v-btn dark>
-                <v-icon dark left>remove_circle</v-icon>
-                돌아가기
-              </v-btn>
-            </div>
-          </div>
-        </v-card>
-      </v-flex>
-    </v-layout>
-  </v-app>
+          </v-card>
+        </v-flex>
+      </v-layout>
+    </v-app>
+  </div>
 </template>
 <script>
   import $ from '../../../static/js/jquery-3.4.1.min';
@@ -90,6 +96,9 @@
       }
     },
     methods: {
+      goHome() {
+        this.$router.push('/');
+      },
       reRegPasswordCheck() {
         const regPassword = this.regPassword;
         const reRegPassword = this.reRegPassword;
@@ -291,4 +300,77 @@
   #app > div.application--wrap > div > div > div {
     margin-top: 15%;
   }
+
+  .snsLoginSection .snsLogin:after {
+    display: block;
+    clear: both;
+    content: "";
+  }
+
+  .snsLogin ul {
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+  }
+
+  .snsLoginSection .snsLogin {
+    display: inline-block;
+    overflow: hidden;
+    zoom: 1;
+    width: 100%
+  }
+
+  .snsLoginSection .snsLogin:after {
+    display: block;
+    clear: both;
+    content: ""
+  }
+
+  .snsLoginSection .snsLogin li {
+    display: block;
+    float: left;
+    zoom: 1;
+    position: relative;
+    margin-bottom: 6px;
+    width: 50%;
+    height: 38px;
+    box-sizing: border-box;
+    background-color: #fff
+  }
+
+  .snsLoginSection .snsLogin a {
+    display: block;
+    zoom: 1;
+    padding-left: 50px;
+    height: 38px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    color: #666;
+    font-size: 12px;
+    letter-spacing: -1px;
+    line-height: 34px;
+    text-decoration: none
+  }
+
+  .snsLoginSection .snsLogin .sns_naver_icon {
+    margin-right: 3px;
+    background-image: url("../../../static/images/icons/badge/icon_sns_naver_m.png");
+    background-position: 20px 12px;
+    background-repeat: no-repeat;
+  }
+
+  .snsLoginSection .snsLogin .sns_kakao_icon {
+    margin-right: 3px;
+    background-image: url("../../../static/images/icons/badge/icon_sns_kakao_m.png");
+    background-position: 17px 9px;
+    background-repeat: no-repeat;
+  }
+
+  ol, ul, li {
+    list-style: none;
+  }
+
+
 </style>

@@ -15,7 +15,7 @@
 
 
     <!-- Add a background color and large text to the whole page -->
-    <div class="w3-sand w3-grayscale w3-large">
+    <div class="w3-sand w3-large">
 
       <!-- About Container -->
       <!-- 1. 안내 -->
@@ -26,6 +26,7 @@
           <p>바쁜 일상 속 무엇을 먹을지 고민하다 시간이 지체되거나,</p>
           <p>의견을 통일하지 못해 구내식당을 이용하는 당신에게 맞춤 메뉴를 추천합니다!</p>
           <div class="w3-panel w3-leftbar w3-light-grey">
+            <p><strong>"어떤 가게를 가지?!"</strong></p>
             <p><i>"디저트? 저녁? 회식?" 원하는 시간별로, 식사별로 주변의 음식점과 메뉴를 확인하세요!</i></p>
           </div>
           <p><span class="w3-tag"><strong>회원이시라면</strong></span> : 자신만의 리스트 만들기; 리뷰와 평점으로 맞춤형 리스트 제공;</p>
@@ -94,51 +95,56 @@
           <div class="w3-panel w3-leftbar w3-light-grey">
             <p><i><strong>자신만의 리스트를 만들고 평점과 리뷰를 작성한 뒤 친구들과 공유하세요!</strong></i></p>
           </div>
-          <v-btn color='success' class='mr-4'>등록하기</v-btn>
         </div>
       </div>
 
       <hr/>
 
       <!-- 3. 등록 / 검증 -->
-      <div class="w3-container" id="where" style="padding-bottom:32px;">
+      <div class="w3-container" id="plan">
         <div class="w3-content" style="max-width:700px">
-          <h5 class="w3-center w3-padding-48"><span class="w3-tag w3-wide">WHERE TO FIND US</span></h5>
-          <div class="map_wrap">
-            <div id="map" style="width:100%;height:350px;">
-              <div class="hAddr" style="z-index:2">
-                <span class="title">지도중심기준 행정동 주소정보</span>
-                <span id="centerAddr"></span>
-              </div>
-            </div>
+
+          <h5 class="w3-center w3-padding-48"><span class="w3-tag w3-wide">PLANNING YOUR MEAL</span></h5>
+
+          <p>직장 동료, 학원 동기, 친구들과의 식사표를 만들어보세요!</p>
+          <div class="w3-panel w3-leftbar w3-light-grey">
+            <p><i><strong>이력을 남기거나, 정해진 기간의 식사표를 확인하고 최적의 맛집으로 안내해드립니다!</strong></i></p>
           </div>
         </div>
       </div>
 
-      <div class="w3-container mb-3" id="contact" style="padding-bottom:32px;">
+      <hr/>
+
+      <!-- 3. 등록 / 검증 -->
+      <div class="w3-container" id="diet">
         <div class="w3-content" style="max-width:700px">
-          <h5 class="w3-center w3-padding-48"><span class="w3-tag w3-wide">CONTACT TO THIS</span></h5>
-          <p>Find us at some address at some place.</p>
-          <p><span class="w3-tag">FYI!</span> We offer full-service catering for any event, large or small. We
-            understand your needs and we will cater the food to satisfy the biggerst criteria of them all, both look
-            and taste.</p>
-          <p><strong>Reserve</strong> a table, ask for today's special or just send us a message:</p>
-          <form action="/action_page.php" target="_blank">
-            <div class="w3-col s6">
-              <input class="w3-input w3-padding-16 w3-border" type="text" placeholder="Name" required name="Name">
-            </div>
-            <div class="w3-col s6">
-              <input class="w3-input w3-padding-16 w3-border" type="number" placeholder="How many people" required
-                     name="People">
-            </div>
-            <p><input class="w3-input w3-padding-16 w3-border" type="text"
-                      placeholder="Message \ Special requirements" required name="Message"></p>
-            <p>
-              <button class="w3-button w3-black" type="submit">SEND MESSAGE</button>
-            </p>
-          </form>
+
+          <h5 class="w3-center w3-padding-48"><span class="w3-tag w3-wide">TO DIET!</span></h5>
+
+          <p>운동량이 부족해서 살이 찌거나, 건강이 나빠진다면?</p>
+          <p>밥심이 추천하는 다이어트 식단표를 참고하세요!</p>
+          <div class="w3-panel w3-leftbar w3-light-grey">
+            <p><i><strong>칼로리와 영양소를 챙겨줍니다!</strong></i></p>
+          </div>
         </div>
       </div>
+
+      <hr/>
+
+      <!-- 3. 등록 / 검증 -->
+      <!--      <div class="w3-container" id="where" style="padding-bottom:32px;">-->
+      <!--        <div class="w3-content" style="max-width:700px">-->
+      <!--          <h5 class="w3-center w3-padding-48"><span class="w3-tag w3-wide">WHERE TO FIND US</span></h5>-->
+      <!--          <div class="map_wrap">-->
+      <!--            <div id="map" style="width:100%;height:350px;">-->
+      <!--              <div class="hAddr" style="z-index:2">-->
+      <!--                <span class="title">지도중심기준 행정동 주소정보</span>-->
+      <!--                <span id="centerAddr"></span>-->
+      <!--              </div>-->
+      <!--            </div>-->
+      <!--          </div>-->
+      <!--        </div>-->
+      <!--      </div>-->
       <!-- End page content -->
       <v-footer
         dark
@@ -604,7 +610,7 @@
       // });
     },
     mounted() {
-      this.setMap();
+      // this.setMap();
     },
     components: {
       slotMachine,
