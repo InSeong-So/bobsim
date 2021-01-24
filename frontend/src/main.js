@@ -5,6 +5,8 @@ import router from './router'
 import Axios from './common/parangHttps'
 /* auth */
 import store from './store'
+/* components */
+// import bobsimComponent from './common/components'
 
 /* default */
 Vue.config.productionTip = false;
@@ -13,6 +15,10 @@ Vue.config.productionTip = false;
 /* axios */
 Vue.prototype.$http = Axios;
 /* axios */
+
+/* components */
+// Vue.component(bobsimComponent.name, bobsimComponent)
+/* components */
 
 /* custom javascript */
 Array.prototype.shuffle = function () {

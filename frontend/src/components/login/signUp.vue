@@ -84,7 +84,7 @@
   Vue.use(Vuetify);
 
   export default {
-    name: 'login',
+    name: 'signUp',
     data() {
       return {
         //
