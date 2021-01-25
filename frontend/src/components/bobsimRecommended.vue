@@ -1,27 +1,92 @@
 <template>
   <div class="w3-sand w3-large">
-    <div class="w3-container">
+    <div class="w3-container" id="recommended">
       <div class="w3-content" style="max-width:700px">
-        <h5 class="w3-center w3-padding-64"><span class="w3-tag w3-wide">ABOUT : THE BOBSIM!</span></h5>
-        <roulette ref="slot-machine" :currentLocation="currentLocation"></roulette>
+        <h5 class="w3-center w3-padding-48"><span class="w3-tag w3-wide">THE RECOMMENDED</span></h5>
+        <div class="w3-row w3-center w3-card w3-padding">
+          <div class="w3-col s2 tabLink">
+            <v-btn color="primary" dark @click="recommendedSet('아침')">아침</v-btn>
+          </div>
+          <div class="w3-col s2 tabLink">
+            <v-btn color="primary" dark @click="recommendedSet('점심')">점심</v-btn>
+          </div>
+          <div class="w3-col s2 tabLink">
+            <v-btn color="primary" dark @click="recommendedSet('저녁')">저녁</v-btn>
+          </div>
+          <div class="w3-col s2 tabLink">
+            <v-btn color="primary" dark @click="recommendedSet('디저트')">디저트</v-btn>
+          </div>
+          <div class="w3-col s2 tabLink">
+            <v-btn color="primary" dark @click="recommendedSet('야식')">야식</v-btn>
+          </div>
+          <div class="w3-col s2 tabLink">
+            <v-btn color="primary" dark @click="recommendedSet('술')">술</v-btn>
+          </div>
+        </div>
       </div>
     </div>
 
     <hr/>
 
-    <div class="w3-container" style="padding-bottom:32px;">
-      <div class="w3-content" style="max-width:700px">
-        <h5 class="w3-center w3-padding-48"><span class="w3-tag w3-wide">WHERE TO FIND US</span></h5>
-        <div class="map_wrap">
-          <div id="map" style="width:100%;height:350px;">
-            <div class="hAddr" style="z-index:2">
-              <span class="title">지도중심기준 행정동 주소정보</span>
-              <span id="centerAddr"></span>
-            </div>
+    <div class="w3-container" id="record">
+      <div class="w3-content" style="max-width:700px; min-height:600px;">
+        <h5 class="w3-center w3-padding-48"><span class="w3-tag w3-wide">SHARE OR RECORD YOUR RESTAURANT</span></h5>
+        <div class="w3-row ">
+          <div class="w3-col s4">
+            <roulette ref="slot-machine" :currentLocation="currentLocation"></roulette>
+          </div>
+          <div class="w3-col s6">
+            <v-btn
+              flat
+              @click="kakaoMapDialog = true"
+              outline color="indigo"
+            >
+              <v-icon left>exit_to_app</v-icon>
+              닫기
+            </v-btn>
           </div>
         </div>
+
+        <v-dialog v-model="kakaoMapDialog" persistent>
+          <v-card>
+            <v-card-title class="headline"></v-card-title>
+            <v-card-text>
+              <div class="row">
+                <div class="col-12">
+                  <div class="map_wrap">
+                    <div id="map" style="width:100%;height:300px;">
+                      <div class="hAddr" style="z-index:2">
+                        <span class="title">지도중심기준 행정동 주소정보</span>
+                        <span id="centerAddr"></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="green darken-1" flat @click="kakaoMapDialog = false">Disagree</v-btn>
+              <v-btn color="green darken-1" flat @click="kakaoMapDialog = false">Agree</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
       </div>
     </div>
+
+    <!--        <div class="w3-container" style="padding-bottom:32px;">-->
+    <!--          <div class="w3-content" style="max-width:700px">-->
+    <!--            <h5 class="w3-center w3-padding-48"><span class="w3-tag w3-wide">WHERE TO FIND US</span></h5>-->
+    <!--            <div class="map_wrap">-->
+    <!--              <div id="map" style="width:100%;height:350px;">-->
+    <!--                <div class="hAddr" style="z-index:2">-->
+    <!--                  <span class="title">지도중심기준 행정동 주소정보</span>-->
+    <!--                  <span id="centerAddr"></span>-->
+    <!--                </div>-->
+    <!--              </div>-->
+    <!--            </div>-->
+    <!--          </div>-->
+    <!--        </div>-->
   </div>
 </template>
 <script>
@@ -31,6 +96,7 @@ export default {
   name: 'bobsimRecommended',
   data() {
     return {
+      kakaoMapDialog: false,
       icons: [
         'fab fa-github',
         'fab fa-google-plus',
@@ -144,6 +210,11 @@ export default {
         }
       }
     },
+    recommendedSet(time) {
+      switch (time) {
+
+      }
+    }
   },
   created() {
     // this.$http.getAuthToken().then(resolve => {

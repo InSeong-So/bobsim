@@ -1,13 +1,11 @@
 <template>
-  <div class='w3-container' id='recommend' style='padding-bottom:32px;'>
-    <div class='w3-content text-center slot-machine' style='max-width:700px'>
-      <div class='slot' v-for='slot in slots' ref='slots' @click='start'>
-        <h2 style='color:#d1e3ff;'>{{ slot.title }}</h2>
-        <div class='slot__window'>
-          <div class='slot__wrap'>
-            <div class='slot__item' v-for='opt in slot.items'>{{ opt }}</div>
-            <div class='slot__item slot__item--copy'>{{ slot.items[0] }}</div>
-          </div>
+  <div class="row">
+    <div class='slot col-12' v-for='slot in slots' ref='slots' @click='start'>
+      <h2 style='color:grey;'>{{ slot.title }}</h2>
+      <div class='slot__window'>
+        <div class='slot__wrap'>
+          <div class='slot__item' v-for='opt in slot.items'>{{ opt }}</div>
+          <div class='slot__item slot__item--copy'>{{ slot.items[0] }}</div>
         </div>
       </div>
     </div>

@@ -79,7 +79,7 @@
         </div>
       </div>
 
-      <header class="bgimg w3-display-container w3-grayscale-min">
+      <div class="bgimg w3-display-container w3-grayscale-min">
         <div class="w3-display-bottomleft w3-center w3-padding-large w3-hide-small">
           <span class="w3-tag">Copyright hyunparang. All rights reserved.</span>
         </div>
@@ -89,15 +89,16 @@
         <div class="w3-display-bottomright w3-center w3-padding-large">
           <span class="w3-text-white">소곤소곤 프로젝트</span>
         </div>
-      </header>
+      </div>
 
       <router-view/>
 
-      <hr/>
+      <br/>
 
       <v-footer
         dark
         height="auto"
+        class="mt-5"
       >
         <v-card
           flat
@@ -117,7 +118,7 @@
           </v-card-text>
 
           <v-card-text class="white--text">
-            &copy;2018 — <strong>Vuetify</strong>
+            &copy;2021 — <strong>bobsim, hyunparang</strong>
           </v-card-text>
         </v-card>
       </v-footer>
@@ -132,6 +133,7 @@ export default {
   name: 'App',
   data() {
     return {
+      currentMenu: "",
       loginDialog: false,
       valid: true,
       name: '',
@@ -159,12 +161,14 @@ export default {
       $(this.$refs["tabLink01"]).siblings()
         .removeClass('on');
       this.$router.push('/');
+      Vue.set(this, "currentMenu", "");
     },
     bobsimRecommended() {
       $(this.$refs["tabLink02"]).addClass('on')
         .siblings()
         .removeClass('on');
       this.$router.push('/recommended');
+      Vue.set(this, "currentMenu", "recommended");
     },
     bobsimMypage(open) {
       if (open) {
@@ -192,7 +196,7 @@ export default {
   background-position: center;
   background-size: cover;
   background-image: url("../static/images/platter-2009590_1920.jpg");
-  min-height: 20%;
+  min-height: 30%;
 }
 
 .material-icons {
