@@ -84,7 +84,7 @@
 
 - DataBase
   - MariaDB(MySQL)
-  - NoSQL *차용대기*
+  - NoSQL
 
 <hr>
 <br>
