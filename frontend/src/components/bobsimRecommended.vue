@@ -29,21 +29,47 @@
     <hr/>
 
     <div class="w3-container" id="record">
-      <div class="w3-content" style="max-width:700px; min-height:600px;">
+      <div class="w3-content" style="max-width:900px; min-height:600px;">
         <h5 class="w3-center w3-padding-48"><span class="w3-tag w3-wide">SHARE OR RECORD YOUR RESTAURANT</span></h5>
         <div class="w3-row ">
-          <div class="w3-col s4">
-            <roulette ref="slot-machine" :currentLocation="currentLocation"></roulette>
+          <div class="w3-col s6">
+            <roulette ref="slot-machine" :currentLocation="currentLocation"
+                      @getPickRestaurantNm="getPickRestaurantNm"></roulette>
           </div>
           <div class="w3-col s6">
-            <v-btn
-              flat
-              @click="kakaoMapDialog = true"
-              outline color="indigo"
-            >
-              <v-icon left>exit_to_app</v-icon>
-              닫기
-            </v-btn>
+            <v-form>
+              <v-container>
+                <v-layout row wrap>
+
+                  <v-flex xs12 sm12>
+                    <v-text-field
+                      v-model="restaurantNm"
+                      label="Box"
+                      box
+                      readonly
+                    ></v-text-field>
+                  </v-flex>
+
+                  <v-flex xs12 sm12>
+                    <v-text-field
+                      v-model="restaurantAddress"
+                      label="Box"
+                      box
+                      readonly
+                    ></v-text-field>
+                  </v-flex>
+                  <v-btn
+                    block
+                    flat
+                    @click="kakaoMapDialog = true"
+                    outline color="indigo"
+                  >
+                    <v-icon left>exit_to_app</v-icon>
+                    음식점까지 길찾기
+                  </v-btn>
+                </v-layout>
+              </v-container>
+            </v-form>
           </div>
         </div>
 
@@ -96,6 +122,8 @@ export default {
   name: 'bobsimRecommended',
   data() {
     return {
+      restaurantNm: "",
+      restaurantAddress: "",
       kakaoMapDialog: false,
       icons: [
         'fab fa-github',
@@ -214,6 +242,10 @@ export default {
       switch (time) {
 
       }
+    }
+    ,
+    getPickRestaurantNm(restaurantNm) {
+      Vue.set(this, "restaurantNm", restaurantNm);
     }
   },
   created() {

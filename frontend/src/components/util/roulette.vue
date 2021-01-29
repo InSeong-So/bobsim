@@ -28,6 +28,10 @@ export default {
   ],
   data: function () {
     return {
+      pickData: {
+        category: "",
+        restaurantNm: ""
+      },
       loadData: {
         restaurantList: []
       },
@@ -109,11 +113,13 @@ export default {
 
         if (i == 0) {
           Vue.set(data.items, choice_view, item[choice_origin].category);
+          Vue.set(this.pickData, "category", item[choice_origin].category);
         } else {
           Vue.set(data.items, choice_view, item[choice_origin].restaurantNm);
+          Vue.set(this.pickData, "restaurantNm", item[choice_origin].restaurantNm);
         }
 
-// console.log("choice", i, item[choice_origin].restaurantNm)
+        // console.log("choice", i, item[choice_origin].restaurantNm)
 
         const opts = {
           el: slot.querySelector('.slot__wrap'),
@@ -150,6 +156,7 @@ export default {
 
         if (timeDiff > opt.duration) {
           // console.log('finished', opt, pos, opt.finalPos)
+          this.$emit("getPickRestaurantNm", this.pickData.restaurantNm);
           opt.isFinished = true
         }
       })

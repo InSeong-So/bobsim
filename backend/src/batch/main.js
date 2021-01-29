@@ -40,11 +40,13 @@ batchCrawling((searchKeyword) => {
                         .each(function (index, elem) {
                             const aText = $(this).find("a").text().trim().replace(/(?:\t|\n|\s|\r|\r\n)/gi, "");
                             const pText = $(this).find("p").text().replace(/(?:\t|\n|[0-9]|,)/gi, "").trim();
+                            const imgText = $(this).find("img").attr("alt");
                             const pArray = pText.split("-");
                             const pArraySplit = pArray[0].split(" ");
                             if (aText && pText) {
                                 let loopJson = [];
                                 loopJson.push(pArraySplit[1].trim() == "" ? locale : pArraySplit[0].trim());
+                                console.log(imgText); // 주소
                                 loopJson.push(pArraySplit[1].trim() == "" ? pArraySplit[0].trim() : pArraySplit[1].trim());
                                 loopJson.push(aText);
                                 loopJson.push(pArray[1].trim());
@@ -58,7 +60,8 @@ batchCrawling((searchKeyword) => {
                 }
             })
         );
-        writeJsonFile(restaurantInfo);
+        console.log("완료");
+        // writeJsonFile(restaurantInfo);
     });
 });
 
