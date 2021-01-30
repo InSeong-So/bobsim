@@ -2,7 +2,6 @@ const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
-const logger = require('morgan');
 const historyFallback = require('connect-history-api-fallback');
 const mysql = require('mysql');
 const dbConnection = require('./src/database/config/connectionConfig');
@@ -14,9 +13,11 @@ const cors = require('cors');
 // npm module
 const app = express();
 const connection = mysql.createConnection(dbConnection);
+const morgan = require('morgan')
 // sis module
 const {getCurrentAddress} = require("./src/util/axiosModule");
 const {sisEncrypts} = require("./src/util/cryptoModule");
+const logger = require('./src/log/logger');
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -25,9 +26,17 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(express.static('public'));
 app.use(cookieParser());
-app.use(logger('dev'));
 app.use(historyFallback());
 app.use(cors());
+app.use(
+    morgan('dev'),
+    morgan('combined', {
+        skip: function (req, res) {
+            return res.statusCode < 400
+        }, // http return 이 에러일때만 출력
+        stream: logger.stream // logger에서 morgan의 stream 을 받도록 추가
+    })
+)
 
 app.route('/').get((req, res) => {
     res.render('index') // index.html render
@@ -53,7 +62,8 @@ app.route('/rouletteInit')
                             for (let i in rows) {
                                 const temp = {
                                     category: rows[i]['category'],
-                                    restaurantNm: rows[i]['restaurantNm']
+                                    restaurantNm: rows[i]['restaurantNm'],
+                                    address: rows[i]['address']
                                 };
                                 codes.push(temp);
                             }
@@ -120,8 +130,7 @@ app.route('/login')
                             res.send(result);
                         }
 
-                        if(row.length > 0)
-                        {
+                        if (row.length > 0) {
                             result.detail = row;
                             //
                             res.send(result);
