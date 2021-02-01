@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <v-app>
-      <div class="w3-top">
+      <div class="w3-top" v-if="topNav">
         <div class="w3-row w3-padding w3-black">
           <div class="w3-col s4" @click="bobsimHome" ref="tabLink01">
             <a href="#" class="w3-button w3-block w3-black">HOME</a>
@@ -13,7 +13,7 @@
             <a href="#" class="w3-button w3-block w3-black">MY PAGE</a>
             <v-dialog v-model="loginDialog" persistent style="background-color:#fdf5e6 !important">
               <v-card>
-                <v-card-title class="headline"></v-card-title>
+                <v-card-title class="headline text-center">BOBSIM</v-card-title>
                 <v-card-text>
                   <v-form
                     ref="form"
@@ -79,7 +79,7 @@
         </div>
       </div>
 
-      <div class="bgimg w3-display-container w3-grayscale-min">
+      <div v-if="topNav" class="bgimg w3-display-container w3-grayscale-min">
         <div class="w3-display-bottomleft w3-center w3-padding-large w3-hide-small">
           <span class="w3-tag">Copyright hyunparang. All rights reserved.</span>
         </div>
@@ -96,6 +96,7 @@
       <br/>
 
       <v-footer
+        v-if="topNav"
         dark
         height="auto"
         class="mt-5"
@@ -128,11 +129,15 @@
 
 <script>
 import Vue from "vue";
+import loadingComponent from '@/components/util/loading'
+
+Vue.component('loadingComponent', loadingComponent)
 
 export default {
   name: 'App',
   data() {
     return {
+      topNav: true,
       currentMenu: "",
       loginDialog: false,
       valid: true,
@@ -154,6 +159,7 @@ export default {
         'fab fa-google-plus',
         'fab fa-linkedin',
       ],
+      progressDialog: false
     }
   },
   methods: {
@@ -161,6 +167,7 @@ export default {
       $(this.$refs["tabLink01"]).siblings()
         .removeClass('on');
       this.$router.push('/');
+      this.$router.push({name: 'bobsimHome', params: {}});
       Vue.set(this, "currentMenu", "");
     },
     bobsimRecommended() {
@@ -168,6 +175,7 @@ export default {
         .siblings()
         .removeClass('on');
       this.$router.push('/recommended');
+      // this.$router.push({name: 'bobsimRecommended', params: {}});
       Vue.set(this, "currentMenu", "recommended");
     },
     bobsimMypage(open) {
@@ -182,8 +190,12 @@ export default {
       this.loginDialog = open;
     },
     bobsimSignUp() {
+      this.loginDialog = false;
+      this.topNav = false;
       this.$router.push('/signUp');
     },
+  },
+  mounted() {
   }
 }
 </script>

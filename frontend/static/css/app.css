@@ -10,7 +10,7 @@
 }
 
 body, html {
-  height:100%;
+  height: 100%;
   margin: 0;
   padding: 0;
   background: #232323;
@@ -29,61 +29,31 @@ a:active, a:focus {
 /* } */
 
 /* roulette { */
-.slot-machine {
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eeeeee', endColorstr='#cccccc', GradientType=0);
-  width: 100%;
-  margin: 10px auto;
-  padding: 20px;
-  height: 200px;
-}
 
 .slot .slot__window, .slot__wrap .slot__item {
   display: inline-block;
 }
 
-.slot:first-child {
-  width: 50%;
-  height: 156px;
-  margin: 10px 0px;
-  padding: 0 20px;
-  float: left;
-}
-
-.slot:last-child {
-  width: 50%;
-  height: 156px;
-  margin: 10px 0px;
-  padding: 0 20px;
+.slot {
+  margin: 0.4em;
   float: left;
 }
 
 .slot__window {
   text-align: center;
-  float: left;
   padding: 0 10px;
   width: 100%;
-  height: 100px;
+  height: 70px;
   overflow: hidden;
-  margin: 5px;
 }
 
 .slot__item {
-  /*background: #000;*/
-  /*background-image: -moz-linear-gradient(top, rgba(199, 233, 255, 1) 0%, rgba(185, 219, 241, 1) 50%, rgba(169, 203, 225, 1) 51%, rgba(246, 246, 246, 1) 100%);*/
-  /*background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(199, 233, 255, 1)), color-stop(50%, rgba(185, 219, 241, 1)), color-stop(51%, rgba(169, 203, 225, 1)), color-stop(100%, rgba(246, 246, 246, 1)));*/
-  /*background: -webkit-linear-gradient(top, rgba(199, 233, 255, 1) 0%, rgba(185, 219, 241, 1) 50%, rgba(169, 203, 225, 1) 51%, rgba(246, 246, 246, 1) 100%);*/
-  /*background: -o-linear-gradient(top, rgba(199, 233, 255, 1) 0%, rgba(185, 219, 241, 1) 50%, rgba(169, 203, 225, 1) 51%, rgba(246, 246, 246, 1) 100%);*/
-  /*background: -ms-linear-gradient(top, rgba(199, 233, 255, 1) 0%, rgba(185, 219, 241, 1) 50%, rgba(169, 203, 225, 1) 51%, rgba(246, 246, 246, 1) 100%);*/
-  /*background: linear-gradient(top, rgba(199, 233, 255, 1) 0%, rgba(185, 219, 241, 1) 50%, rgba(169, 203, 225, 1) 51%, rgba(246, 246, 246, 1) 100%);*/
-  /*filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f6f6f6', GradientType=0);*/
-  margin-top: 10px;
-  height: 80px;
+  height: 70px;
   width: 100%;
-  /*border-radius: 20px;*/
   text-align: center;
   color: black;
   font-weight: bold;
-  line-height: 80px;
+  line-height: 70px;
 }
 
 /* } roulette */

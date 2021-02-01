@@ -9,6 +9,20 @@ export default {
       params: param
     })
   },
+  getKakaoMapToKeyword(param) {
+    return Send({
+      url: '/keyword',
+      method: 'post',
+      params: param
+    })
+  },
+  getKakaoMapToAddress(param) {
+    return Send({
+      url: '/address',
+      method: 'post',
+      params: param
+    })
+  },
   setAuthRegistration(param) {
     return Send({
       url: '/registration',

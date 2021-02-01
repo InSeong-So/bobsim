@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class='slot col-12' v-for='slot in slots' ref='slots' @click='start'>
-      <h2 style='color:grey;'>{{ slot.title }}</h2>
+      <h3 style='color:grey;'>{{ slot.title }}</h3>
       <div class='slot__window'>
         <div class='slot__wrap'>
           <div class='slot__item' v-for='opt in slot.items'>{{ opt }}</div>
@@ -68,7 +68,7 @@ export default {
     }
   },
   watch: {
-    // 접속 위치 동적으로 할당기받
+    // 접속 위치 동적으로 할당받기
     currentLocation: function (val) {
       if (this.componentData.currentLocation.x) {
         return;
@@ -117,15 +117,17 @@ export default {
         } else {
           Vue.set(data.items, choice_view, item[choice_origin].restaurantNm);
           Vue.set(this.pickData, "restaurantNm", item[choice_origin].restaurantNm);
+          Vue.set(this.pickData, "address", item[choice_origin].address);
         }
+
 
         // console.log("choice", i, item[choice_origin].restaurantNm)
 
         const opts = {
           el: slot.querySelector('.slot__wrap'),
-          finalPos: choice_view * 90,
+          finalPos: choice_view * 70,
           startOffset: 2000 + Math.random() * 500 + i * 500,
-          height: data.items.length * 90,
+          height: data.items.length * 70,
           duration: 3000 + i * 700, // milliseconds
           isFinished: false,
         }
@@ -156,7 +158,10 @@ export default {
 
         if (timeDiff > opt.duration) {
           // console.log('finished', opt, pos, opt.finalPos)
-          this.$emit("getPickRestaurantNm", this.pickData.restaurantNm);
+          this.$emit("getPickRestaurantNm", {
+            restaurantNm: this.pickData.restaurantNm,
+            address: this.pickData.address,
+          });
           opt.isFinished = true
         }
       })

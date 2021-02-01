@@ -5,7 +5,7 @@
         <h5 class="w3-center w3-padding-48"><span class="w3-tag w3-wide">THE RECOMMENDED</span></h5>
         <div class="w3-row w3-center w3-card w3-padding">
           <div class="w3-col s2 tabLink">
-            <v-btn color="primary" dark @click="recommendedSet('아침')">아침</v-btn>
+            <v-btn color="primary" dark @click="v_clickTest(false)">아침</v-btn>
           </div>
           <div class="w3-col s2 tabLink">
             <v-btn color="primary" dark @click="recommendedSet('점심')">점심</v-btn>
@@ -28,6 +28,77 @@
 
     <hr/>
 
+<!--    <div class="w3-container" id="test2222">-->
+<!--      <div class="w3-content" style="max-width:700px">-->
+<!--        <div class="layout justify-center">-->
+<!--          <div class="flex sm12">-->
+<!--            <nav class="v-toolbar theme&#45;&#45;dark indigo" data-booted="true"-->
+<!--                 style="margin-top: 0px; padding-right: 0px; padding-left: 0px; transform: translateY(0px);">-->
+<!--              <div class="v-toolbar__content" style="height: 64px;">-->
+<!--                <button type="button" class="v-toolbar__side-icon v-btn v-btn&#45;&#45;icon theme&#45;&#45;dark">-->
+<!--                  <div class="v-btn__content">-->
+<!--                    <i aria-hidden="true" class="v-icon material-icons theme&#45;&#45;dark">menu</i>-->
+<!--                  </div>-->
+<!--                </button>-->
+<!--                <div class="v-toolbar__title">Discover</div>-->
+<!--                <div class="spacer"></div>-->
+<!--                <button type="button" class="v-btn v-btn&#45;&#45;icon theme&#45;&#45;dark">-->
+<!--                  <div class="v-btn__content">-->
+<!--                    <i aria-hidden="true" class="v-icon material-icons theme&#45;&#45;dark">search</i>-->
+<!--                  </div>-->
+<!--                </button>-->
+<!--              </div>-->
+<!--            </nav>-->
+<!--            <div class="v-card v-sheet theme&#45;&#45;light">-->
+<!--              <div class="container fluid grid-list-md">-->
+<!--                <div class="layout row wrap">-->
+<!--                  <div class="flex xs12">-->
+<!--                    <div class="v-card v-sheet theme&#45;&#45;light">-->
+<!--                      <div class="v-responsive v-image" style="height: 200px;">-->
+<!--                        <div class="v-responsive__sizer" style="padding-bottom: 75%;"></div>-->
+<!--                        <div class="v-image__image v-image__image&#45;&#45;cover"-->
+<!--                             style="background-position: center center;">-->
+<!--                        </div>-->
+<!--                        <div class="v-responsive__content">-->
+<!--                          <div class="container fill-height fluid pa-2">-->
+<!--                            <div class="layout fill-height">-->
+<!--                              <div class="flex xs12 align-end flexbox">-->
+<!--                                <span class="headline white&#45;&#45;text">Pre-fab homes</span>-->
+<!--                              </div>-->
+<!--                            </div>-->
+<!--                          </div>-->
+<!--                        </div>-->
+<!--                      </div>-->
+<!--                      <div class="v-card__actions">-->
+<!--                        <div class="spacer"></div>-->
+<!--                        <button type="button" class="v-btn v-btn&#45;&#45;icon theme&#45;&#45;light">-->
+<!--                          <div class="v-btn__content">-->
+<!--                            <i aria-hidden="true" class="v-icon material-icons theme&#45;&#45;light">favorite</i>-->
+<!--                          </div>-->
+<!--                        </button>-->
+<!--                        <button type="button" class="v-btn v-btn&#45;&#45;icon theme&#45;&#45;light">-->
+<!--                          <div class="v-btn__content">-->
+<!--                            <i aria-hidden="true" class="v-icon material-icons theme&#45;&#45;light">bookmark</i>-->
+<!--                          </div>-->
+<!--                        </button>-->
+<!--                        <button type="button" class="v-btn v-btn&#45;&#45;icon theme&#45;&#45;light">-->
+<!--                          <div class="v-btn__content">-->
+<!--                            <i aria-hidden="true" class="v-icon material-icons theme&#45;&#45;light">share</i>-->
+<!--                          </div>-->
+<!--                        </button>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+
+    <hr/>
+
     <div class="w3-container" id="record">
       <div class="w3-content" style="max-width:900px; min-height:600px;">
         <h5 class="w3-center w3-padding-48"><span class="w3-tag w3-wide">SHARE OR RECORD YOUR RESTAURANT</span></h5>
@@ -44,7 +115,7 @@
                   <v-flex xs12 sm12>
                     <v-text-field
                       v-model="restaurantNm"
-                      label="Box"
+                      label="음식점"
                       box
                       readonly
                     ></v-text-field>
@@ -53,7 +124,7 @@
                   <v-flex xs12 sm12>
                     <v-text-field
                       v-model="restaurantAddress"
-                      label="Box"
+                      label="주소"
                       box
                       readonly
                     ></v-text-field>
@@ -61,70 +132,203 @@
                   <v-btn
                     block
                     flat
-                    @click="kakaoMapDialog = true"
+                    @click="getDirections"
                     outline color="indigo"
                   >
                     <v-icon left>exit_to_app</v-icon>
                     음식점까지 길찾기
                   </v-btn>
+                  <v-btn
+                    :disabled="progressDialog"
+                    :loading="progressDialog"
+                    class="white--text"
+                    color="purple darken-2"
+                    @click="v_clickTest(true)"
+                  >
+                    Start loading
+                  </v-btn>
+                  <loading-component :progressDialog="progressDialog"></loading-component>
+                  <!--                  <v-btn-->
+                  <!--                    :disabled="progressDialog"-->
+                  <!--                    :loading="progressDialog"-->
+                  <!--                    class="white&#45;&#45;text"-->
+                  <!--                    color="purple darken-2"-->
+                  <!--                    @click="progressDialog = true"-->
+                  <!--                  >-->
+                  <!--                    Start loading-->
+                  <!--                  </v-btn>-->
                 </v-layout>
               </v-container>
             </v-form>
           </div>
         </div>
 
-        <v-dialog v-model="kakaoMapDialog" persistent>
+        <v-dialog v-model="directionsDialog" fullscreen hide-overlay transition="dialog-bottom-transition">
           <v-card>
-            <v-card-title class="headline"></v-card-title>
-            <v-card-text>
-              <div class="row">
-                <div class="col-12">
+            <v-layout column fill-height>
+              <v-toolbar dark color="#343a40">
+                <v-btn icon dark @click="directionsDialog = false">
+                  <v-icon>close</v-icon>
+                </v-btn>
+                <v-toolbar-title>음식점까지 길찾기</v-toolbar-title>
+                <v-spacer></v-spacer>
+                <v-toolbar-items>
+                  <v-btn dark flat @click="directionsDialog = false">저장</v-btn>
+                </v-toolbar-items>
+              </v-toolbar>
+              <v-list three-line subheader>
+                <v-spacer></v-spacer>
+                <v-card-actions height="430">
                   <div class="map_wrap">
-                    <div id="map" style="width:100%;height:300px;">
+                    <div id="map" style="width:100%;height:100%;">
                       <div class="hAddr" style="z-index:2">
                         <span class="title">지도중심기준 행정동 주소정보</span>
                         <span id="centerAddr"></span>
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
-            </v-card-text>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="green darken-1" flat @click="kakaoMapDialog = false">Disagree</v-btn>
-              <v-btn color="green darken-1" flat @click="kakaoMapDialog = false">Agree</v-btn>
-            </v-card-actions>
+                  <!--                <v-card-actions>-->
+                  <!--                  <v-spacer></v-spacer>-->
+                  <!--                  <v-btn icon>-->
+                  <!--                    <v-icon>favorite</v-icon>-->
+                  <!--                  </v-btn>-->
+                  <!--                  <v-btn icon>-->
+                  <!--                    <v-icon>bookmark</v-icon>-->
+                  <!--                  </v-btn>-->
+                  <!--                  <v-btn icon>-->
+                  <!--                    <v-icon>share</v-icon>-->
+                  <!--                  </v-btn>-->
+                  <!--                </v-card-actions>-->
+                </v-card-actions>
+              </v-list>
+              <v-list two-line>
+                <v-list-tile @click="">
+                  <v-list-tile-action>
+                    <v-icon color="indigo">phone</v-icon>
+                  </v-list-tile-action>
+
+                  <v-list-tile-content>
+                    <v-list-tile-title>(650) 555-1234</v-list-tile-title>
+                    <v-list-tile-sub-title>Mobile</v-list-tile-sub-title>
+                  </v-list-tile-content>
+
+                  <v-list-tile-action>
+                    <v-icon>chat</v-icon>
+                  </v-list-tile-action>
+                </v-list-tile>
+
+                <v-list-tile @click="">
+                  <v-list-tile-action></v-list-tile-action>
+
+                  <v-list-tile-content>
+                    <v-list-tile-title>(323) 555-6789</v-list-tile-title>
+                    <v-list-tile-sub-title>Work</v-list-tile-sub-title>
+                  </v-list-tile-content>
+
+                  <v-list-tile-action>
+                    <v-icon>chat</v-icon>
+                  </v-list-tile-action>
+                </v-list-tile>
+
+                <v-divider inset></v-divider>
+
+                <v-list-tile @click="">
+                  <v-list-tile-action>
+                    <v-icon color="indigo">mail</v-icon>
+                  </v-list-tile-action>
+
+                  <v-list-tile-content>
+                    <v-list-tile-title>aliconnors@example.com</v-list-tile-title>
+                    <v-list-tile-sub-title>Personal</v-list-tile-sub-title>
+                  </v-list-tile-content>
+                </v-list-tile>
+
+                <v-list-tile @click="">
+                  <v-list-tile-action></v-list-tile-action>
+
+                  <v-list-tile-content>
+                    <v-list-tile-title>ali_connors@example.com</v-list-tile-title>
+                    <v-list-tile-sub-title>Work</v-list-tile-sub-title>
+                  </v-list-tile-content>
+                </v-list-tile>
+
+                <v-divider inset></v-divider>
+
+                <v-list-tile @click="">
+                  <v-list-tile-action>
+                    <v-icon color="indigo">location_on</v-icon>
+                  </v-list-tile-action>
+
+                  <v-list-tile-content>
+                    <v-list-tile-title>1400 Main Street</v-list-tile-title>
+                    <v-list-tile-sub-title>Orlando, FL 79938</v-list-tile-sub-title>
+                  </v-list-tile-content>
+                </v-list-tile>
+              </v-list>
+            </v-layout>
           </v-card>
         </v-dialog>
       </div>
     </div>
-
-    <!--        <div class="w3-container" style="padding-bottom:32px;">-->
-    <!--          <div class="w3-content" style="max-width:700px">-->
-    <!--            <h5 class="w3-center w3-padding-48"><span class="w3-tag w3-wide">WHERE TO FIND US</span></h5>-->
-    <!--            <div class="map_wrap">-->
-    <!--              <div id="map" style="width:100%;height:350px;">-->
-    <!--                <div class="hAddr" style="z-index:2">-->
-    <!--                  <span class="title">지도중심기준 행정동 주소정보</span>-->
-    <!--                  <span id="centerAddr"></span>-->
-    <!--                </div>-->
-    <!--              </div>-->
-    <!--            </div>-->
-    <!--          </div>-->
-    <!--        </div>-->
   </div>
 </template>
+<style>
+.map_wrap {
+  position: relative;
+  width: 100%;
+  height: 350px;
+}
+
+.title {
+  font-weight: bold;
+  display: block;
+}
+
+.hAddr {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  border-radius: 2px;
+  background: #fff;
+  background: rgba(255, 255, 255, 0.8);
+  z-index: 1;
+  padding: 5px;
+}
+
+#centerAddr {
+  display: block;
+  margin-top: 2px;
+  font-weight: normal;
+}
+
+.bAddr {
+  padding: 5px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+</style>
 <script>
 import roulette from '@/components/util/roulette.vue'
 
+function closeOverlay(evt) {
+  console.log(evt);
+}
+
 export default {
   name: 'bobsimRecommended',
+  // props: {
+  //   progressDialog: {
+  //     type: Boolean,
+  //     default: false
+  //   }
+  // },
   data() {
     return {
+      progressDialog: false,
       restaurantNm: "",
       restaurantAddress: "",
-      kakaoMapDialog: false,
+      directionsDialog: false,
       icons: [
         'fab fa-github',
         'fab fa-google-plus',
@@ -136,7 +340,7 @@ export default {
       },
       mapValue: {
         geoCoder: {}
-      }
+      },
     }
   },
   methods: {
@@ -160,11 +364,15 @@ export default {
     },
     // 카카오 지도 세팅
     setMap() {
-      this.getLocation().then(resolve => {
-        Vue.set(this, "currentLocation", resolve);
+      let params = new URLSearchParams();
+
+      params.append('address', this.restaurantAddress);
+
+      this.$http.getKakaoMapToAddress(params).then((response) => {
+        // Vue.set(this, "destinationLocation", response.data);
         const mapContainer = document.getElementById('map'), // 지도를 표시할 div
           mapOption = {
-            center: new kakao.maps.LatLng(resolve.y, resolve.x), // 지도의 중심좌표
+            center: new kakao.maps.LatLng(response.data.y, response.data.x), // 지도의 중심좌표
             level: 3 // 지도의 확대 레벨
           };
 
@@ -175,14 +383,6 @@ export default {
         // 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
         const mapTypeControl = new kakao.maps.MapTypeControl();
 
-        // 주소-좌표 변환 객체를 생성합니다
-        Vue.set(this.mapValue, "geoCoder", new kakao.maps.services.Geocoder());
-        const marker = new kakao.maps.Marker(); // 클릭한 위치를 표시할 마커입니다
-        const infowindow = new kakao.maps.InfoWindow({zindex: 1}); // 클릭한 위치에 대한 주소를 표시할 인포윈도우입니다
-
-        // 현재 지도 중심좌표로 주소를 검색해서 지도 좌측 상단에 표시합니다
-        this.searchAddrFromCoords(map.getCenter(), this.displayCenterInfo);
-
         // 지도에 컨트롤을 추가해야 지도위에 표시됩니다
         // kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
         map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
@@ -191,45 +391,107 @@ export default {
         const zoomControl = new kakao.maps.ZoomControl();
         map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 
-        const $vue = this;
+        // 마커가 표시될 위치입니다
+        const markerPosition = new kakao.maps.LatLng(response.data.y, response.data.x);
 
-        // 지도를 클릭했을 때 클릭 위치 좌표에 대한 주소정보를 표시하도록 이벤트를 등록합니다
-        kakao.maps.event.addListener(map, 'click', function (mouseEvent) {
-          $vue.searchDetailAddrFromCoords(mouseEvent.latLng, function (result, status) {
-            if (status === kakao.maps.services.Status.OK) {
-              var detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
-              detailAddr += '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
-
-              var content = '<div class="bAddr">' +
-                '<span class="title">법정동 주소정보</span>' +
-                detailAddr +
-                '</div>';
-
-              // 마커를 클릭한 위치에 표시합니다
-              marker.setPosition(mouseEvent.latLng);
-              marker.setMap(map);
-
-              // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
-              infowindow.setContent(content);
-              infowindow.open(map, marker);
-            }
-          });
+        // 마커를 생성합니다
+        const currentMarker = new kakao.maps.Marker({
+          map: map,
+          position: markerPosition
         });
+
+        const content =
+          '<div class="layout justify-center">' +
+          '  <div class="flex sm12">' +
+          '    <nav class="v-toolbar theme--dark indigo" data-booted="true"' +
+          '        style="margin-top: 0px; padding-right: 0px; padding-left: 0px; transform: translateY(0px);">' +
+          '        <div class="v-toolbar__content" style="height: 64px;"><button type="button"' +
+          '                class="v-toolbar__side-icon v-btn v-btn--icon theme--dark">' +
+          '                <div class="v-btn__content"><i aria-hidden="true" class="v-icon material-icons theme--dark">menu</i>' +
+          '                </div>' +
+          '            </button>' +
+          '            <div class="v-toolbar__title">Discover</div>' +
+          '            <div class="spacer"></div> <button type="button" class="v-btn v-btn--icon theme--dark">' +
+          '                <div class="v-btn__content"><i aria-hidden="true" class="v-icon material-icons theme--dark">search</i>' +
+          '                </div>' +
+          '            </button>' +
+          '        </div>' +
+          '    </nav>' +
+          '    <div class="v-card v-sheet theme--light">' +
+          '        <div class="container fluid grid-list-md">' +
+          '            <div class="layout row wrap">' +
+          '                <div class="flex xs12">' +
+          '                    <div class="v-card v-sheet theme--light">' +
+          '                        <div class="v-responsive v-image" style="height: 200px;">' +
+          '                            <div class="v-responsive__sizer" style="padding-bottom: 75%;"></div>' +
+          '                            <div class="v-image__image v-image__image--cover"' +
+          '                                style="background-position: center center;">' +
+          '                            </div>' +
+          '                            <div class="v-responsive__content">' +
+          '                                <div class="container fill-height fluid pa-2">' +
+          '                                    <div class="layout fill-height">' +
+          '                                        <div class="flex xs12 align-end flexbox"><span' +
+          '                                                class="headline white--text">Pre-fab homes</span></div>' +
+          '                                    </div>' +
+          '                                </div>' +
+          '                            </div>' +
+          '                        </div>' +
+          '                        <div class="v-card__actions">' +
+          '                            <div class="spacer"></div> <button type="button" class="v-btn v-btn--icon theme--light">' +
+          '                                <div class="v-btn__content"><i aria-hidden="true"' +
+          '                                        class="v-icon material-icons theme--light">favorite</i></div>' +
+          '                            </button> <button type="button" class="v-btn v-btn--icon theme--light">' +
+          '                                <div class="v-btn__content"><i aria-hidden="true"' +
+          '                                        class="v-icon material-icons theme--light">bookmark</i></div>' +
+          '                            </button> <button type="button" class="v-btn v-btn--icon theme--light">' +
+          '                                <div class="v-btn__content"><i aria-hidden="true"' +
+          '                                        class="v-icon material-icons theme--light">share</i></div>' +
+          '                            </button>' +
+          '                        </div>' +
+          '                    </div>' +
+          '                </div>' +
+          '            </div>' +
+          '        </div>' +
+          '    </div>' +
+          '  </div>' +
+          '</div>';
+
+        // 마커가 지도 위에 표시되도록 설정합니다
+        currentMarker.setMap(map);
+
+        // 마커 위에 커스텀오버레이를 표시합니다
+        // 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
+        const customOverlay = new kakao.maps.CustomOverlay({
+          content: content,
+          map: map,
+          position: currentMarker.getPosition()
+        });
+
+        // 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
+        kakao.maps.event.addListener(currentMarker, 'click', function () {
+          customOverlay.setMap(map);
+        });
+
+        // 주소-좌표 변환 객체를 생성합니다
+        Vue.set(this.mapValue, "geoCoder", new kakao.maps.services.Geocoder());
+
+        // 현재 지도 중심좌표로 주소를 검색해서 지도 좌측 상단에 표시합니다
+        this.searchAddrFromCoords(map.getCenter(), this.displayCenterInfo);
+
+        const $vue = this;
+      }).catch((err) => {
+        console.log(err);
       });
     },
     searchAddrFromCoords(coords, callback) {
       // 좌표로 행정동 주소 정보를 요청합니다
       this.mapValue.geoCoder.coord2RegionCode(coords.getLng(), coords.getLat(), callback);
     },
-    searchDetailAddrFromCoords(coords, callback) {
-      // 좌표로 법정동 상세 주소 정보를 요청합니다
-      this.mapValue.geoCoder.coord2Address(coords.getLng(), coords.getLat(), callback);
-    },
     displayCenterInfo(result, status) {
       if (status === kakao.maps.services.Status.OK) {
-        var infoDiv = document.getElementById('centerAddr');
+        const infoDiv = document.getElementById('centerAddr');
 
-        for (var i = 0; i < result.length; i++) {
+        for (let i = 0; i < result.length; i++) {
           // 행정동의 region_type 값은 'H' 이므로
           if (result[i].region_type === 'H') {
             infoDiv.innerHTML = result[i].address_name;
@@ -242,10 +504,17 @@ export default {
       switch (time) {
 
       }
-    }
-    ,
-    getPickRestaurantNm(restaurantNm) {
-      Vue.set(this, "restaurantNm", restaurantNm);
+    },
+    getPickRestaurantNm(restaurantData) {
+      Vue.set(this, "restaurantNm", restaurantData.restaurantNm);
+      Vue.set(this, "restaurantAddress", restaurantData.address);
+    },
+    getDirections() {
+      Vue.set(this, "directionsDialog", true);
+      this.setMap();
+    },
+    v_clickTest(flag) {
+      Vue.set(this, 'progressDialog', flag);
     }
   },
   created() {
@@ -254,7 +523,9 @@ export default {
     // });
   },
   mounted() {
-    this.setMap();
+    this.getLocation().then(resolve => {
+      Vue.set(this, "currentLocation", resolve);
+    });
   },
   components: {
     roulette,
