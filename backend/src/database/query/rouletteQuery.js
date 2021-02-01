@@ -16,7 +16,8 @@ module.exports = {
         "                      and cd_nm = '한식')"
     , thisRegionRestaurantList:
         "select t1.category,\n" +
-        "       t1.restaurantNm\n" +
+        "       t1.restaurantNm,\n" +
+        "       t1.address\n" +
         "  from bs_restaurant t1,\n" +
         "       bs_common t2\n" +
         " where 1 = 1\n" +

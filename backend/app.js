@@ -15,7 +15,7 @@ const app = express();
 const connection = mysql.createConnection(dbConnection);
 const morgan = require('morgan')
 // sis module
-const {getCurrentAddress} = require("./src/util/axiosModule");
+const {getCurrentAddress, getKakaoMapToKeyword, getKakaoMapToAddress} = require("./src/util/axiosModule");
 const {sisEncrypts} = require("./src/util/cryptoModule");
 const logger = require('./src/log/logger');
 
@@ -36,7 +36,7 @@ app.use(
         }, // http return 이 에러일때만 출력
         stream: logger.stream // logger에서 morgan의 stream 을 받도록 추가
     })
-)
+);
 
 app.route('/').get((req, res) => {
     res.render('index') // index.html render
@@ -71,6 +71,25 @@ app.route('/rouletteInit')
 
                         resolve(res.json(codes));
                     });
+                }).catch(err => {
+                    // TODO
+                    res.send(err);
+                });
+            } catch (err) {
+                reject(res.send(err));
+            }
+        })
+    });
+
+
+app.route('/address')
+    .post((req, res) => {
+        new Promise((resolve, reject) => {
+            try {
+                const address = req.query.address;
+
+                getKakaoMapToAddress(address).then((data) => {
+                    res.send(data)
                 }).catch(err => {
                     // TODO
                     res.send(err);

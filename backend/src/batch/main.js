@@ -13,12 +13,13 @@ batchCrawling = callback => {
         if (err) {
             console.log("Error : " + err);
         } else {
-            let returnArr = [];
             for (let i in rows) {
-                returnArr.push(rows[i]['location'] + " " + rows[i]['locationDetail']);
+                setTimeout(() => {
+                    let returnArr = [];
+                    returnArr.push(rows[i]['location'] + " " + rows[i]['locationDetail']);
+                    callback(returnArr);
+                }, i * 2000)
             }
-
-            callback(returnArr);
         }
     });
 }
@@ -29,9 +30,9 @@ batchCrawling((searchKeyword) => {
     let locale = localeArray[0];
     getMangoplateHtml(searchKeyword).then(resolve => {
         let restaurantInfo = [];
-        const result = Promise.all(resolve.map((html) => {
+        const result = Promise.all(resolve.map((parseHtml) => {
                 try {
-                    const $ = cheerio.load(html);
+                    const $ = cheerio.load(String(parseHtml));
 
                     if ($(".list-restaurant").length < 1) return;
 
@@ -45,11 +46,21 @@ batchCrawling((searchKeyword) => {
                             const pArraySplit = pArray[0].split(" ");
                             if (aText && pText) {
                                 let loopJson = [];
-                                loopJson.push(pArraySplit[1].trim() == "" ? locale : pArraySplit[0].trim());
-                                console.log(imgText); // 주소
-                                loopJson.push(pArraySplit[1].trim() == "" ? pArraySplit[0].trim() : pArraySplit[1].trim());
-                                loopJson.push(aText);
-                                loopJson.push(pArray[1].trim());
+                                // locale
+                                let col1 = pArraySplit[1].trim() == "" ? locale : pArraySplit[0].trim();
+                                // localeDetail
+                                let col2 = pArraySplit[1].trim() == "" ? pArraySplit[0].trim() : pArraySplit[1].trim();
+                                // address
+                                let col3 = imgText.substring(imgText.indexOf(col1));
+                                // category
+                                let col4 = pArray[1].trim();
+                                // restaurantNm
+                                let col5 = aText;
+                                loopJson.push(col1);
+                                loopJson.push(col2);
+                                loopJson.push(col3);
+                                loopJson.push(col4);
+                                loopJson.push(col5);
                                 loopJson.push("Y");
                                 loopJson.push("망고플레이트");
                                 restaurantInfo.push(loopJson);
@@ -61,7 +72,7 @@ batchCrawling((searchKeyword) => {
             })
         );
         console.log("완료");
-        // writeJsonFile(restaurantInfo);
+        writeJsonFile(restaurantInfo);
     });
 });
 

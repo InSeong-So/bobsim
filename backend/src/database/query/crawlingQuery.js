@@ -3,16 +3,17 @@ module.exports = {
     getSigungu:
         "select location,\n" +
         "       locationDetail\n" +
-        "  from bs_sigungu\n" +
-        " where location = '서울'\n" +
-        "   and locationDetail = '강동구'\n"
+        "  from bs_sigungu\n"
+    // " where location = '서울'\n" +
+    // "   and locationDetail = '중랑구'\n"
     , setCrawlingRestaurantList:
         "insert into bs_restaurant\n" +
         "  (\n" +
         "    `locale`,\n" +
         "    `localeDetail`,\n" +
-        "    `restaurantNm`,\n" +
+        "    `address`,\n" +
         "    `category`,\n" +
+        "    `restaurantNm`,\n" +
         "    `crawlingYn`,\n" +
         "    `crawlingSite`\n" +
         "  )\n" +
