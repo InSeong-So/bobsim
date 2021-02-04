@@ -2,15 +2,16 @@ module.exports = {
     authRegistration:
         "insert into bs_members\n" +
         "  (\n" +
-        "    `userId`,\n" +
+        "    `email`,\n" +
+        "    `name`,\n" +
         "    `password`\n" +
         "  )\n" +
-        " values (?, ?)"
+        " values (?, ?, ?)"
     , authLogin:
-        "select userId,\n" +
-        //"       password, \n" +
-        "       note \n" +
+        "select email,\n" +
+        "       name, \n" +
+        "       password \n" +
         "  from bs_members\n" +
-        " where userId = ?\n" +
+        " where email = ?\n" +
         "   and password = ?\n"
 }

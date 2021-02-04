@@ -10,8 +10,8 @@
             <a href="#" class="w3-button w3-block w3-black">RECOMMENDED</a>
           </div>
           <div class="w3-col s4" @click="bobsimMypage(true)" ref="tabLink03">
-            <a href="#" class="w3-button w3-block w3-black">MY PAGE</a>
-            <v-dialog v-model="loginDialog" persistent style="background-color:#fdf5e6 !important">
+            <a href="#" class="w3-button w3-block w3-black">{{REQUIRE_LOGIN}}</a>
+            <v-dialog v-model="loginDialog" style="background-color:#fdf5e6 !important">
               <v-card>
                 <v-card-title class="headline text-center">BOBSIM</v-card-title>
                 <v-card-text>
@@ -21,18 +21,18 @@
                     lazy-validation
                   >
                     <v-text-field
-                      v-model="name"
-                      :counter="10"
-                      :rules="nameRules"
-                      label="Name"
-                      required
+                      v-model="email"
+                      label="이메일"
+                      append-icon='alternate_email'
+                      :rules="[rules.required]"
                     ></v-text-field>
-
                     <v-text-field
                       v-model="password"
-                      :rules="passwordRules"
-                      label="Password"
-                      required
+                      label="비밀번호"
+                      :append-icon="passwordShow ? 'visibility' : 'visibility_off'"
+                      :rules="[rules.required]"
+                      @click:append="passwordShow = !passwordShow"
+                      :type="passwordShow ? 'text' : 'password'"
                     ></v-text-field>
                     <v-checkbox
                       v-model="checkbox"
@@ -44,7 +44,7 @@
                         <div class="snsLoginSection">
                           <ul class="snsLogin">
                             <li><a href="#" class="signup_icon" @click="bobsimSignUp">회원가입</a></li>
-                            <li><a href="#" class="login_icon">로그인</a></li>
+                            <li><a href="#" class="login_icon" @click="bobsimSignIn">로그인</a></li>
                           </ul>
                         </div>
                       </div>
@@ -123,6 +123,11 @@
           </v-card-text>
         </v-card>
       </v-footer>
+
+
+      <loading-component :progressDialog="progressDialog"></loading-component>
+
+
     </v-app>
   </div>
 </template>
@@ -138,19 +143,16 @@ export default {
   data() {
     return {
       topNav: true,
+      REQUIRE_LOGIN:"Login",
       currentMenu: "",
       loginDialog: false,
       valid: true,
-      name: '',
-      nameRules: [
-        v => !!v || '밥심을 이용하실 아이디를 입력해주세요.',
-        v => (v && v.length <= 10) || '아이디는 최대 10글자입니다.'
-      ],
+      email: '',
       password: '',
-      passwordRules: [
-        v => !!v || '비밀번호를 입력해주세요.',
-        v => /"^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$"/.test(v) || '최소 8자, 최소 하나의 문자, 하나의 숫자 및 하나의 특수 문자여야 합니다.'
-      ],
+      passwordShow : false,
+      rules: {
+        required: v => !!v || '입력해주세요!'
+      },
       select: null,
       checkbox: false,
       ///
@@ -194,6 +196,19 @@ export default {
       this.topNav = false;
       this.$router.push('/signUp');
     },
+    bobsimSignIn() {
+      Vue.set(this, 'progressDialog', true);
+      let params = new URLSearchParams();
+      params.append('email', this.email)
+      params.append('password', this.password);
+
+      this.$http.getLoginAuth(params).then(resolve => {
+        console.log(resolve.data);
+        Vue.set(this, 'progressDialog', false);
+      }).catch(err => {
+        console.log(err);
+      });
+    }
   },
   mounted() {
   }

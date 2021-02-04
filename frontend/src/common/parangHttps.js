@@ -23,7 +23,7 @@ export default {
       params: param
     })
   },
-  setAuthRegistration(param) {
+  emailRegistration(param) {
     return Send({
       url: '/registration',
       method: 'post',

@@ -147,7 +147,6 @@
                   >
                     Start loading
                   </v-btn>
-                  <loading-component :progressDialog="progressDialog"></loading-component>
                   <!--                  <v-btn-->
                   <!--                    :disabled="progressDialog"-->
                   <!--                    :loading="progressDialog"-->

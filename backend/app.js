@@ -104,11 +104,12 @@ app.route('/registration')
     .post((req, res) => {
         new Promise((resolve, reject) => {
             try {
-                const id = req.query.id;
+                const email = req.query.email;
+                const name = req.query.name;
                 const password = req.query.password;
-                sisEncrypts(password).then((data) => {
-                    const queryParam = [id, data];
-                    connection.query(queryFactory.authQuery.authRegistration, queryParam, (err, row) => {
+                sisEncrypts(password).then((encPassword) => {
+                    const queryParam = [email, name, encPassword];
+                    connection.query(queryFactory.authQuery.authRegistration, queryParam, (err) => {
                         if (err) {
                             res.send(err);
                         }
@@ -134,10 +135,10 @@ app.route('/login')
             };
 
             try {
-                const id = req.query.id;
+                const email = req.query.email;
                 const password = req.query.password;
-                sisEncrypts(password).then((data) => {
-                    const queryParam = [id, data];
+                sisEncrypts(password).then((encPassword) => {
+                    const queryParam = [email, encPassword];
                     connection.query(queryFactory.authQuery.authLogin, queryParam, (err, row) => {
                         console.log(row);
 

@@ -27,39 +27,57 @@
           </div>
         </v-card-title>
         <v-card-actions>
-          <div class="col-12" v-show="!show">
-            <v-text-field
-              v-model="regEmail"
-              :counter="10"
-              label="이메일 주소"
-              required
-            ></v-text-field>
-            <v-text-field
-              v-model="regName"
-              :counter="10"
-              label="닉네임"
-              required
-            ></v-text-field>
-            <v-text-field
-              v-model="regPassword"
-              :counter="10"
-              label="비밀번호"
-              required
-            ></v-text-field>
-            <v-text-field
-              v-model="reRegPassword"
-              :counter="10"
-              label="비밀번호 확인"
-              required
-            ></v-text-field>
-          </div>
+          <v-form>
+            <v-container>
+              <v-layout row v-show="!show">
+                <v-flex md12>
+                  <v-text-field
+                    v-model="regEmail"
+                    label="이메일 주소"
+                    append-icon='alternate_email'
+                    :rules="[rules.required, rules.emailRules]"
+                  ></v-text-field>
+                </v-flex>
+                <v-flex md12>
+                  <v-text-field
+                    v-model="regName"
+                    label="닉네임"
+                    append-icon='face'
+                  ></v-text-field>
+                </v-flex>
+                <v-flex sm6>
+                  <v-text-field
+                    v-model="regPassword"
+                    label="비밀번호"
+                    :append-icon="regPasswordShow ? 'visibility' : 'visibility_off'"
+                    :rules="[rules.required, rules.min]"
+                    counter
+                    @click:append="regPasswordShow = !regPasswordShow"
+                    :type="regPasswordShow ? 'text' : 'password'"
+                  ></v-text-field>
+                </v-flex>
+                <v-flex sm6>
+                  <v-text-field
+                    v-model="reRegPassword"
+                    label="비밀번호 확인"
+                    :append-icon="reRegPasswordShow ? 'visibility' : 'visibility_off'"
+                    :rules="[rules.required, rules.min, passwordMatchCheck]"
+                    counter
+                    @click:append="reRegPasswordShow = !reRegPasswordShow"
+                    :type="reRegPasswordShow ? 'text' : 'password'"
+                  ></v-text-field>
+                </v-flex>
+              </v-layout>
+            </v-container>
+          </v-form>
         </v-card-actions>
         <div class="text-xs-center">
           <div>
-            <v-btn color="primary" dark>가입하기
+            <v-btn color="primary" @click="emailRegistration" dark>가입하기
               <v-icon dark right>check_circle</v-icon>
             </v-btn>
-            <v-btn dark @click="goHome">
+            <!--            <v-btn dark @click="goHome">-->
+            <v-btn dark href="/">
               <v-icon dark left>remove_circle</v-icon>
               돌아가기
             </v-btn>
@@ -79,29 +97,34 @@ export default {
       regName: "",
       regPassword: "",
       reRegPassword: "",
-      show: false
+      show: false,
+      regPasswordShow: false,
+      reRegPasswordShow: false,
+      password: 'Password',
+      rules: {
+        required: v => !!v || '입력해주세요!',
+        emailRules:
+          v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || '올바른 이메일 형식이 아니에요!'
+        ,
+        min: v => v.length >= 4 || '최소 4글자 이상 입력해주세요!'
+      }
     }
   },
   methods: {
     goHome() {
-      this.$router.push('/');
+      // TODO
+      // this.$router.resolve({name: 'bobsimHome'}).href;
+      // this.$router.push({name: 'bobsimHome', params: {topNav:true}});
     },
-    reRegPasswordCheck() {
-      const regPassword = this.regPassword;
-      const reRegPassword = this.reRegPassword;
-      if (regPassword !== reRegPassword) {
-        alert("동일한 비밀번호를 입력해주세요.");
-        Vue.set(this, "reRegPassword", "");
-        $("#reRegPassword").focus();
-      }
-    },
-    authRegistration() {
+    emailRegistration() {
       let params = new URLSearchParams();
-      params.append('id', this.regName);
+      params.append('email', this.regEmail)
+      params.append('name', this.regName);
       params.append('password', this.regPassword);
 
-      this.$http.setAuthRegistration(params).then(resolve => {
+      this.$http.emailRegistration(params).then(resolve => {
         alert("등록되었습니다. 가입하신 아이디로 로그인 해주세요.");
+        this.$router.push("/");
         if (!$(".alt-2").hasClass('material-button')) {
           $(".shape").css({
             "width": "100%",
@@ -276,6 +299,11 @@ export default {
         $(".alt-2").addClass('material-button');
       }
     });
+  },
+  computed: {
+    passwordMatchCheck() {
+      return () => (this.regPassword == this.reRegPassword) || '비밀번호를 다시 입력해주세요!'
+    }
   },
   components: {
     // TODO
