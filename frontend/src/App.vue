@@ -10,7 +10,7 @@
             <a href="#" class="w3-button w3-block w3-black">RECOMMENDED</a>
           </div>
           <div class="w3-col s4" @click="bobsimMypage(true)" ref="tabLink03">
-            <a href="#" class="w3-button w3-block w3-black">{{REQUIRE_LOGIN}}</a>
+            <a href="#" class="w3-button w3-block w3-black">{{ REQUIRE_LOGIN }}</a>
             <v-dialog v-model="loginDialog" style="background-color:#fdf5e6 !important">
               <v-card>
                 <v-card-title class="headline text-center">BOBSIM</v-card-title>
@@ -143,13 +143,13 @@ export default {
   data() {
     return {
       topNav: true,
-      REQUIRE_LOGIN:"Login",
+      REQUIRE_LOGIN: "Login",
       currentMenu: "",
       loginDialog: false,
       valid: true,
       email: '',
       password: '',
-      passwordShow : false,
+      passwordShow: false,
       rules: {
         required: v => !!v || '입력해주세요!'
       },
@@ -203,10 +203,10 @@ export default {
       params.append('password', this.password);
 
       this.$http.getLoginAuth(params).then(resolve => {
-        console.log(resolve.data);
         Vue.set(this, 'progressDialog', false);
       }).catch(err => {
-        console.log(err);
+        alert("이메일/비밀번호를 다시 확인해주세요!");
+        Vue.set(this, 'progressDialog', false);
       });
     }
   },
