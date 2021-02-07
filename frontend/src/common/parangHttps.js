@@ -30,7 +30,7 @@ export default {
       params: param
     })
   },
-  getLoginAuth(param) {
+  loginAuth(param) {
     return Send({
       url: '/login',
       method: 'post',
@@ -39,7 +39,7 @@ export default {
   },
   getAuthToken() {
     return Send({
-      url: '/me',
+      url: '/authToken',
       method: 'get'
     })
   },

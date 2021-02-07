@@ -41,6 +41,7 @@ Array.prototype.shuffle = function () {
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
+  render: history => history(App),
   store,
   router,
   components: {App},

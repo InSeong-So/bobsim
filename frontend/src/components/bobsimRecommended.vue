@@ -310,10 +310,6 @@
 <script>
 import roulette from '@/components/util/roulette.vue'
 
-function closeOverlay(evt) {
-  console.log(evt);
-}
-
 export default {
   name: 'bobsimRecommended',
   // props: {

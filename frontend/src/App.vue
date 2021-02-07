@@ -11,10 +11,10 @@
           </div>
           <div class="w3-col s4" @click="bobsimMypage(true)" ref="tabLink03">
             <a href="#" class="w3-button w3-block w3-black">{{ REQUIRE_LOGIN }}</a>
-            <v-dialog v-model="loginDialog" style="background-color:#fdf5e6 !important">
+            <v-dialog v-model="loginDialog" persistent style="background-color:#fdf5e6 !important">
               <v-card>
                 <v-card-title class="headline text-center">BOBSIM</v-card-title>
-                <v-card-text>
+                <v-card-text @keyup.enter="bobsimSignIn">
                   <v-form
                     ref="form"
                     v-model="valid"
@@ -133,8 +133,11 @@
 </template>
 
 <script>
-import Vue from "vue";
+import Vue from 'vue';
+import vuetify from '../static/js/vuetify-v1.5.14.min'
 import loadingComponent from '@/components/util/loading'
+
+Vue.use(vuetify);
 
 Vue.component('loadingComponent', loadingComponent)
 
@@ -198,19 +201,38 @@ export default {
     },
     bobsimSignIn() {
       Vue.set(this, 'progressDialog', true);
-      let params = new URLSearchParams();
-      params.append('email', this.email)
-      params.append('password', this.password);
 
-      this.$http.getLoginAuth(params).then(resolve => {
-        Vue.set(this, 'progressDialog', false);
-      }).catch(err => {
-        alert("이메일/비밀번호를 다시 확인해주세요!");
-        Vue.set(this, 'progressDialog', false);
-      });
+      const email = this.email;
+      const password = this.password;
+
+      this.$store.dispatch("login", {email, password})
+        .then((data) => {
+          console.log(this.$store.getters.getAuthToken);
+          this.loginDialog = false;
+          this.redirect()
+        })
+        .catch(() => {
+          console.log(this.$store.getters.getCatchError);
+          alert("이메일/비밀번호를 다시 확인해주세요!");
+          this.loginDialog = false;
+        })
+    },
+    redirect() {
+      const {search} = window.location
+      const tokens = search.replace(/^\?/, "").split("&")
+      const {returnPath} = tokens.reduce((qs, tkn) => {
+        const pair = tkn.split("=")
+        qs[pair[0]] = decodeURIComponent(pair[1])
+        return qs
+      }, {})
     }
   },
   mounted() {
+  },
+  created() {
+    // this.$http.getAuthToken().then(result => {
+    //
+    // })
   }
 }
 </script>

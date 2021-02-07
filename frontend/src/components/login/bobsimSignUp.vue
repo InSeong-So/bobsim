@@ -89,7 +89,7 @@
 </template>
 <script>
 export default {
-  name: 'signUp',
+  name: 'bobsimSignUp',
   data() {
     return {
       //

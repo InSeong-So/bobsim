@@ -3,8 +3,8 @@ import Router from 'vue-router'
 import bobsimMain from '@/components/bobsimMain'
 import bobsimHome from '@/components/bobsimHome'
 import bobsimRecommended from '@/components/bobsimRecommended'
-import login from '@/components/login/login'
-import signUp from '@/components/login/signUp'
+import bobsimMypage from '@/components/bobsimMypage'
+import bobsimSignUp from '@/components/login/bobsimSignUp'
 
 Vue.use(Router)
 
@@ -15,7 +15,7 @@ const requireAuth = () => (from, to, next) => {
     return next()
   }
 
-  next('/login?returnPath=/')
+  next('/login?returnPath=mypage')
 }
 
 export default new Router({
@@ -31,7 +31,6 @@ export default new Router({
       name: 'bobsimHome',
       component: bobsimHome,
       props: true,
-      // beforeEnter: requireAuth(),
     },
     {
       path: '/recommended',
@@ -40,15 +39,16 @@ export default new Router({
       props: true,
     },
     {
-      path: '/login',
-      name: 'login',
-      component: login,
+      path: '/mypage',
+      name: 'bobsimMypage',
+      component: bobsimMypage,
+      // beforeEnter: requireAuth(),
       props: true,
     },
     {
       path: '/signUp',
-      name: 'signUp',
-      component: signUp,
+      name: 'bobsimSignUp',
+      component: bobsimSignUp,
       props: true,
     },
   ]
