@@ -200,32 +200,23 @@ export default {
       this.$router.push('/signUp');
     },
     bobsimSignIn() {
-      Vue.set(this, 'progressDialog', true);
+      this.progressDialog = true;
 
       const email = this.email;
       const password = this.password;
 
       this.$store.dispatch("login", {email, password})
-        .then((data) => {
-          console.log(this.$store.getters.getAuthToken);
+        .then(() => {
           this.loginDialog = false;
-          this.redirect()
+          this.progressDialog = false;
+          console.log(this.$store.getters.getAuthToken);
+          Vue.set(this, "REQUIRE_LOGIN", "MyPage");
         })
         .catch(() => {
-          console.log(this.$store.getters.getCatchError);
           alert("이메일/비밀번호를 다시 확인해주세요!");
           this.loginDialog = false;
         })
     },
-    redirect() {
-      const {search} = window.location
-      const tokens = search.replace(/^\?/, "").split("&")
-      const {returnPath} = tokens.reduce((qs, tkn) => {
-        const pair = tkn.split("=")
-        qs[pair[0]] = decodeURIComponent(pair[1])
-        return qs
-      }, {})
-    }
   },
   mounted() {
   },

@@ -19,12 +19,12 @@ const getHashCode = originCode => {
 }
 
 const getAuthToken = (params) => {
-    const decDataObj = params || {email: "test", password: "test"};
+    const decDataObj = params || {};
+
     return new Promise((resolve, reject) => {
         jwt.sign(
             decDataObj, // 인증할 데이터
-            // secretAuthToken.key, // 비밀 키
-            "tttt", // 비밀 키
+            secretAuthToken.key, // 비밀 키
             {
                 expiresIn: secretAuthToken.expiresIn, // 유효시간
                 issuer: 'Dinner',
@@ -36,14 +36,9 @@ const getAuthToken = (params) => {
     })
 }
 
-getAuthToken().then((result, err) => {
-    console.log(result);
-    if (err) throw err;
-});
-
 // sisEncrypts('테스트완료다 요것들아!!').then((result, err) => {
 //     if (err) throw err;
 //     console.log("The derived key is : " + result);
 // });
 
-module.exports = {sisEncrypts}
+module.exports = {sisEncrypts, getAuthToken}

@@ -26,15 +26,13 @@ export default new Vuex.Store({
   },
   actions: {
     login({commit}, {email, password}) {
-
       return new Promise(syncResult => {
         let params = new URLSearchParams();
         params.append('email', email)
         params.append('password', password);
 
         $http.loginAuth(params).then(response => {
-          console.log(response);
-          syncResult(this.commit('login', response.data.detail[0].name));
+          syncResult(this.commit('login', response.data.token));
         }).catch((err) => {
           this.commit('error', err);
         });

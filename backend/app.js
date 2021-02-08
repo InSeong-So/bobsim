@@ -16,7 +16,7 @@ const connection = mysql.createConnection(dbConnection);
 const morgan = require('morgan')
 // sis module
 const {getCurrentAddress, getKakaoMapToKeyword, getKakaoMapToAddress} = require("./src/util/axiosModule");
-const {sisEncrypts} = require("./src/util/cryptoModule");
+const {sisEncrypts, getAuthToken} = require("./src/util/cryptoModule");
 const logger = require('./src/log/logger');
 
 app.set('views', path.join(__dirname, 'views'));
@@ -140,21 +140,10 @@ app.route('/login')
                 sisEncrypts(password).then((encPassword) => {
                     const queryParam = [email, encPassword];
                     connection.query(queryFactory.authQuery.authLogin, queryParam, (err, row) => {
-                        console.log(row);
-
-                        if (err) {
-                            result.success = false;
-                            result.msg = "fail";
-                            result.detail = err;
-                            //
+                        getAuthToken({row}).then((data) => {
+                            result.token = data;
                             res.send(result);
-                        }
-
-                        if (row.length > 0) {
-                            result.detail = row;
-                            //
-                            res.send(result);
-                        }
+                        });
                     });
                 }).catch(err => {
                     result.success = false;
