@@ -32,6 +32,7 @@ export default new Vuex.Store({
         params.append('password', password);
 
         $http.loginAuth(params).then(response => {
+          // $http.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
           syncResult(this.commit('login', response.data.token));
         }).catch((err) => {
           this.commit('error', err);
