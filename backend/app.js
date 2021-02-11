@@ -88,7 +88,7 @@ app.route('/address')
             try {
                 const address = req.query.address;
 
-                getKakaoMapToAddress(address).then((data) => {
+                getKakaoMapToAddress(address).then(data => {
                     res.send(data)
                 }).catch(err => {
                     // TODO
@@ -98,6 +98,25 @@ app.route('/address')
                 reject(res.send(err));
             }
         })
+    });
+
+app.route('/keyword')
+    .post((req, res) => {
+        new Promise((resolve, reject) => {
+            try {
+                const keyword = req.query.keyword;
+                const x = req.query.x;
+                const y = req.query.y;
+
+                getKakaoMapToKeyword(keyword, x, y).then(data => {
+                    res.send(data);
+                }).catch(err => {
+                    res.send(err)
+                });
+            } catch (err) {
+
+            }
+        });
     });
 
 app.route('/registration')

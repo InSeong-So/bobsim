@@ -10,10 +10,14 @@ const resourceHost = web.serverHost();
 
 export default new Vuex.Store({
   state: {
+    location: null,
     authToken: null,
     errorCode: null,
   },
   mutations: {
+    setLocation(state, location) {
+      state.location = location;
+    },
     login(state, authToken) {
       state.authToken = authToken;
     },
@@ -25,6 +29,9 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    setLocation({commit}, locationInfo) {
+      this.commit('setLocation', locationInfo)
+    },
     login({commit}, {email, password}) {
       return new Promise(syncResult => {
         let params = new URLSearchParams();
@@ -50,5 +57,8 @@ export default new Vuex.Store({
     getCatchError(state) {
       return state.errorCode;
     },
+    getLocation(state) {
+      return state.location;
+    }
   },
 })

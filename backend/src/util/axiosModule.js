@@ -54,36 +54,34 @@ const fetchData = (url) => axios.get(url)
 //     // console.log(error.enviroment);
 // });
 
+const getKakaoMapToKeyword = (searchKeyword, x, y) => {
+    return new Promise((resolve, reject) => {
+        console.log(x);
+        console.log(y);
+        searchKeyword = encodeURI(searchKeyword);
 
-const getKakaoMapToKeyword = searchKeyword => {
-    searchKeyword = encodeURI(searchKeyword);
-    const url = "https://dapi.kakao.com/v2/local/search/keyword.json?query=" + searchKeyword;
+        const url = "https://dapi.kakao.com/v2/local/search/keyword.json?query=" + searchKeyword;
 
-    let config = {
-        headers: {
-            "Authorization": "KakaoAK " + api.getKaKaoKey().rest
-        }
-    }
-
-    axios.get(url, config).then(response => {
-        const documents = response.data.documents;
-
-        const result = [];
-
-        documents.map((list) => {
-            const temp = {
-                locationDetail: list.address_name,
-                category: list.category_group_name,
-                number: list.phone,
-                restaurantNm: list.place_name,
-                note: list.road_address_name,
+        let config = {
+            headers: {
+                "Authorization": "KakaoAK " + api.getKaKaoKey().rest
             }
+        }
 
-            result.push(temp);
-        })
-    }).catch((err) => {
-        // TODO
-    })
+        axios.get(url, config).then(response => {
+            const documents = response.data.documents;
+
+            const result = [];
+
+            documents.map((list) => {
+                result.push(list);
+            });
+
+            resolve(result);
+        }).catch((err) => {
+            // TODO
+        });
+    });
 }
 
 const getKakaoMapToAddress = searchAddress => {
@@ -134,9 +132,32 @@ const getCurrentAddress = locationInfo => {
     })
 };
 
+function calcDistance(lat1, lon1, lat2, lon2) {
+    const theta = lon1 - lon2;
+    let dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1))
+        * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
+    dist = Math.acos(dist);
+    dist = rad2deg(dist);
+    dist = dist * 60 * 1.1515;
+    dist = dist * 1.609344;
+    return Number(dist * 1000).toFixed(2);
+}
+
+function deg2rad(deg) {
+    return (deg * Math.PI / 180);
+}
+
+function rad2deg(rad) {
+    return (rad * 180 / Math.PI);
+}
+
 
 // getKakaoMapToAddress("덕암동 7-3").then(r => {
 //     console.log(r)
+// });
+
+// getKakaoMapToKeyword("두찜").then(data => {
+//     console.log(data);
 // });
 
 module.exports = {getMangoplateHtml, getKakaoMapToKeyword, getKakaoMapToAddress, getCurrentAddress};

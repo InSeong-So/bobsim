@@ -518,9 +518,7 @@ export default {
     // });
   },
   mounted() {
-    this.getLocation().then(resolve => {
-      Vue.set(this, "currentLocation", resolve);
-    });
+    Vue.set(this, "currentLocation", this.$store.getters.getLocation);
   },
   components: {
     roulette,

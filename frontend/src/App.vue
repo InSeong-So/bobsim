@@ -133,6 +133,7 @@
 </template>
 
 <script>
+
 import Vue from 'vue';
 import vuetify from '../static/js/vuetify-v1.5.14.min'
 import loadingComponent from '@/components/util/loading'
@@ -146,7 +147,8 @@ export default {
   data() {
     return {
       topNav: true,
-      REQUIRE_LOGIN: "Login",
+      // REQUIRE_LOGIN: "Login",
+      REQUIRE_LOGIN: "MyPage",
       currentMenu: "",
       loginDialog: false,
       valid: true,
@@ -168,6 +170,23 @@ export default {
     }
   },
   methods: {
+    getLocation: function (flag) {
+      return new Promise((resolve, reject) => {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function (position) {
+            resolve({x: position.coords.longitude, y: position.coords.latitude});
+          }, function (error) {
+            reject({code: "fail", msg: error});
+          }, {
+            enableHighAccuracy: false,
+            maximumAge: 0,
+            timeout: Infinity
+          });
+        } else {
+          reject({code: "fail", msg: "not supported"});
+        }
+      });
+    },
     bobsimHome() {
       $(this.$refs["tabLink01"]).siblings()
         .removeClass('on');
@@ -184,15 +203,19 @@ export default {
       Vue.set(this, "currentMenu", "recommended");
     },
     bobsimMypage(open) {
-      if (open) {
-        $(this.$refs["tabLink03"]).addClass('on')
-          .siblings()
-          .removeClass('on');
+      if (this.REQUIRE_LOGIN == "MyPage") {
+        this.$router.replace('/mypage');
       } else {
-        $(this.$refs["tabLink03"]).removeClass('on');
-      }
+        if (open) {
+          $(this.$refs["tabLink03"]).addClass('on')
+            .siblings()
+            .removeClass('on');
+        } else {
+          $(this.$refs["tabLink03"]).removeClass('on');
+        }
 
-      this.loginDialog = open;
+        this.loginDialog = open;
+      }
     },
     bobsimSignUp() {
       this.loginDialog = false;
@@ -209,7 +232,7 @@ export default {
         .then(() => {
           this.loginDialog = false;
           this.progressDialog = false;
-          console.log(this.$store.getters.getAuthToken);
+          // console.log(this.$store.getters.getAuthToken);
           Vue.set(this, "REQUIRE_LOGIN", "MyPage");
         })
         .catch(() => {
@@ -219,11 +242,13 @@ export default {
     },
   },
   mounted() {
+    this.getLocation().then(resolve => {
+      this.$store.dispatch("setLocation", resolve);
+      // console.log(this.$store.getters.getLocation);
+    });
   },
   created() {
-    // this.$http.getAuthToken().then(result => {
-    //
-    // })
+    // TODO : History API 참조
   }
 }
 </script>
