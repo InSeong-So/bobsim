@@ -56,8 +56,7 @@ const fetchData = (url) => axios.get(url)
 
 const getKakaoMapToKeyword = (searchKeyword, x, y) => {
     return new Promise((resolve, reject) => {
-        console.log(x);
-        console.log(y);
+        console.log(x, y);
         searchKeyword = encodeURI(searchKeyword);
 
         const url = "https://dapi.kakao.com/v2/local/search/keyword.json?query=" + searchKeyword;
@@ -68,12 +67,35 @@ const getKakaoMapToKeyword = (searchKeyword, x, y) => {
             }
         }
 
+
+        // Latitude = 위도 y
+        // Longitude = 경도 x
+        const compareDistance = (currentLatitude, currentLongitude, targetLatitude, targetLongitude) => {
+            const theta = currentLongitude - targetLongitude;
+
+            const deg2rad = deg => {
+                return (deg * Math.PI / 180);
+            }
+            const rad2deg = rad => {
+                return (rad * 180 / Math.PI);
+            }
+
+            let dist = Math.sin(deg2rad(currentLatitude)) * Math.sin(deg2rad(targetLatitude)) + Math.cos(deg2rad(currentLatitude))
+                * Math.cos(deg2rad(targetLatitude)) * Math.cos(deg2rad(theta));
+            dist = Math.acos(dist);
+            dist = rad2deg(dist);
+            dist = dist * 60 * 1.1515;
+            dist = dist * 1.609344;
+            return Number(dist * 1000).toFixed(2);
+        }
+
         axios.get(url, config).then(response => {
             const documents = response.data.documents;
 
             const result = [];
 
             documents.map((list) => {
+                list["distance"] = compareDistance(x, y, list.x, list.y);
                 result.push(list);
             });
 
@@ -131,25 +153,6 @@ const getCurrentAddress = locationInfo => {
         })
     })
 };
-
-function calcDistance(lat1, lon1, lat2, lon2) {
-    const theta = lon1 - lon2;
-    let dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1))
-        * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
-    dist = Math.acos(dist);
-    dist = rad2deg(dist);
-    dist = dist * 60 * 1.1515;
-    dist = dist * 1.609344;
-    return Number(dist * 1000).toFixed(2);
-}
-
-function deg2rad(deg) {
-    return (deg * Math.PI / 180);
-}
-
-function rad2deg(rad) {
-    return (rad * 180 / Math.PI);
-}
 
 
 // getKakaoMapToAddress("덕암동 7-3").then(r => {

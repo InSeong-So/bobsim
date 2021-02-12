@@ -52,13 +52,13 @@
                     @click="toggle(index)"
                   >
                     <v-list-tile-content>
-                      <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-                      <v-list-tile-sub-title class="text--primary">{{ item.headline }}</v-list-tile-sub-title>
-                      <v-list-tile-sub-title>{{ item.subtitle }}</v-list-tile-sub-title>
+                      <v-list-tile-title>{{ item.place_name }}</v-list-tile-title>
+                      <v-list-tile-sub-title class="text--primary">{{ item.road_address_name }}</v-list-tile-sub-title>
+                      <v-list-tile-sub-title>{{ item.phone }}</v-list-tile-sub-title>
                     </v-list-tile-content>
 
                     <v-list-tile-action>
-                      <v-list-tile-action-text>{{ item.action }}</v-list-tile-action-text>
+                      <v-list-tile-action-text>{{ item.distance }}</v-list-tile-action-text>
                       <v-icon
                         v-if="selected.indexOf(index) < 0"
                         color="grey lighten-1"
@@ -81,6 +81,12 @@
                   ></v-divider>
                 </template>
               </v-list>
+              <div class="text-xs-center">
+                <v-pagination
+                  v-model="page"
+                  :length="5"
+                ></v-pagination>
+              </div>
             </v-card>
           </v-flex>
         </v-layout>
@@ -116,38 +122,8 @@ export default {
     return {
       keyword: "",
       selected: [2],
-      items: [
-        {
-          action: '15 min',
-          headline: 'Brunch this weekend?',
-          title: 'Ali Connors',
-          subtitle: "I'll be in your neighborhood doing errands this weekend. Do you want to hang out?"
-        },
-        {
-          action: '2 hr',
-          headline: 'Summer BBQ',
-          title: 'me, Scrott, Jennifer',
-          subtitle: "Wish I could come, but I'm out of town this weekend."
-        },
-        {
-          action: '6 hr',
-          headline: 'Oui oui',
-          title: 'Sandra Adams',
-          subtitle: 'Do you have Paris recommendations? Have you ever been?'
-        },
-        {
-          action: '12 hr',
-          headline: 'Birthday gift',
-          title: 'Trevor Hansen',
-          subtitle: 'Have any ideas about what we should get Heidi for her birthday?'
-        },
-        {
-          action: '18hr',
-          headline: 'Recipe to try',
-          title: 'Britta Holt',
-          subtitle: 'We should eat this: Grate, Squash, Corn, and tomatillo Tacos.'
-        }
-      ]
+      items: [],
+      page: 1
     }
   },
   methods: {
@@ -161,7 +137,8 @@ export default {
       params.append('y', this.$store.getters.getLocation.y);
 
       this.$http.getKakaoMapToKeyword(params).then((response) => {
-        console.log(response.data);
+        Vue.set(this, 'allItems', response.data);
+        Vue.set(this, 'items', response.data);
       });
     },
     toggle(index) {
@@ -179,6 +156,11 @@ export default {
   mounted() {
   },
   components: {},
+  watch: {
+    page: function (newPage) {
+      console.log(newPage);
+    }
+  }
 }
 </script>
 <style>

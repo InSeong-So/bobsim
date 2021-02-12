@@ -244,7 +244,7 @@ export default {
   mounted() {
     this.getLocation().then(resolve => {
       this.$store.dispatch("setLocation", resolve);
-      // console.log(this.$store.getters.getLocation);
+      console.log(this.$store.getters.getLocation);
     });
   },
   created() {
