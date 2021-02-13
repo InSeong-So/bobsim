@@ -10,6 +10,9 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "@toast-ui/editor": "^2.5.1",
+    "@toast-ui/editor-plugin-code-syntax-highlight": "^1.0.0",
+    "@toast-ui/vue-editor": "^2.5.1",
     "axios": "^0.20.0",
     "mysql": "^2.18.1",
     "url-search-params-polyfill": "^8.1.0",

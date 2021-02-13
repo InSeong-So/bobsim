@@ -93,13 +93,10 @@
 
       <router-view/>
 
-      <br/>
-
       <v-footer
         v-if="topNav"
         dark
         height="auto"
-        class="mt-5"
       >
         <v-card
           flat
@@ -190,16 +187,16 @@ export default {
     bobsimHome() {
       $(this.$refs["tabLink01"]).siblings()
         .removeClass('on');
-      this.$router.push('/');
-      this.$router.push({name: 'bobsimHome', params: {}});
+      this.$router.resolve('/');
+      this.$router.resolve({name: 'bobsimHome', params: {}});
       Vue.set(this, "currentMenu", "");
     },
     bobsimRecommended() {
       $(this.$refs["tabLink02"]).addClass('on')
         .siblings()
         .removeClass('on');
-      this.$router.push('/recommended');
-      // this.$router.push({name: 'bobsimRecommended', params: {}});
+      this.$router.resolve('/recommended');
+      // this.$router.resolve({name: 'bobsimRecommended', params: {}});
       Vue.set(this, "currentMenu", "recommended");
     },
     bobsimMypage(open) {
@@ -220,7 +217,7 @@ export default {
     bobsimSignUp() {
       this.loginDialog = false;
       this.topNav = false;
-      this.$router.push('/signUp');
+      this.$router.resolve('/signUp');
     },
     bobsimSignIn() {
       this.progressDialog = true;
@@ -244,7 +241,7 @@ export default {
   mounted() {
     this.getLocation().then(resolve => {
       this.$store.dispatch("setLocation", resolve);
-      console.log(this.$store.getters.getLocation);
+      // console.log(this.$store.getters.getLocation);
     });
   },
   created() {
@@ -258,10 +255,11 @@ export default {
 }
 
 .bgimg {
+  margin-top:54px;
   background-position: center;
   background-size: cover;
   background-image: url("../static/images/platter-2009590_1920.jpg");
-  min-height: 30%;
+  min-height: 338px;
 }
 
 .material-icons {

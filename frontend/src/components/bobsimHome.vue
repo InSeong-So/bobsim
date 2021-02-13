@@ -1,7 +1,7 @@
 <template>
   <div class="w3-sand w3-large">
     <div class="w3-container">
-      <div class="w3-content" style="max-width:700px">
+      <div class="w3-content" style="max-width:700px; min-height: 500px;">
         <h5 class="w3-center w3-padding-64"><span class="w3-tag w3-wide">ABOUT : THE BOBSIM!</span></h5>
         <p>한국인은 밥심으로 산다고 했습니다.</p>
         <p>바쁜 일상 속 무엇을 먹을지 고민하다 시간이 지체되거나,</p>
@@ -18,8 +18,8 @@
 
     <hr/>
 
-    <div class="w3-container" id="recommended">
-      <div class="w3-content" style="max-width:700px">
+    <div class="w3-container">
+      <div class="w3-content" style="max-width:700px;  min-height: 500px;">
         <h5 class="w3-center w3-padding-48"><span class="w3-tag w3-wide">THE RECOMMENDED</span></h5>
         <div class="w3-row w3-center w3-card w3-padding">
           <div class="w3-col s2 tabLink">
@@ -46,8 +46,8 @@
 
     <hr/>
 
-    <div class="w3-container" id="record">
-      <div class="w3-content" style="max-width:700px">
+    <div class="w3-container">
+      <div class="w3-content" style="max-width:700px;  min-height: 500px;">
         <h5 class="w3-center w3-padding-48"><span class="w3-tag w3-wide">SHARE OR RECORD YOUR RESTAURANT</span></h5>
         <p>자신만의 맛집을 등록하거나, 공유하세요!</p>
         <p><span class="w3-tag">잠깐!</span> 밥심에서는 개인정보를 필요로 하지 않습니다.</p>
@@ -60,8 +60,8 @@
 
     <hr/>
 
-    <div class="w3-container" id="plan">
-      <div class="w3-content" style="max-width:700px">
+    <div class="w3-container">
+      <div class="w3-content" style="max-width:700px;  min-height: 500px;">
         <h5 class="w3-center w3-padding-48"><span class="w3-tag w3-wide">PLANNING YOUR MEAL</span></h5>
         <p>직장 동료, 학원 동기, 친구들과의 식사표를 만들어보세요!</p>
         <div class="w3-panel w3-leftbar w3-light-grey">
@@ -72,8 +72,8 @@
 
     <hr/>
 
-    <div class="w3-container" id="diet">
-      <div class="w3-content" style="max-width:700px">
+    <div class="w3-container">
+      <div class="w3-content" style="max-width:700px; min-height: 500px;">
         <h5 class="w3-center w3-padding-48"><span class="w3-tag w3-wide">TO DIET!</span></h5>
         <p>운동량이 부족해서 살이 찌거나, 건강이 나빠진다면?</p>
         <p>밥심이 추천하는 다이어트 식단표를 참고하세요!</p>

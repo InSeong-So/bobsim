@@ -28,74 +28,74 @@
 
     <hr/>
 
-<!--    <div class="w3-container" id="test2222">-->
-<!--      <div class="w3-content" style="max-width:700px">-->
-<!--        <div class="layout justify-center">-->
-<!--          <div class="flex sm12">-->
-<!--            <nav class="v-toolbar theme&#45;&#45;dark indigo" data-booted="true"-->
-<!--                 style="margin-top: 0px; padding-right: 0px; padding-left: 0px; transform: translateY(0px);">-->
-<!--              <div class="v-toolbar__content" style="height: 64px;">-->
-<!--                <button type="button" class="v-toolbar__side-icon v-btn v-btn&#45;&#45;icon theme&#45;&#45;dark">-->
-<!--                  <div class="v-btn__content">-->
-<!--                    <i aria-hidden="true" class="v-icon material-icons theme&#45;&#45;dark">menu</i>-->
-<!--                  </div>-->
-<!--                </button>-->
-<!--                <div class="v-toolbar__title">Discover</div>-->
-<!--                <div class="spacer"></div>-->
-<!--                <button type="button" class="v-btn v-btn&#45;&#45;icon theme&#45;&#45;dark">-->
-<!--                  <div class="v-btn__content">-->
-<!--                    <i aria-hidden="true" class="v-icon material-icons theme&#45;&#45;dark">search</i>-->
-<!--                  </div>-->
-<!--                </button>-->
-<!--              </div>-->
-<!--            </nav>-->
-<!--            <div class="v-card v-sheet theme&#45;&#45;light">-->
-<!--              <div class="container fluid grid-list-md">-->
-<!--                <div class="layout row wrap">-->
-<!--                  <div class="flex xs12">-->
-<!--                    <div class="v-card v-sheet theme&#45;&#45;light">-->
-<!--                      <div class="v-responsive v-image" style="height: 200px;">-->
-<!--                        <div class="v-responsive__sizer" style="padding-bottom: 75%;"></div>-->
-<!--                        <div class="v-image__image v-image__image&#45;&#45;cover"-->
-<!--                             style="background-position: center center;">-->
-<!--                        </div>-->
-<!--                        <div class="v-responsive__content">-->
-<!--                          <div class="container fill-height fluid pa-2">-->
-<!--                            <div class="layout fill-height">-->
-<!--                              <div class="flex xs12 align-end flexbox">-->
-<!--                                <span class="headline white&#45;&#45;text">Pre-fab homes</span>-->
-<!--                              </div>-->
-<!--                            </div>-->
-<!--                          </div>-->
-<!--                        </div>-->
-<!--                      </div>-->
-<!--                      <div class="v-card__actions">-->
-<!--                        <div class="spacer"></div>-->
-<!--                        <button type="button" class="v-btn v-btn&#45;&#45;icon theme&#45;&#45;light">-->
-<!--                          <div class="v-btn__content">-->
-<!--                            <i aria-hidden="true" class="v-icon material-icons theme&#45;&#45;light">favorite</i>-->
-<!--                          </div>-->
-<!--                        </button>-->
-<!--                        <button type="button" class="v-btn v-btn&#45;&#45;icon theme&#45;&#45;light">-->
-<!--                          <div class="v-btn__content">-->
-<!--                            <i aria-hidden="true" class="v-icon material-icons theme&#45;&#45;light">bookmark</i>-->
-<!--                          </div>-->
-<!--                        </button>-->
-<!--                        <button type="button" class="v-btn v-btn&#45;&#45;icon theme&#45;&#45;light">-->
-<!--                          <div class="v-btn__content">-->
-<!--                            <i aria-hidden="true" class="v-icon material-icons theme&#45;&#45;light">share</i>-->
-<!--                          </div>-->
-<!--                        </button>-->
-<!--                      </div>-->
-<!--                    </div>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
+    <!--    <div class="w3-container" id="test2222">-->
+    <!--      <div class="w3-content" style="max-width:700px">-->
+    <!--        <div class="layout justify-center">-->
+    <!--          <div class="flex sm12">-->
+    <!--            <nav class="v-toolbar theme&#45;&#45;dark indigo" data-booted="true"-->
+    <!--                 style="margin-top: 0px; padding-right: 0px; padding-left: 0px; transform: translateY(0px);">-->
+    <!--              <div class="v-toolbar__content" style="height: 64px;">-->
+    <!--                <button type="button" class="v-toolbar__side-icon v-btn v-btn&#45;&#45;icon theme&#45;&#45;dark">-->
+    <!--                  <div class="v-btn__content">-->
+    <!--                    <i aria-hidden="true" class="v-icon material-icons theme&#45;&#45;dark">menu</i>-->
+    <!--                  </div>-->
+    <!--                </button>-->
+    <!--                <div class="v-toolbar__title">Discover</div>-->
+    <!--                <div class="spacer"></div>-->
+    <!--                <button type="button" class="v-btn v-btn&#45;&#45;icon theme&#45;&#45;dark">-->
+    <!--                  <div class="v-btn__content">-->
+    <!--                    <i aria-hidden="true" class="v-icon material-icons theme&#45;&#45;dark">search</i>-->
+    <!--                  </div>-->
+    <!--                </button>-->
+    <!--              </div>-->
+    <!--            </nav>-->
+    <!--            <div class="v-card v-sheet theme&#45;&#45;light">-->
+    <!--              <div class="container fluid grid-list-md">-->
+    <!--                <div class="layout row wrap">-->
+    <!--                  <div class="flex ">-->
+    <!--                    <div class="v-card v-sheet theme&#45;&#45;light">-->
+    <!--                      <div class="v-responsive v-image" style="height: 200px;">-->
+    <!--                        <div class="v-responsive__sizer" style="padding-bottom: 75%;"></div>-->
+    <!--                        <div class="v-image__image v-image__image&#45;&#45;cover"-->
+    <!--                             style="background-position: center center;">-->
+    <!--                        </div>-->
+    <!--                        <div class="v-responsive__content">-->
+    <!--                          <div class="container fill-height fluid pa-2">-->
+    <!--                            <div class="layout fill-height">-->
+    <!--                              <div class="flex  align-end flexbox">-->
+    <!--                                <span class="headline white&#45;&#45;text">Pre-fab homes</span>-->
+    <!--                              </div>-->
+    <!--                            </div>-->
+    <!--                          </div>-->
+    <!--                        </div>-->
+    <!--                      </div>-->
+    <!--                      <div class="v-card__actions">-->
+    <!--                        <div class="spacer"></div>-->
+    <!--                        <button type="button" class="v-btn v-btn&#45;&#45;icon theme&#45;&#45;light">-->
+    <!--                          <div class="v-btn__content">-->
+    <!--                            <i aria-hidden="true" class="v-icon material-icons theme&#45;&#45;light">favorite</i>-->
+    <!--                          </div>-->
+    <!--                        </button>-->
+    <!--                        <button type="button" class="v-btn v-btn&#45;&#45;icon theme&#45;&#45;light">-->
+    <!--                          <div class="v-btn__content">-->
+    <!--                            <i aria-hidden="true" class="v-icon material-icons theme&#45;&#45;light">bookmark</i>-->
+    <!--                          </div>-->
+    <!--                        </button>-->
+    <!--                        <button type="button" class="v-btn v-btn&#45;&#45;icon theme&#45;&#45;light">-->
+    <!--                          <div class="v-btn__content">-->
+    <!--                            <i aria-hidden="true" class="v-icon material-icons theme&#45;&#45;light">share</i>-->
+    <!--                          </div>-->
+    <!--                        </button>-->
+    <!--                      </div>-->
+    <!--                    </div>-->
+    <!--                  </div>-->
+    <!--                </div>-->
+    <!--              </div>-->
+    <!--            </div>-->
+    <!--          </div>-->
+    <!--        </div>-->
+    <!--      </div>-->
+    <!--    </div>-->
 
     <hr/>
 
@@ -112,7 +112,7 @@
               <v-container>
                 <v-layout row wrap>
 
-                  <v-flex xs12 sm12>
+                  <v-flex sm12>
                     <v-text-field
                       v-model="restaurantNm"
                       label="음식점"
@@ -121,7 +121,7 @@
                     ></v-text-field>
                   </v-flex>
 
-                  <v-flex xs12 sm12>
+                  <v-flex sm12>
                     <v-text-field
                       v-model="restaurantAddress"
                       label="주소"
@@ -129,33 +129,18 @@
                       readonly
                     ></v-text-field>
                   </v-flex>
-                  <v-btn
-                    block
-                    flat
-                    @click="getDirections"
-                    outline color="indigo"
-                  >
-                    <v-icon left>exit_to_app</v-icon>
-                    음식점까지 길찾기
-                  </v-btn>
-                  <v-btn
-                    :disabled="progressDialog"
-                    :loading="progressDialog"
-                    class="white--text"
-                    color="purple darken-2"
-                    @click="v_clickTest(true)"
-                  >
-                    Start loading
-                  </v-btn>
-                  <!--                  <v-btn-->
-                  <!--                    :disabled="progressDialog"-->
-                  <!--                    :loading="progressDialog"-->
-                  <!--                    class="white&#45;&#45;text"-->
-                  <!--                    color="purple darken-2"-->
-                  <!--                    @click="progressDialog = true"-->
-                  <!--                  >-->
-                  <!--                    Start loading-->
-                  <!--                  </v-btn>-->
+
+                  <v-flex sm12>
+                    <v-btn
+                      block
+                      flat
+                      @click="getDirections"
+                      outline color="indigo"
+                    >
+                      <v-icon left>exit_to_app</v-icon>
+                      상세보기
+                    </v-btn>
+                  </v-flex>
                 </v-layout>
               </v-container>
             </v-form>
@@ -263,6 +248,22 @@
                     <v-list-tile-sub-title>Orlando, FL 79938</v-list-tile-sub-title>
                   </v-list-tile-content>
                 </v-list-tile>
+
+                <v-divider inset></v-divider>
+
+                <v-layout>
+                  <v-flex sm12>
+                    <v-card>
+                      <v-card-title primary-title>
+                        test
+                      </v-card-title>
+                      <v-card-actions>
+                        <toast-editor></toast-editor>
+                      </v-card-actions>
+                    </v-card>
+                  </v-flex>
+                </v-layout>
+
               </v-list>
             </v-layout>
           </v-card>
@@ -309,6 +310,7 @@
 </style>
 <script>
 import roulette from '@/components/util/roulette.vue'
+import toastEditor from '@/components/util/toastEditor'
 
 export default {
   name: 'bobsimRecommended',
@@ -395,61 +397,61 @@ export default {
           position: markerPosition
         });
 
-        const content =
-          '<div class="layout justify-center">' +
-          '  <div class="flex sm12">' +
-          '    <nav class="v-toolbar theme--dark indigo" data-booted="true"' +
-          '        style="margin-top: 0px; padding-right: 0px; padding-left: 0px; transform: translateY(0px);">' +
-          '        <div class="v-toolbar__content" style="height: 64px;"><button type="button"' +
-          '                class="v-toolbar__side-icon v-btn v-btn--icon theme--dark">' +
-          '                <div class="v-btn__content"><i aria-hidden="true" class="v-icon material-icons theme--dark">menu</i>' +
-          '                </div>' +
-          '            </button>' +
-          '            <div class="v-toolbar__title">Discover</div>' +
-          '            <div class="spacer"></div> <button type="button" class="v-btn v-btn--icon theme--dark">' +
-          '                <div class="v-btn__content"><i aria-hidden="true" class="v-icon material-icons theme--dark">search</i>' +
-          '                </div>' +
-          '            </button>' +
-          '        </div>' +
-          '    </nav>' +
-          '    <div class="v-card v-sheet theme--light">' +
-          '        <div class="container fluid grid-list-md">' +
-          '            <div class="layout row wrap">' +
-          '                <div class="flex xs12">' +
-          '                    <div class="v-card v-sheet theme--light">' +
-          '                        <div class="v-responsive v-image" style="height: 200px;">' +
-          '                            <div class="v-responsive__sizer" style="padding-bottom: 75%;"></div>' +
-          '                            <div class="v-image__image v-image__image--cover"' +
-          '                                style="background-position: center center;">' +
-          '                            </div>' +
-          '                            <div class="v-responsive__content">' +
-          '                                <div class="container fill-height fluid pa-2">' +
-          '                                    <div class="layout fill-height">' +
-          '                                        <div class="flex xs12 align-end flexbox"><span' +
-          '                                                class="headline white--text">Pre-fab homes</span></div>' +
-          '                                    </div>' +
-          '                                </div>' +
-          '                            </div>' +
-          '                        </div>' +
-          '                        <div class="v-card__actions">' +
-          '                            <div class="spacer"></div> <button type="button" class="v-btn v-btn--icon theme--light">' +
-          '                                <div class="v-btn__content"><i aria-hidden="true"' +
-          '                                        class="v-icon material-icons theme--light">favorite</i></div>' +
-          '                            </button> <button type="button" class="v-btn v-btn--icon theme--light">' +
-          '                                <div class="v-btn__content"><i aria-hidden="true"' +
-          '                                        class="v-icon material-icons theme--light">bookmark</i></div>' +
-          '                            </button> <button type="button" class="v-btn v-btn--icon theme--light">' +
-          '                                <div class="v-btn__content"><i aria-hidden="true"' +
-          '                                        class="v-icon material-icons theme--light">share</i></div>' +
-          '                            </button>' +
-          '                        </div>' +
-          '                    </div>' +
-          '                </div>' +
-          '            </div>' +
-          '        </div>' +
-          '    </div>' +
-          '  </div>' +
-          '</div>';
+        // const content =
+        //   '<div class="layout justify-center">' +
+        //   '  <div class="flex sm12">' +
+        //   '    <nav class="v-toolbar theme--dark indigo" data-booted="true"' +
+        //   '        style="margin-top: 0px; padding-right: 0px; padding-left: 0px; transform: translateY(0px);">' +
+        //   '        <div class="v-toolbar__content" style="height: 64px;"><button type="button"' +
+        //   '                class="v-toolbar__side-icon v-btn v-btn--icon theme--dark">' +
+        //   '                <div class="v-btn__content"><i aria-hidden="true" class="v-icon material-icons theme--dark">menu</i>' +
+        //   '                </div>' +
+        //   '            </button>' +
+        //   '            <div class="v-toolbar__title">Discover</div>' +
+        //   '            <div class="spacer"></div> <button type="button" class="v-btn v-btn--icon theme--dark">' +
+        //   '                <div class="v-btn__content"><i aria-hidden="true" class="v-icon material-icons theme--dark">search</i>' +
+        //   '                </div>' +
+        //   '            </button>' +
+        //   '        </div>' +
+        //   '    </nav>' +
+        //   '    <div class="v-card v-sheet theme--light">' +
+        //   '        <div class="container fluid grid-list-md">' +
+        //   '            <div class="layout row wrap">' +
+        //   '                <div class="flex ">' +
+        //   '                    <div class="v-card v-sheet theme--light">' +
+        //   '                        <div class="v-responsive v-image" style="height: 200px;">' +
+        //   '                            <div class="v-responsive__sizer" style="padding-bottom: 75%;"></div>' +
+        //   '                            <div class="v-image__image v-image__image--cover"' +
+        //   '                                style="background-position: center center;">' +
+        //   '                            </div>' +
+        //   '                            <div class="v-responsive__content">' +
+        //   '                                <div class="container fill-height fluid pa-2">' +
+        //   '                                    <div class="layout fill-height">' +
+        //   '                                        <div class="flex  align-end flexbox"><span' +
+        //   '                                                class="headline white--text">Pre-fab homes</span></div>' +
+        //   '                                    </div>' +
+        //   '                                </div>' +
+        //   '                            </div>' +
+        //   '                        </div>' +
+        //   '                        <div class="v-card__actions">' +
+        //   '                            <div class="spacer"></div> <button type="button" class="v-btn v-btn--icon theme--light">' +
+        //   '                                <div class="v-btn__content"><i aria-hidden="true"' +
+        //   '                                        class="v-icon material-icons theme--light">favorite</i></div>' +
+        //   '                            </button> <button type="button" class="v-btn v-btn--icon theme--light">' +
+        //   '                                <div class="v-btn__content"><i aria-hidden="true"' +
+        //   '                                        class="v-icon material-icons theme--light">bookmark</i></div>' +
+        //   '                            </button> <button type="button" class="v-btn v-btn--icon theme--light">' +
+        //   '                                <div class="v-btn__content"><i aria-hidden="true"' +
+        //   '                                        class="v-icon material-icons theme--light">share</i></div>' +
+        //   '                            </button>' +
+        //   '                        </div>' +
+        //   '                    </div>' +
+        //   '                </div>' +
+        //   '            </div>' +
+        //   '        </div>' +
+        //   '    </div>' +
+        //   '  </div>' +
+        //   '</div>';
 
         // 마커가 지도 위에 표시되도록 설정합니다
         currentMarker.setMap(map);
@@ -508,8 +510,18 @@ export default {
       Vue.set(this, "directionsDialog", true);
       this.setMap();
     },
-    v_clickTest(flag) {
-      Vue.set(this, 'progressDialog', flag);
+    submitArticle(data) {
+      this.content.content = data;
+
+      var preview = validateMarkdown(data);
+      const params = {
+        nickname: this.$store.state.nickname,
+        title: this.content.title,
+        content: this.content.content,
+        keyword: this.content.keywords,
+        preview: preview,
+        ispublic: this.content.ispublic
+      };
     }
   },
   created() {
@@ -522,6 +534,7 @@ export default {
   },
   components: {
     roulette,
+    toastEditor
   },
 }
 </script>
