@@ -6,6 +6,14 @@ import bobsimRecommended from '@/components/bobsimRecommended'
 import bobsimMypage from '@/components/bobsimMypage'
 import bobsimSignUp from '@/components/login/bobsimSignUp'
 
+/** 같은 페이지에서 같은 페이지로 $router.push 한 오률를 처리함 (ex : 홈페이지에서 홈 로고를 클릭한 경우) */
+const originalPush = Router.prototype.push;
+Router.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(() => {
+    return window.location.reload()
+  })
+};
+
 Vue.use(Router)
 
 const requireAuth = () => (from, to, next) => {
@@ -19,6 +27,7 @@ const requireAuth = () => (from, to, next) => {
 }
 
 export default new Router({
+  mode: 'history',
   routes: [
     // {
     //   path: '/',

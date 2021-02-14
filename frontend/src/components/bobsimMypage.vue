@@ -1,6 +1,71 @@
 <template>
   <div class="w3-sand w3-large">
 
+<!--    <template v-slot:activator>-->
+<!--      <v-btn fab dark large color="primary" fixed right bottom-->
+<!--             style="margin-bottom: 200px;">-->
+<!--        <v-icon dark>account_circle</v-icon>-->
+<!--        <v-icon>close</v-icon>-->
+<!--      </v-btn>-->
+<!--    </template>-->
+
+    <v-speed-dial
+      v-model="fab"
+      fab
+      fixed
+      left
+      bottom
+      large
+      color="primary"
+      transition="slide-y-reverse-transition"
+    >
+      <template v-slot:activator>
+        <v-btn
+          v-model="fab"
+          color="blue darken-2"
+          dark
+          fab
+          large
+        >
+          <v-icon>account_circle</v-icon>
+          <v-icon>close</v-icon>
+        </v-btn>
+      </template>
+      <v-btn
+        fab
+        dark
+        small
+        color="green"
+      >
+        <v-icon>edit</v-icon>
+      </v-btn>
+      <v-btn
+        fab
+        dark
+        small
+        color="indigo"
+      >
+        <v-icon>add</v-icon>
+      </v-btn>
+      <v-btn
+        fab
+        dark
+        small
+        color="red"
+      >
+        <v-icon>delete</v-icon>
+      </v-btn>
+    </v-speed-dial>
+
+    <div class="w3-container">
+      <div class="w3-content" style="max-width:1180px; min-height: 600px;">
+        <h5 class="w3-center w3-padding-48"><span class="w3-tag w3-wide">주간 식사표</span></h5>
+        <weekly-planner></weekly-planner>
+      </div>
+    </div>
+
+    <hr/>
+
     <div class="w3-container">
       <div class="w3-content" style="max-width:1180px; min-height: 810px;">
         <h5 class="w3-center w3-padding-64"><span class="w3-tag w3-wide">맛집 등록하기</span></h5>
@@ -101,100 +166,81 @@
             </v-tab-item>
             <v-tab-item :key="2" value="tab-2">
               <v-card flat>
-                <v-container fluid>
-                  <v-layout row align-center wrap>
-                    <v-flex sm4>
-                      <v-subheader>카테고리</v-subheader>
-                    </v-flex>
-                    <v-flex sm8>
-                      <v-select
-                        v-model="value"
-                        :items="items2"
-                        :menu-props="{offsetY: true }"
-                        clearable
-                        attach
-                        chips
-                        label="분류"
-                        multiple
-                      ></v-select>
-                    </v-flex>
-                  </v-layout>
+                <v-form>
+                  <v-container fluid>
+                    <v-layout row align-center wrap>
+                      <v-flex sm4>
+                        <v-subheader>카테고리</v-subheader>
+                      </v-flex>
+                      <v-flex sm8>
+                        <v-select
+                          v-model="value"
+                          :items="items2"
+                          :menu-props="{offsetY: true }"
+                          clearable
+                          single-line
+                          attach
+                          chips
+                          multiple
+                        ></v-select>
+                      </v-flex>
+                    </v-layout>
 
-                  <v-layout row>
-                    <v-flex sm4>
-                      <v-subheader>상호명</v-subheader>
-                    </v-flex>
-                    <v-flex sm8>
-                      <v-text-field
-                        label="맛집 이름"
-                        value="10.00"
-                        clearable
-                        box
-                        prefix="신/구주소"
-                      ></v-text-field>
-                    </v-flex>
-                  </v-layout>
+                    <v-layout row>
+                      <v-flex sm4>
+                        <v-subheader>상호명</v-subheader>
+                      </v-flex>
+                      <v-flex sm8>
+                        <v-text-field
+                          single-line
+                          clearable
+                          box
+                        ></v-text-field>
+                      </v-flex>
+                    </v-layout>
 
-                  <v-layout row>
-                    <v-flex sm4>
-                      <v-subheader>주소</v-subheader>
-                    </v-flex>
-                    <v-flex sm8>
-                      <v-text-field
-                        label="맛집 위치"
-                        value="28.00"
-                        clearable
-                        box
-                        @click:append="toggleMarker"
-                        append-icon="location_searching"
-                      ></v-text-field>
-                    </v-flex>
-                  </v-layout>
+                    <v-layout row wrap>
+                      <v-flex sm4>
+                        <v-subheader>주소</v-subheader>
+                      </v-flex>
+                      <v-flex sm8>
+                        <v-tooltip v-model="show" top>
+                          <template v-slot:activator="{ on }">
+                            <v-text-field
+                              clearable
+                              single-line
+                              box
+                              append-icon="location_searching"
+                              @mouseout:append="show = !show"
+                            ></v-text-field>
+                          </template>
+                          <span>Programmatic tooltip</span>
+                        </v-tooltip>
+                      </v-flex>
+                    </v-layout>
 
-                  <v-layout row>
-                    <v-flex sm4>
-                      <v-subheader>평점</v-subheader>
-                    </v-flex>
-                    <v-flex sm8 align-center>
-                      <v-layout column align-center>
-                        <v-rating
-                          v-model="rating"
-                          background-color="orange lighten-3"
-                          color="orange"
-                          medium
-                        ></v-rating>
-                      </v-layout>
-                    </v-flex>
-                  </v-layout>
+                    <v-layout row>
+                      <v-flex sm4>
+                        <v-subheader>평점</v-subheader>
+                      </v-flex>
+                      <v-flex sm8 align-center>
+                        <v-layout column align-center>
+                          <v-rating
+                            v-model="rating"
+                            background-color="orange lighten-3"
+                            color="orange"
+                            medium
+                          ></v-rating>
+                        </v-layout>
+                      </v-flex>
+                    </v-layout>
 
-                  <v-layout row>
-                    <v-flex sm4>
-                      <v-subheader>Suffix for email domain</v-subheader>
-                    </v-flex>
-                    <v-flex sm8>
-                      <v-text-field
-                        label="Email address"
-                        value="example"
-                        suffix="@gmail.com"
-                      ></v-text-field>
-                    </v-flex>
-                  </v-layout>
+                    <div class="text-xs-right">
+                      <v-btn round color="primary" dark>등록하기</v-btn>
+                    </div>
 
-                  <v-layout row>
-                    <v-flex sm4>
-                      <v-subheader>Suffix for time zone</v-subheader>
-                    </v-flex>
-                    <v-flex sm8>
-                      <v-text-field
-                        label="Label Text"
-                        value="12:30:00"
-                        type="time"
-                        suffix="PST"
-                      ></v-text-field>
-                    </v-flex>
-                  </v-layout>
-
-                </v-container>
+                  </v-container>
+                </v-form>
               </v-card>
             </v-tab-item>
           </v-tabs-items>
@@ -205,36 +251,21 @@
     <hr/>
 
     <div class="w3-container">
-      <div class="w3-content" style="max-width:700px; min-height: 500px;">
-        <h5 class="w3-center w3-padding-48"><span class="w3-tag w3-wide">THE RECOMMENDED</span></h5>
-        <div class="w3-row w3-center w3-card w3-padding">
-          <div class="w3-col s2 tabLink">
-            <v-btn color="primary" dark @click="v_clickTest(false)">아침</v-btn>
-          </div>
-          <div class="w3-col s2 tabLink">
-            <v-btn color="primary" dark @click="recommendedSet('점심')">점심</v-btn>
-          </div>
-          <div class="w3-col s2 tabLink">
-            <v-btn color="primary" dark @click="recommendedSet('저녁')">저녁</v-btn>
-          </div>
-          <div class="w3-col s2 tabLink">
-            <v-btn color="primary" dark @click="recommendedSet('디저트')">디저트</v-btn>
-          </div>
-          <div class="w3-col s2 tabLink">
-            <v-btn color="primary" dark @click="recommendedSet('야식')">야식</v-btn>
-          </div>
-          <div class="w3-col s2 tabLink">
-            <v-btn color="primary" dark @click="recommendedSet('술')">술</v-btn>
-          </div>
-        </div>
+      <div class="w3-content" style="max-width:1180px; min-height: 600px;">
+        <h5 class="w3-center w3-padding-48"><span class="w3-tag w3-wide">방문일지</span></h5>
+        <visit-record></visit-record>
       </div>
     </div>
 
     <hr/>
 
   </div>
+
 </template>
 <script>
+import weeklyPlanner from '@/components/util/weeklyPlanner.vue'
+import visitRecord from '@/components/util/visitRecord.vue'
+
 export default {
   name: 'bobsimMypage',
   data() {
@@ -250,6 +281,10 @@ export default {
       page: 1,
       pageLength: 0,
       e1: 0,
+      show: false,
+      bottomNav: 'recent',
+      //
+      fab: false,
     }
   },
   methods: {
@@ -308,12 +343,18 @@ export default {
     toggleMarker() {
       this.marker = !this.marker
     },
+    testAlert() {
+      console.log("111111");
+    }
   },
   created() {
   },
   mounted() {
   },
-  components: {},
+  components: {
+    weeklyPlanner,
+    visitRecord
+  },
   watch: {
     page: function (newPage) {
       this.listPaging(newPage);

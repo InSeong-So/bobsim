@@ -187,37 +187,35 @@ export default {
     bobsimHome() {
       $(this.$refs["tabLink01"]).siblings()
         .removeClass('on');
-      this.$router.resolve('/');
-      this.$router.resolve({name: 'bobsimHome', params: {}});
+      this.$router.push({name: 'bobsimHome', params: {}});
       Vue.set(this, "currentMenu", "");
     },
     bobsimRecommended() {
       $(this.$refs["tabLink02"]).addClass('on')
         .siblings()
         .removeClass('on');
-      this.$router.resolve('/recommended');
-      // this.$router.resolve({name: 'bobsimRecommended', params: {}});
+      this.$router.push({name: 'bobsimRecommended', params: {}});
       Vue.set(this, "currentMenu", "recommended");
     },
     bobsimMypage(open) {
-      if (this.REQUIRE_LOGIN == "MyPage") {
-        this.$router.replace('/mypage');
+      if (open) {
+        $(this.$refs["tabLink03"]).addClass('on')
+          .siblings()
+          .removeClass('on');
       } else {
-        if (open) {
-          $(this.$refs["tabLink03"]).addClass('on')
-            .siblings()
-            .removeClass('on');
-        } else {
-          $(this.$refs["tabLink03"]).removeClass('on');
-        }
+        $(this.$refs["tabLink03"]).removeClass('on');
+      }
 
+      if (this.REQUIRE_LOGIN == "MyPage") {
+        this.$router.push('/mypage');
+      } else {
         this.loginDialog = open;
       }
     },
     bobsimSignUp() {
       this.loginDialog = false;
       this.topNav = false;
-      this.$router.resolve('/signUp');
+      this.$router.push('/signUp');
     },
     bobsimSignIn() {
       this.progressDialog = true;
@@ -255,7 +253,7 @@ export default {
 }
 
 .bgimg {
-  margin-top:54px;
+  margin-top: 54px;
   background-position: center;
   background-size: cover;
   background-image: url("../static/images/platter-2009590_1920.jpg");

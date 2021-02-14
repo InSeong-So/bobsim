@@ -28,77 +28,6 @@
 
     <hr/>
 
-    <!--    <div class="w3-container" id="test2222">-->
-    <!--      <div class="w3-content" style="max-width:700px">-->
-    <!--        <div class="layout justify-center">-->
-    <!--          <div class="flex sm12">-->
-    <!--            <nav class="v-toolbar theme&#45;&#45;dark indigo" data-booted="true"-->
-    <!--                 style="margin-top: 0px; padding-right: 0px; padding-left: 0px; transform: translateY(0px);">-->
-    <!--              <div class="v-toolbar__content" style="height: 64px;">-->
-    <!--                <button type="button" class="v-toolbar__side-icon v-btn v-btn&#45;&#45;icon theme&#45;&#45;dark">-->
-    <!--                  <div class="v-btn__content">-->
-    <!--                    <i aria-hidden="true" class="v-icon material-icons theme&#45;&#45;dark">menu</i>-->
-    <!--                  </div>-->
-    <!--                </button>-->
-    <!--                <div class="v-toolbar__title">Discover</div>-->
-    <!--                <div class="spacer"></div>-->
-    <!--                <button type="button" class="v-btn v-btn&#45;&#45;icon theme&#45;&#45;dark">-->
-    <!--                  <div class="v-btn__content">-->
-    <!--                    <i aria-hidden="true" class="v-icon material-icons theme&#45;&#45;dark">search</i>-->
-    <!--                  </div>-->
-    <!--                </button>-->
-    <!--              </div>-->
-    <!--            </nav>-->
-    <!--            <div class="v-card v-sheet theme&#45;&#45;light">-->
-    <!--              <div class="container fluid grid-list-md">-->
-    <!--                <div class="layout row wrap">-->
-    <!--                  <div class="flex ">-->
-    <!--                    <div class="v-card v-sheet theme&#45;&#45;light">-->
-    <!--                      <div class="v-responsive v-image" style="height: 200px;">-->
-    <!--                        <div class="v-responsive__sizer" style="padding-bottom: 75%;"></div>-->
-    <!--                        <div class="v-image__image v-image__image&#45;&#45;cover"-->
-    <!--                             style="background-position: center center;">-->
-    <!--                        </div>-->
-    <!--                        <div class="v-responsive__content">-->
-    <!--                          <div class="container fill-height fluid pa-2">-->
-    <!--                            <div class="layout fill-height">-->
-    <!--                              <div class="flex  align-end flexbox">-->
-    <!--                                <span class="headline white&#45;&#45;text">Pre-fab homes</span>-->
-    <!--                              </div>-->
-    <!--                            </div>-->
-    <!--                          </div>-->
-    <!--                        </div>-->
-    <!--                      </div>-->
-    <!--                      <div class="v-card__actions">-->
-    <!--                        <div class="spacer"></div>-->
-    <!--                        <button type="button" class="v-btn v-btn&#45;&#45;icon theme&#45;&#45;light">-->
-    <!--                          <div class="v-btn__content">-->
-    <!--                            <i aria-hidden="true" class="v-icon material-icons theme&#45;&#45;light">favorite</i>-->
-    <!--                          </div>-->
-    <!--                        </button>-->
-    <!--                        <button type="button" class="v-btn v-btn&#45;&#45;icon theme&#45;&#45;light">-->
-    <!--                          <div class="v-btn__content">-->
-    <!--                            <i aria-hidden="true" class="v-icon material-icons theme&#45;&#45;light">bookmark</i>-->
-    <!--                          </div>-->
-    <!--                        </button>-->
-    <!--                        <button type="button" class="v-btn v-btn&#45;&#45;icon theme&#45;&#45;light">-->
-    <!--                          <div class="v-btn__content">-->
-    <!--                            <i aria-hidden="true" class="v-icon material-icons theme&#45;&#45;light">share</i>-->
-    <!--                          </div>-->
-    <!--                        </button>-->
-    <!--                      </div>-->
-    <!--                    </div>-->
-    <!--                  </div>-->
-    <!--                </div>-->
-    <!--              </div>-->
-    <!--            </div>-->
-    <!--          </div>-->
-    <!--        </div>-->
-    <!--      </div>-->
-    <!--    </div>-->
-
-    <hr/>
-
     <div class="w3-container" id="record">
       <div class="w3-content" style="max-width:900px; min-height:600px;">
         <h5 class="w3-center w3-padding-48"><span class="w3-tag w3-wide">SHARE OR RECORD YOUR RESTAURANT</span></h5>
@@ -115,8 +44,7 @@
                   <v-flex sm12>
                     <v-text-field
                       v-model="restaurantNm"
-                      label="음식점"
-                      box
+                      label="맛집 이름"
                       readonly
                     ></v-text-field>
                   </v-flex>
@@ -124,8 +52,7 @@
                   <v-flex sm12>
                     <v-text-field
                       v-model="restaurantAddress"
-                      label="주소"
-                      box
+                      label="맛집 위치"
                       readonly
                     ></v-text-field>
                   </v-flex>
@@ -171,18 +98,6 @@
                       </div>
                     </div>
                   </div>
-                  <!--                <v-card-actions>-->
-                  <!--                  <v-spacer></v-spacer>-->
-                  <!--                  <v-btn icon>-->
-                  <!--                    <v-icon>favorite</v-icon>-->
-                  <!--                  </v-btn>-->
-                  <!--                  <v-btn icon>-->
-                  <!--                    <v-icon>bookmark</v-icon>-->
-                  <!--                  </v-btn>-->
-                  <!--                  <v-btn icon>-->
-                  <!--                    <v-icon>share</v-icon>-->
-                  <!--                  </v-btn>-->
-                  <!--                </v-card-actions>-->
                 </v-card-actions>
               </v-list>
               <v-list two-line>
