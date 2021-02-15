@@ -1,12 +1,7 @@
 <template>
   <div>
     <v-toolbar flat color="white">
-      <v-toolbar-title>My CRUD</v-toolbar-title>
-      <v-divider
-        class="mx-2"
-        inset
-        vertical
-      ></v-divider>
+      <v-toolbar-title>주간 밥심!</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-dialog v-model="dialog" max-width="500px">
         <template v-slot:activator="{ on }">
@@ -86,15 +81,13 @@ export default {
   data: () => ({
     dialog: false,
     headers: [
-      {
-        text: 'Dessert (100g serving)',
-        align: 'left',
-        sortable: false,
-        value: 'name'
-      },
-      {text: 'Calories', value: 'calories'},
-      {text: 'Fat (g)', value: 'fat'},
-      {text: 'Carbs (g)', value: 'carbs'},
+      {text: '요일', align: 'center', value: 'day'},
+      {text: '아침', value: 'calories'},
+      {text: '점심', value: 'fat'},
+      {text: '저녁', value: 'carbs'},
+      {text: 'Protein (g)', value: 'protein'},
+      {text: 'Actions', value: 'name', sortable: false},
+      {text: '저녁', value: 'carbs'},
       {text: 'Protein (g)', value: 'protein'},
       {text: 'Actions', value: 'name', sortable: false}
     ],

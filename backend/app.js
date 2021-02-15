@@ -57,6 +57,7 @@ app.route('/rouletteInit')
                         : data[0].address.region_1depth_name + "-" + data[0].address.region_2depth_name;
                     let codes = [];
                     const queryParam = [regionName.split("-")[0], regionName.split("-")[1]];
+                    // const queryParam = ['대전', '대덕구'];
                     connection.query(queryFactory.rouletteQuery.thisRegionRestaurantList, queryParam, (err, rows) => {
                         if (rows.length > 0) {
                             for (let i in rows) {
@@ -81,6 +82,28 @@ app.route('/rouletteInit')
         })
     });
 
+app.route('/currentAddress')
+    .post((req, res) => {
+        new Promise((resolve, reject) => {
+            try {
+                const param = {
+                    x: req.query.x,
+                    y: req.query.y
+                };
+
+                getCurrentAddress(param).then((data) => {
+                    const region = {
+                        newAddress: data[0].road_address.address_name,
+                        oldAddress: data[0].address.address_name
+                    };
+
+                    resolve(res.json(region));
+                });
+            } catch (err) {
+                reject(res.send(err));
+            }
+        });
+    });
 
 app.route('/address')
     .post((req, res) => {

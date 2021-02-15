@@ -1,14 +1,6 @@
 <template>
   <div class="w3-sand w3-large">
 
-<!--    <template v-slot:activator>-->
-<!--      <v-btn fab dark large color="primary" fixed right bottom-->
-<!--             style="margin-bottom: 200px;">-->
-<!--        <v-icon dark>account_circle</v-icon>-->
-<!--        <v-icon>close</v-icon>-->
-<!--      </v-btn>-->
-<!--    </template>-->
-
     <v-speed-dial
       v-model="fab"
       fab
@@ -174,7 +166,7 @@
                       </v-flex>
                       <v-flex sm8>
                         <v-select
-                          v-model="value"
+                          v-model="addCategory"
                           :items="items2"
                           :menu-props="{offsetY: true }"
                           clearable
@@ -192,6 +184,7 @@
                       </v-flex>
                       <v-flex sm8>
                         <v-text-field
+                          v-model="addRestaurantNm"
                           single-line
                           clearable
                           box
@@ -204,14 +197,15 @@
                         <v-subheader>주소</v-subheader>
                       </v-flex>
                       <v-flex sm8>
-                        <v-tooltip v-model="show" top>
+                        <v-tooltip top>
                           <template v-slot:activator="{ on }">
                             <v-text-field
+                              v-model="addAddress"
                               clearable
                               single-line
                               box
                               append-icon="location_searching"
-                              @mouseout:append="show = !show"
+                              @click:append="setAddress"
                             ></v-text-field>
                           </template>
                           <span>Programmatic tooltip</span>
@@ -226,7 +220,7 @@
                       <v-flex sm8 align-center>
                         <v-layout column align-center>
                           <v-rating
-                            v-model="rating"
+                            v-model="addRating"
                             background-color="orange lighten-3"
                             color="orange"
                             medium
@@ -272,19 +266,23 @@ export default {
     return {
       tab: "선택",
       items2: ['한식', '중식', '일식', '양식', '디저트'],
-      value: ['foo', 'bar', 'fizz', 'buzz'],
-      rating: 3,
+      addCategory: [],
+      addRestaurantNm: "",
+      addAddress: "",
+      currentAddress: {},
+      addRating: 3,
       keyword: "",
       selected: [2],
       allItems: [],
       items: [],
       page: 1,
       pageLength: 0,
-      e1: 0,
-      show: false,
       bottomNav: 'recent',
       //
       fab: false,
+      //
+      tab1: {},
+      tab2: {}
     }
   },
   methods: {
@@ -343,8 +341,44 @@ export default {
     toggleMarker() {
       this.marker = !this.marker
     },
-    testAlert() {
-      console.log("111111");
+    getLocation: function (flag) {
+      return new Promise((resolve, reject) => {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function (position) {
+            resolve({x: position.coords.longitude, y: position.coords.latitude});
+          }, function (error) {
+            reject({code: "fail", msg: error});
+          }, {
+            enableHighAccuracy: false,
+            maximumAge: 0,
+            timeout: Infinity
+          });
+        } else {
+          reject({code: "fail", msg: "not supported"});
+        }
+      });
+    },
+    setAddress() {
+      if (!confirm("현재 위치를 가져오시겠습니까?")) return;
+
+      if (this.currentAddress.newAddress || this.currentAddress.oldAddress) {
+        Vue.set(this, "addAddress", this.currentAddress.newAddress);
+        return;
+      }
+
+      this.getLocation().then(result => {
+        let params = new URLSearchParams();
+        params.append('x', result.x);
+        params.append('y', result.y);
+
+        this.$http.getCurrentAddress(params).then(response => {
+          Vue.set(this, "currentAddress", response.data);
+          Vue.set(this, "addAddress", this.currentAddress.newAddress);
+        }).catch(err => {
+          alert("현재 위치를 불러오는 도중 에러가 발생했습니다.");
+        });
+      });
+
     }
   },
   created() {

@@ -9,9 +9,9 @@ export default {
       params: param
     })
   },
-  getKakaoMapToKeyword(param) {
+  getCurrentAddress(param) {
     return Send({
-      url: '/keyword',
+      url: '/currentAddress',
       method: 'post',
       params: param
     })
@@ -19,6 +19,13 @@ export default {
   getKakaoMapToAddress(param) {
     return Send({
       url: '/address',
+      method: 'post',
+      params: param
+    })
+  },
+  getKakaoMapToKeyword(param) {
+    return Send({
+      url: '/keyword',
       method: 'post',
       params: param
     })
