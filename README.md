@@ -91,11 +91,3 @@
 
 <hr>
 <br>
-
-## 참고
-- 사용 라이브러리
-  - Open API : kakao map
-  - Crawling : nodejs cheerio
-  - vue : vuetify
-  - crypto : node scrypto
-  - w3school template
