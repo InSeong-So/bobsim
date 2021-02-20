@@ -72,22 +72,5 @@
   - 식단 테이블
   - 선호 테이블
 
-<br>
-
-### 개발 스택
-- Front
-  - Vue.js
-  - Vuetify.js
-
-- Back
-  - Node.js
-  - Express.js
-  - cheerio.js
-  - ~~scrypto.js~~ encrypt.js
-
-- DataBase
-  - MariaDB(MySQL)
-  - NoSQL
-
 <hr>
 <br>
