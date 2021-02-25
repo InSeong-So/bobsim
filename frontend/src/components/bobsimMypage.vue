@@ -159,18 +159,19 @@
             <v-tab-item :key="2" value="tab-2">
               <v-card flat>
                 <v-form>
-                  <v-container fluid>
+                  <v-container>
                     <v-layout row align-center wrap>
-                      <v-flex sm4>
+                      <v-flex xs6>
                         <v-subheader>카테고리</v-subheader>
                       </v-flex>
-                      <v-flex sm8>
+                      <v-flex xs6>
                         <v-select
                           v-model="addCategory"
                           :items="items2"
                           :menu-props="{offsetY: true }"
                           clearable
                           single-line
+                          hide-details
                           attach
                           chips
                           multiple
@@ -179,63 +180,57 @@
                     </v-layout>
 
                     <v-layout row>
-                      <v-flex sm4>
+                      <v-flex xs6>
                         <v-subheader>상호명</v-subheader>
                       </v-flex>
-                      <v-flex sm8>
+                      <v-flex xs6>
                         <v-text-field
                           v-model="addRestaurantNm"
                           single-line
                           clearable
+                          hide-details
                           box
                         ></v-text-field>
                       </v-flex>
                     </v-layout>
 
-                    <v-layout row wrap>
-                      <v-flex sm2>
+                    <v-layout row>
+                      <v-flex xs6>
                         <v-subheader>주소</v-subheader>
                       </v-flex>
-                      <v-flex sm2>
-                        <template>
-                          <v-text-field
-                            v-model="addAddress2"
-                            clearable
-                            single-line
-                            box
-                            append-icon="location_searching"
-                            @click:append="setAddress"
-                          ></v-text-field>
-                        </template>
+                      <v-flex xs6>
+                        <v-text-field
+                          ref="addAddress"
+                          v-model="addAddress"
+                          clearable
+                          single-line
+                          box
+                          hide-details
+                          readonly
+                          placeholder="주소찾기"
+                          @click:append="setAddress"
+                          append-icon="place"
+                        ></v-text-field>
                       </v-flex>
-                      <v-flex sm8>
-                        <v-tooltip top>
-                          <template v-slot:activator="{ on }">
-                            <v-text-field
-                              v-model="addAddress"
-                              clearable
-                              single-line
-                              box
-                              append-icon="location_searching"
-                              @click:append="setAddress"
-                            ></v-text-field>
-                          </template>
-                          <span>Programmatic tooltip</span>
-                        </v-tooltip>
+                      <v-flex xs6>
                       </v-flex>
-                      <v-flex sm12 id="wrap"
-                           style="display:none;border:1px solid;width:500px;height:300px;margin:5px 0;position:relative">
-                        <img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnFoldWrap"
-                             style="cursor:pointer;position:absolute;right:0px;top:-1px;z-index:1"
-                             onclick="foldDaumPostcode()" alt="접기 버튼">
+                      <v-flex xs6>
+                        <v-text-field
+                          ref="addDetailAddress"
+                          v-model="addDetailAddress"
+                          clearable
+                          single-line
+                          box
+                          hide-details
+                          placeholder="상세주소"
+                        ></v-text-field>
                       </v-flex>
                     </v-layout>
-
                     <v-layout row>
-                      <v-flex sm4>
+                      <v-flex xs6>
                         <v-subheader>평점</v-subheader>
                       </v-flex>
-                      <v-flex sm8 align-center>
+                      <v-flex xs6 align-center>
                         <v-layout column align-center>
                           <v-rating
                             v-model="addRating"
@@ -271,6 +266,29 @@
 
     <hr/>
 
+
+    <v-dialog
+      v-model="daumApiDialog"
+      width="500"
+    >
+      <template v-slot:activator="{ on }">
+        <v-btn
+          color="red lighten-2"
+          dark
+          v-on="on"
+        >
+          Click Me
+        </v-btn>
+      </template>
+
+      <v-card height="100%">
+        <v-card-text>
+          <v-flex sm12 id="wrap"
+                  style="display:none;border:1px solid;width:100%;height:510px;margin:5px 0;position:relative;">
+          </v-flex>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
   </div>
 
 </template>
@@ -286,7 +304,10 @@ export default {
       items2: ['한식', '중식', '일식', '양식', '디저트'],
       addCategory: [],
       addRestaurantNm: "",
+      addZipCode: "",
       addAddress: "",
+      addDetailAddress: "",
+      daumApiDialog: false,
       currentAddress: {},
       addRating: 3,
       keyword: "",
@@ -356,9 +377,6 @@ export default {
         this.selected.push(index)
       }
     },
-    toggleMarker() {
-      this.marker = !this.marker
-    },
     getLocation: function (flag) {
       return new Promise((resolve, reject) => {
         if (navigator.geolocation) {
@@ -376,22 +394,55 @@ export default {
         }
       });
     },
-    foldDaumPostcode() {
-      let element_wrap = document.getElementById('wrap');
-      element_wrap.style.display = 'none';
+    addressHere() {
+      if (!confirm("현재 위치를 가져오시겠습니까?")) return;
+      if (this.currentAddress.newAddress || this.currentAddress.oldAddress) {
+        Vue.set(this, "addAddress", this.currentAddress.newAddress);
+        return;
+      }
+      this.getLocation().then(result => {
+        let params = new URLSearchParams();
+        params.append('x', result.x);
+        params.append('y', result.y);
+        this.$http.getCurrentAddress(params).then(response => {
+          Vue.set(this, "currentAddress", response.data);
+          Vue.set(this, "addAddress", this.currentAddress.newAddress);
+        }).catch(err => {
+          alert("현재 위치를 불러오는 도중 에러가 발생했습니다.");
+        });
+      });
     },
     setAddress() {
+      this.daumApiDialog = true;
+
       let element_wrap = document.getElementById('wrap');
+
       // 현재 scroll 위치를 저장해놓는다.
-      var currentScroll = Math.max(document.body.scrollTop, document.documentElement.scrollTop);
+      let currentScroll = Math.max(document.body.scrollTop, document.documentElement.scrollTop);
+
+      let themeObj = {
+        //bgColor: "", //바탕 배경색
+        searchBgColor: "#0B65C8", //검색창 배경색
+        //contentBgColor: "", //본문 배경색(검색결과,결과없음,첫화면,검색서제스트)
+        //pageBgColor: "", //페이지 배경색
+        //textColor: "", //기본 글자색
+        queryTextColor: "#FFFFFF" //검색창 글자색
+        //postcodeTextColor: "", //우편번호 글자색
+        //emphTextColor: "", //강조 글자색
+        //outlineColor: "", //테두리
+      };
+
+      let $vue = this;
+
       new daum.Postcode({
+        theme: themeObj,
         oncomplete: function (data) {
           // 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
           // 각 주소의 노출 규칙에 따라 주소를 조합한다.
           // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-          var addr = ''; // 주소 변수
-          var extraAddr = ''; // 참고항목 변수
+          let addr = ''; // 주소 변수
+          let extraAddr = ''; // 참고항목 변수
 
           //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
           if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
@@ -415,29 +466,26 @@ export default {
             if (extraAddr !== '') {
               extraAddr = ' (' + extraAddr + ')';
             }
-            // 조합된 참고항목을 해당 필드에 넣는다.
-            document.getElementById("sample3_extraAddress").value = extraAddr;
-
-          } else {
-            document.getElementById("sample3_extraAddress").value = '';
           }
 
           // 우편번호와 주소 정보를 해당 필드에 넣는다.
-          document.getElementById('sample3_postcode').value = data.zonecode;
-          document.getElementById("sample3_address").value = addr;
+          Vue.set($vue, "addZipCode", data.zonecode);
+          // 조합된 참고항목을 주소와 함께 해당 필드에 넣는다.
+          Vue.set($vue, "addAddress", addr + extraAddr);
           // 커서를 상세주소 필드로 이동한다.
-          document.getElementById("sample3_detailAddress").focus();
+          // document.getElementById("sample3_detailAddress").focus();
 
           // iframe을 넣은 element를 안보이게 한다.
           // (autoClose:false 기능을 이용한다면, 아래 코드를 제거해야 화면에서 사라지지 않는다.)
           element_wrap.style.display = 'none';
+          $vue.daumApiDialog = false;
 
           // 우편번호 찾기 화면이 보이기 이전으로 scroll 위치를 되돌린다.
           document.body.scrollTop = currentScroll;
         },
         // 우편번호 찾기 화면 크기가 조정되었을때 실행할 코드를 작성하는 부분. iframe을 넣은 element의 높이값을 조정한다.
         onresize: function (size) {
-          element_wrap.style.height = size.height + 'px';
+          element_wrap.style.height = size.height + 5 + 'px';
         },
         width: '100%',
         height: '100%'
@@ -446,27 +494,6 @@ export default {
       // iframe을 넣은 element를 보이게 한다.
       element_wrap.style.display = 'block';
     },
-    setAddress2() {
-      if (!confirm("현재 위치를 가져오시겠습니까?")) return;
-
-      if (this.currentAddress.newAddress || this.currentAddress.oldAddress) {
-        Vue.set(this, "addAddress", this.currentAddress.newAddress);
-        return;
-      }
-
-      this.getLocation().then(result => {
-        let params = new URLSearchParams();
-        params.append('x', result.x);
-        params.append('y', result.y);
-
-        this.$http.getCurrentAddress(params).then(response => {
-          Vue.set(this, "currentAddress", response.data);
-          Vue.set(this, "addAddress", this.currentAddress.newAddress);
-        }).catch(err => {
-          alert("현재 위치를 불러오는 도중 에러가 발생했습니다.");
-        });
-      });
-    }
   },
   created() {
   },
@@ -495,7 +522,7 @@ a:hover {
   color: white;
 }
 
-#app > div.application--wrap > div.w3-sand.w3-large > div > div > div > div.v-window > div > div:nth-child(2) > div > div > div.layout.row.align-center.wrap > div.flex.sm8 > div > div.v-menu__content.theme--light.menuable__content__active {
-  left: 7.4% !important;
+#app > div.application--wrap > div.w3-sand.w3-large > div:nth-child(4) > div > div > div.v-window > div > div:nth-child(2) > div > form > div > div.layout > div > div > div.v-menu__content.theme--light.menuable__content__active {
+  left: 7.46% !important;
 }
 </style>
