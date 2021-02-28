@@ -1,28 +1,137 @@
 <template>
   <div class="w3-sand w3-large">
     <div class="w3-container" id="recommended">
-      <div class="w3-content" style="max-width:700px">
+      <div class="w3-content" style="max-width:900px">
         <h5 class="w3-center w3-padding-48"><span class="w3-tag w3-wide">THE RECOMMENDED</span></h5>
-        <div class="w3-row w3-center w3-card w3-padding">
-          <div class="w3-col s2 tabLink">
-            <v-btn color="primary" dark @click="v_clickTest(false)">아침</v-btn>
-          </div>
-          <div class="w3-col s2 tabLink">
-            <v-btn color="primary" dark @click="recommendedSet('점심')">점심</v-btn>
-          </div>
-          <div class="w3-col s2 tabLink">
-            <v-btn color="primary" dark @click="recommendedSet('저녁')">저녁</v-btn>
-          </div>
-          <div class="w3-col s2 tabLink">
-            <v-btn color="primary" dark @click="recommendedSet('디저트')">디저트</v-btn>
-          </div>
-          <div class="w3-col s2 tabLink">
-            <v-btn color="primary" dark @click="recommendedSet('야식')">야식</v-btn>
-          </div>
-          <div class="w3-col s2 tabLink">
-            <v-btn color="primary" dark @click="recommendedSet('술')">술</v-btn>
-          </div>
-        </div>
+        <v-card flat>
+          <v-card-text>
+            <v-container fluid>
+              <v-layout row wrap>
+                <v-flex xs12>
+                  원하시는 식사 시간이 있나요?
+                </v-flex>
+                <v-flex xs4>
+                  <v-switch
+                    v-model="restaurantListOption.type01"
+                    ref="type01"
+                    label="아침"
+                    color="red"
+                    value="red"
+                    hide-details
+                    @change="setOptions('type01')"
+                    style="display: flex;justify-content: center;"
+                  ></v-switch>
+                </v-flex>
+                <v-flex xs4>
+                  <v-switch
+                    v-model="restaurantListOption.type02"
+                    ref="type02"
+                    label="점심"
+                    color="red darken-3"
+                    value="red darken-3"
+                    hide-details
+                    @change="setOptions('type02')"
+                    style="display: flex;justify-content: center;"
+                  ></v-switch>
+                </v-flex>
+                <v-flex xs4>
+                  <v-switch
+                    v-model="restaurantListOption.type03"
+                    ref="type03"
+                    label="저녁"
+                    color="indigo"
+                    value="indigo"
+                    hide-details
+                    @change="setOptions('type03')"
+                    style="display: flex;justify-content: center;"
+                  ></v-switch>
+                </v-flex>
+                <v-flex xs4>
+                  <v-switch
+                    v-model="restaurantListOption.type04"
+                    ref="type04"
+                    label="브런치"
+                    color="indigo darken-3"
+                    value="indigo darken-3"
+                    hide-details
+                    @change="setOptions('type04')"
+                    style="display: flex;justify-content: center;"
+                  ></v-switch>
+                </v-flex>
+                <v-flex xs4>
+                  <v-switch
+                    v-model="restaurantListOption.type05"
+                    ref="type05"
+                    label="디저트"
+                    color="orange"
+                    value="orange"
+                    hide-details
+                    @change="setOptions('type05')"
+                    style="display: flex;justify-content: center;"
+                  ></v-switch>
+                </v-flex>
+                <v-flex xs4>
+                  <v-switch
+                    v-model="restaurantListOption.type06"
+                    ref="type06"
+                    label="야식/술"
+                    color="orange darken-3"
+                    value="orange darken-3"
+                    hide-details
+                    @change="setOptions('type06')"
+                    style="display: flex;justify-content: center;"
+                  ></v-switch>
+                </v-flex>
+              </v-layout>
+              <v-layout row wrap class="mt-5">
+                <v-flex xs12>
+                  추가 옵션이 필요하신가요?
+                </v-flex>
+                <v-flex xs12>
+
+                  <div class="mt-3">
+                    <div class="d-flex justify-between align-center mb-3">
+                      <v-btn @click="all">전체보기</v-btn>
+                      <v-btn @click="none">접기</v-btn>
+                    </div>
+
+                    <v-expansion-panel
+                      v-model="panel"
+                      expand
+                    >
+                      <v-expansion-panel-content
+                        v-for="(item, idx) in items"
+                        :key="idx"
+                      >
+                        <template v-slot:header>
+                          <div>{{ item.header }}</div>
+                        </template>
+                        <v-card>
+                          <v-card-text>
+                            <v-layout row wrap>
+                              <template v-for="itemLv2 in item.check">
+                                <v-flex xs3>
+                                  <v-checkbox
+                                    v-model="itemLv2.value"
+                                    :label="itemLv2.label"
+                                    :color="itemLv2.attribute"
+                                    :value="itemLv2.value"
+                                    hide-details
+                                    style="display: flex;justify-content: center;"
+                                  ></v-checkbox>
+                                </v-flex>
+                              </template>
+                            </v-layout>
+                          </v-card-text>
+                        </v-card>
+                      </v-expansion-panel-content>
+                    </v-expansion-panel>
+                  </div>
+                </v-flex>
+              </v-layout>
+            </v-container>
+          </v-card-text>
+        </v-card>
       </div>
     </div>
 
@@ -31,48 +140,55 @@
     <div class="w3-container" id="record">
       <div class="w3-content" style="max-width:900px; min-height:600px;">
         <h5 class="w3-center w3-padding-48"><span class="w3-tag w3-wide">SHARE OR RECORD YOUR RESTAURANT</span></h5>
-        <div class="w3-row ">
-          <div class="w3-col s6">
-            <roulette ref="slot-machine" :currentLocation="currentLocation"
-                      @getPickRestaurantNm="getPickRestaurantNm"></roulette>
-          </div>
-          <div class="w3-col s6">
-            <v-form>
-              <v-container>
-                <v-layout row wrap>
 
-                  <v-flex sm12>
-                    <v-text-field
-                      v-model="restaurantNm"
-                      label="맛집 이름"
-                      readonly
-                    ></v-text-field>
-                  </v-flex>
+        <v-card flat>
+          <v-card-text>
+            <v-layout row wrap>
+              <v-flex xs6>
+                <roulette ref="slot-machine" :currentLocation="currentLocation"
+                          @getPickRestaurantNm="getPickRestaurantNm"></roulette>
+              </v-flex>
+              <v-flex xs6>
+                <v-form>
+                  <v-container>
+                    <v-layout row wrap>
 
-                  <v-flex sm12>
-                    <v-text-field
-                      v-model="restaurantAddress"
-                      label="맛집 위치"
-                      readonly
-                    ></v-text-field>
-                  </v-flex>
+                      <v-flex sm12>
+                        <v-text-field
+                          v-model="restaurantNm"
+                          label="맛집 이름"
+                          placeholder=" "
+                          readonly
+                        ></v-text-field>
+                      </v-flex>
 
-                  <v-flex sm12>
-                    <v-btn
-                      block
-                      flat
-                      @click="getDirections"
-                      outline color="indigo"
-                    >
-                      <v-icon left>exit_to_app</v-icon>
-                      상세보기
-                    </v-btn>
-                  </v-flex>
-                </v-layout>
-              </v-container>
-            </v-form>
-          </div>
-        </div>
+                      <v-flex sm12>
+                        <v-text-field
+                          v-model="restaurantAddress"
+                          label="맛집 위치"
+                          placeholder=" "
+                          readonly
+                        ></v-text-field>
+                      </v-flex>
+
+                      <v-flex sm12>
+                        <v-btn
+                          block
+                          flat
+                          @click="getDirections"
+                          outline color="indigo"
+                        >
+                          <v-icon left>exit_to_app</v-icon>
+                          상세보기
+                        </v-btn>
+                      </v-flex>
+                    </v-layout>
+                  </v-container>
+                </v-form>
+              </v-flex>
+            </v-layout>
+          </v-card-text>
+        </v-card>
 
         <v-dialog v-model="directionsDialog" fullscreen hide-overlay transition="dialog-bottom-transition">
           <v-card>
@@ -185,6 +301,9 @@
         </v-dialog>
       </div>
     </div>
+
+    <loading-component :progressDialog="progressDialog"></loading-component>
+
   </div>
 </template>
 <style>
@@ -226,18 +345,110 @@
 <script>
 import roulette from '@/components/util/roulette.vue'
 import toastEditor from '@/components/util/toastEditor'
+import VSubheader from "../../static/js/vuetify-v1.5.14.min";
 
 export default {
   name: 'bobsimRecommended',
-  // props: {
-  //   progressDialog: {
-  //     type: Boolean,
-  //     default: false
-  //   }
-  // },
+  components: {
+    VSubheader,
+    roulette,
+    toastEditor
+  },
   data() {
     return {
-      progressDialog: false,
+      restaurantListOption: {
+        type01: false,  // 아침
+        type02: true,   // 점심
+        type03: true,   // 저녁
+        type04: false,  // 브런치
+        type05: false,  // 디저트
+        type06: false,  // 야식/술
+        type07: [],
+        type08: [],
+        type09: [],
+        type10: [],
+      },
+      panel: [],
+      items: [
+        {
+          header: "거리",
+          key: "type07",
+          check: [
+            {
+              label: "1km 이내",
+              attribute: "primary",
+              value: false
+            },
+            {
+              label: "5km 이내",
+              attribute: "error",
+              value: false
+            },
+            {
+              label: "10km 이내",
+              attribute: "success",
+              value: false
+            },
+            {
+              label: "직접입력",
+              attribute: "info",
+              value: false
+            },
+          ],
+        },
+        {
+          header: "가격",
+          key: "type08",
+          check: [
+            {
+              label: "8천원 이내",
+              attribute: "primary",
+              value: false
+            },
+            {
+              label: "1만원 이내",
+              attribute: "error",
+              value: false
+            },
+            {
+              label: "2만원 이내",
+              attribute: "success",
+              value: false
+            },
+            {
+              label: "직접입력",
+              attribute: "info",
+              value: false
+            },
+          ],
+        },
+        {
+          header: "식단",
+          key: "type09",
+          check: [
+            {
+              label: "간편식",
+              attribute: "primary",
+              value: false
+            },
+            {
+              label: "다이어트",
+              attribute: "error",
+              value: false
+            },
+            {
+              label: "채식",
+              attribute: "success",
+              value: false
+            },
+            {
+              label: "전체",
+              attribute: "info",
+              value: false
+            },
+          ],
+        },
+      ],
       restaurantNm: "",
       restaurantAddress: "",
       directionsDialog: false,
@@ -253,6 +464,7 @@ export default {
       mapValue: {
         geoCoder: {}
       },
+      progressDialog: false
     }
   },
   methods: {
@@ -412,10 +624,14 @@ export default {
         }
       }
     },
-    recommendedSet(time) {
-      switch (time) {
+    all() {
+      console.log([...Array(this.items).entries()].map(_ => true));
 
-      }
+      this.panel = [...Array(this.items)].map(_ => true)
+    },
+    // Reset the panel
+    none() {
+      this.panel = [];
     },
     getPickRestaurantNm(restaurantData) {
       Vue.set(this, "restaurantNm", restaurantData.restaurantNm);
@@ -425,31 +641,17 @@ export default {
       Vue.set(this, "directionsDialog", true);
       this.setMap();
     },
-    submitArticle(data) {
-      this.content.content = data;
-
-      var preview = validateMarkdown(data);
-      const params = {
-        nickname: this.$store.state.nickname,
-        title: this.content.title,
-        content: this.content.content,
-        keyword: this.content.keywords,
-        preview: preview,
-        ispublic: this.content.ispublic
-      };
+    setOptions() {
     }
   },
   created() {
-    // this.$http.getAuthToken().then(resolve => {
-    //   console.log(resolve);
-    // });
+    // TODO
   },
   mounted() {
-    Vue.set(this, "currentLocation", this.$store.getters.getLocation);
-  },
-  components: {
-    roulette,
-    toastEditor
+    this.getLocation().then(resolve => {
+      this.$store.dispatch("setLocation", resolve);
+      Vue.set(this, "currentLocation", this.$store.getters.getLocation);
+    });
   },
 }
 </script>

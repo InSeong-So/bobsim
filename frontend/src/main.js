@@ -5,8 +5,6 @@ import router from './router'
 import Axios from './common/parangHttps'
 /* auth */
 import store from './store'
-/* components */
-// import bobsimComponent from './common/components'
 
 /* default */
 Vue.config.productionTip = false;
@@ -15,10 +13,6 @@ Vue.config.productionTip = false;
 /* axios */
 Vue.prototype.$http = Axios;
 /* axios */
-
-/* components */
-// Vue.component(bobsimComponent.name, bobsimComponent)
-/* components */
 
 /* custom javascript */
 Array.prototype.shuffle = function () {
@@ -38,8 +32,13 @@ Array.prototype.shuffle = function () {
 }
 /* custom javascript */
 
-/* eslint-disable no-new */
-new Vue({
+import vuetify from '../static/js/vuetify-v1.5.14.min'
+
+Vue.use(vuetify);
+import loadingComponent from '@/components/util/loading'
+
+Vue.component('loadingComponent', loadingComponent)
+window.Vue = new Vue({
   el: '#app',
   render: history => history(App),
   store,

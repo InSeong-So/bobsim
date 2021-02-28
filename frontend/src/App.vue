@@ -124,20 +124,12 @@
 
       <loading-component :progressDialog="progressDialog"></loading-component>
 
-
     </v-app>
   </div>
 </template>
 
 <script>
-
-import Vue from 'vue';
-import vuetify from '../static/js/vuetify-v1.5.14.min'
-import loadingComponent from '@/components/util/loading'
-
-Vue.use(vuetify);
-
-Vue.component('loadingComponent', loadingComponent)
+let Vue = window.Vue;
 
 export default {
   name: 'App',
@@ -167,23 +159,6 @@ export default {
     }
   },
   methods: {
-    getLocation: function (flag) {
-      return new Promise((resolve, reject) => {
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(function (position) {
-            resolve({x: position.coords.longitude, y: position.coords.latitude});
-          }, function (error) {
-            reject({code: "fail", msg: error});
-          }, {
-            enableHighAccuracy: false,
-            maximumAge: 0,
-            timeout: Infinity
-          });
-        } else {
-          reject({code: "fail", msg: "not supported"});
-        }
-      });
-    },
     bobsimHome() {
       $(this.$refs["tabLink01"]).siblings()
         .removeClass('on');
@@ -237,10 +212,7 @@ export default {
     },
   },
   mounted() {
-    this.getLocation().then(resolve => {
-      this.$store.dispatch("setLocation", resolve);
-      // console.log(this.$store.getters.getLocation);
-    });
+    // TODO
   },
   created() {
     // TODO : History API 참조

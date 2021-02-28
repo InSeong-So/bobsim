@@ -190,6 +190,7 @@
                           clearable
                           hide-details
                           box
+                          placeholder="음식점"
                         ></v-text-field>
                       </v-flex>
                     </v-layout>
@@ -309,7 +310,7 @@ export default {
       addDetailAddress: "",
       daumApiDialog: false,
       currentAddress: {},
-      addRating: 3,
+      addRating: 5,
       keyword: "",
       selected: [2],
       allItems: [],
