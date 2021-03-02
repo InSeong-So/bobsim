@@ -210,9 +210,29 @@ export default {
           this.loginDialog = false;
         })
     },
+    // getlocation으로 접속 위치 가져오기
+    getLocation: function (flag) {
+      return new Promise((resolve, reject) => {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function (position) {
+            resolve({x: position.coords.longitude, y: position.coords.latitude});
+          }, function (error) {
+            reject({code: "fail", msg: error});
+          }, {
+            enableHighAccuracy: false,
+            maximumAge: 0,
+            timeout: Infinity
+          });
+        } else {
+          reject({code: "fail", msg: "not supported"});
+        }
+      });
+    },
   },
   mounted() {
-    // TODO
+    this.getLocation().then(resolve => {
+      this.$store.dispatch("setLocation", resolve);
+    });
   },
   created() {
     // TODO : History API 참조

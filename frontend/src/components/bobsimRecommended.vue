@@ -83,7 +83,20 @@
                   ></v-switch>
                 </v-flex>
               </v-layout>
-              <v-layout row wrap class="mt-5">
+            </v-container>
+          </v-card-text>
+        </v-card>
+      </div>
+    </div>
+
+    <hr/>
+
+    <div class="w3-container">
+      <div class="w3-content" style="max-width:900px">
+        <v-card flat>
+          <v-card-text>
+            <v-container fluid>
+              <v-layout row wrap>
                 <v-flex xs12>
                   추가 옵션이 필요하신가요?
                 </v-flex>
@@ -91,8 +104,8 @@
 
                   <div class="mt-3">
                     <div class="d-flex justify-between align-center mb-3">
-                      <v-btn @click="all">전체보기</v-btn>
-                      <v-btn @click="none">접기</v-btn>
+                      <v-btn @click="panel = [true, true, true]">전체보기</v-btn>
+                      <v-btn @click="panel = [false, false, false]">접기</v-btn>
                     </div>
 
                     <v-expansion-panel
@@ -103,11 +116,29 @@
                         v-for="(item, idx) in items"
                         :key="idx"
                       >
+                        <template v-slot:actions>
+                          <v-icon color="primary">$vuetify.icons.expand</v-icon>
+                        </template>
+                        <template v-slot:actions>
+                          <v-icon color="primary">$vuetify.icons.expand</v-icon>
+                        </template>
                         <template v-slot:header>
                           <div>{{ item.header }}</div>
+                          <div>
+                            <v-chip close>Example Chip</v-chip>
+                          </div>
+                          <div>
+                            <v-chip>Example Chip</v-chip>
+                          </div>
+                          <div>
+                            <v-chip>Example Chip</v-chip>
+                          </div>
+                          <div>
+                            <v-chip>Example Chip</v-chip>
+                          </div>
                         </template>
                         <v-card>
-                          <v-card-text>
+                          <v-card-text class="grey lighten-3">
                             <v-layout row wrap>
                               <template v-for="itemLv2 in item.check">
                                 <v-flex xs3>
@@ -368,7 +399,7 @@ export default {
         type09: [],
         type10: [],
       },
-      panel: [],
+      panel: [false, false, false],
       items: [
         {
           header: "거리",
@@ -624,15 +655,6 @@ export default {
         }
       }
     },
-    all() {
-      console.log([...Array(this.items).entries()].map(_ => true));
-
-      this.panel = [...Array(this.items)].map(_ => true)
-    },
-    // Reset the panel
-    none() {
-      this.panel = [];
-    },
     getPickRestaurantNm(restaurantData) {
       Vue.set(this, "restaurantNm", restaurantData.restaurantNm);
       Vue.set(this, "restaurantAddress", restaurantData.address);
@@ -646,12 +668,10 @@ export default {
   },
   created() {
     // TODO
+    // Vue.set(this, "currentLocation", this.$store.getters.getLocation);
   },
   mounted() {
-    this.getLocation().then(resolve => {
-      this.$store.dispatch("setLocation", resolve);
-      Vue.set(this, "currentLocation", this.$store.getters.getLocation);
-    });
+    // TODO
   },
 }
 </script>

@@ -56,17 +56,15 @@ const fetchData = (url) => axios.get(url)
 
 const getKakaoMapToKeyword = (searchKeyword, x, y) => {
     return new Promise((resolve, reject) => {
-        console.log(x, y);
         searchKeyword = encodeURI(searchKeyword);
 
-        const url = "https://dapi.kakao.com/v2/local/search/keyword.json?query=" + searchKeyword;
+        const url = "https://dapi.kakao.com/v2/local/search/keyword.json?page=45&query=" + searchKeyword;
 
         let config = {
             headers: {
                 "Authorization": "KakaoAK " + api.getKaKaoKey().rest
             }
         }
-
 
         // Latitude = 위도 y
         // Longitude = 경도 x
@@ -95,9 +93,16 @@ const getKakaoMapToKeyword = (searchKeyword, x, y) => {
             const result = [];
 
             documents.map((list) => {
-                list["distance"] = compareDistance(x, y, list.x, list.y);
+                console.log(list);
+                let distance = compareDistance(x, y, list.x, list.y);
+                list["distanceFormat"] = Math.round(parseFloat(distance)) / 1000 + "km";
+                list["distance"] = distance;
                 result.push(list);
             });
+
+            result.sort((a, b) => {
+                return (Number(a["distance"]) > Number(b["distance"])) ? 1 : ((Number(a["distance"]) < Number(b["distance"])) ? -1 : 0);
+            })
 
             resolve(result);
         }).catch((err) => {

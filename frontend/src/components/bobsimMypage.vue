@@ -124,7 +124,7 @@
                         </v-list-tile-content>
 
                         <v-list-tile-action>
-                          <v-list-tile-action-text>{{ item.distance }}</v-list-tile-action-text>
+                          <v-list-tile-action-text>{{ item.distanceFormat }}</v-list-tile-action-text>
                           <v-icon
                             v-if="selected.indexOf(index) < 0"
                             color="grey lighten-1"
@@ -327,17 +327,18 @@ export default {
   },
   methods: {
     searchToKeyword() {
+      Vue.set(this, 'items', []);
+      Vue.set(this, 'allItems', []);
+      Vue.set(this, 'pageLength', 0);
+
+      if (!this.keyword) {
+        return;
+      }
+
       let params = new URLSearchParams();
       params.append('keyword', this.keyword);
       params.append('x', this.$store.getters.getLocation.x);
       params.append('y', this.$store.getters.getLocation.y);
-
-      if (!this.keyword) {
-        Vue.set(this, 'items', []);
-        Vue.set(this, 'allItems', []);
-        Vue.set(this, 'pageLength', 0);
-        return;
-      }
 
       this.$http.getKakaoMapToKeyword(params).then((response) => {
 
@@ -350,6 +351,7 @@ export default {
           Vue.set(this, 'pageLength', (itemCnt / 5) + 1);
         }
 
+        Vue.set(this, "page", 1);
         Vue.set(this, 'allItems', allItems);
 
         this.listPaging(1);
