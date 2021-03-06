@@ -1,5 +1,5 @@
 module.exports = {
-    restaurantRegistration:
+    authRegistration:
         "insert into bs_members\n" +
         "  (\n" +
         "    `email`,\n" +

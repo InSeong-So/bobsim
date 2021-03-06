@@ -72,12 +72,12 @@
             <v-tabs-slider color="white"></v-tabs-slider>
 
             <v-tab href="#tab-1">
-              자동으로 등록하기
+              키워드로 등록하기
               <v-icon>location_on</v-icon>
             </v-tab>
 
             <v-tab href="#tab-2">
-              수동으로 등록하기
+              주소로 등록하기
               <v-icon>edit</v-icon>
             </v-tab>
           </v-tabs>
@@ -244,7 +244,7 @@
                     </v-layout>
 
                     <div class="text-xs-right">
-                      <v-btn round color="primary" dark>등록하기</v-btn>
+                      <v-btn round color="primary" dark @click="requestRestaurantRegistration">등록하기</v-btn>
                     </div>
 
                   </v-container>
@@ -496,6 +496,9 @@ export default {
 
       // iframe을 넣은 element를 보이게 한다.
       element_wrap.style.display = 'block';
+    },
+    requestRestaurantRegistration() {
+
     },
   },
   created() {

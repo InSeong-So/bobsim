@@ -58,7 +58,7 @@ const getKakaoMapToKeyword = (searchKeyword, x, y) => {
     return new Promise((resolve, reject) => {
         searchKeyword = encodeURI(searchKeyword);
 
-        const url = "https://dapi.kakao.com/v2/local/search/keyword.json?page=45&query=" + searchKeyword;
+        const url = "https://dapi.kakao.com/v2/local/search/keyword.json?query=" + searchKeyword;
 
         let config = {
             headers: {
@@ -93,7 +93,6 @@ const getKakaoMapToKeyword = (searchKeyword, x, y) => {
             const result = [];
 
             documents.map((list) => {
-                console.log(list);
                 let distance = compareDistance(x, y, list.x, list.y);
                 list["distanceFormat"] = Math.round(parseFloat(distance)) / 1000 + "km";
                 list["distance"] = distance;
