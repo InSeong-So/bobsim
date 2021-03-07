@@ -231,7 +231,7 @@
                 <v-toolbar-title>음식점까지 길찾기</v-toolbar-title>
                 <v-spacer></v-spacer>
                 <v-toolbar-items>
-                  <v-btn dark flat @click="directionsDialog = false">저장</v-btn>
+                  <v-btn dark flat @click="directionsDialog = false">닫기</v-btn>
                 </v-toolbar-items>
               </v-toolbar>
               <v-list three-line subheader>
@@ -248,70 +248,53 @@
                 </v-card-actions>
               </v-list>
               <v-list two-line>
-                <v-list-tile @click="">
-                  <v-list-tile-action>
-                    <v-icon color="indigo">phone</v-icon>
-                  </v-list-tile-action>
+                <v-flex xs12 sm12 text-xs-center>
+                  <div>
+                    <v-btn large color="primary">Primary</v-btn>
+                  </div>
+                </v-flex>
+<!--                <v-list-tile @click="">-->
+<!--                  <v-list-tile-action>-->
+<!--                    <v-icon color="indigo">phone</v-icon>-->
+<!--                  </v-list-tile-action>-->
 
-                  <v-list-tile-content>
-                    <v-list-tile-title>(650) 555-1234</v-list-tile-title>
-                    <v-list-tile-sub-title>Mobile</v-list-tile-sub-title>
-                  </v-list-tile-content>
+<!--                  <v-list-tile-content>-->
+<!--                    <v-list-tile-title>(650) 555-1234</v-list-tile-title>-->
+<!--                    <v-list-tile-sub-title>Mobile</v-list-tile-sub-title>-->
+<!--                  </v-list-tile-content>-->
 
-                  <v-list-tile-action>
-                    <v-icon>chat</v-icon>
-                  </v-list-tile-action>
-                </v-list-tile>
+<!--                  <v-list-tile-action>-->
+<!--                    <v-icon>chat</v-icon>-->
+<!--                  </v-list-tile-action>-->
+<!--                </v-list-tile>-->
 
-                <v-list-tile @click="">
-                  <v-list-tile-action></v-list-tile-action>
+<!--                <v-divider inset></v-divider>-->
 
-                  <v-list-tile-content>
-                    <v-list-tile-title>(323) 555-6789</v-list-tile-title>
-                    <v-list-tile-sub-title>Work</v-list-tile-sub-title>
-                  </v-list-tile-content>
+<!--                <v-list-tile @click="">-->
+<!--                  <v-list-tile-action>-->
+<!--                    <v-icon color="indigo">mail</v-icon>-->
+<!--                  </v-list-tile-action>-->
 
-                  <v-list-tile-action>
-                    <v-icon>chat</v-icon>
-                  </v-list-tile-action>
-                </v-list-tile>
+<!--                  <v-list-tile-content>-->
+<!--                    <v-list-tile-title>aliconnors@example.com</v-list-tile-title>-->
+<!--                    <v-list-tile-sub-title>Personal</v-list-tile-sub-title>-->
+<!--                  </v-list-tile-content>-->
+<!--                </v-list-tile>-->
 
-                <v-divider inset></v-divider>
+<!--                <v-divider inset></v-divider>-->
 
-                <v-list-tile @click="">
-                  <v-list-tile-action>
-                    <v-icon color="indigo">mail</v-icon>
-                  </v-list-tile-action>
+<!--                <v-list-tile @click="">-->
+<!--                  <v-list-tile-action>-->
+<!--                    <v-icon color="indigo">location_on</v-icon>-->
+<!--                  </v-list-tile-action>-->
 
-                  <v-list-tile-content>
-                    <v-list-tile-title>aliconnors@example.com</v-list-tile-title>
-                    <v-list-tile-sub-title>Personal</v-list-tile-sub-title>
-                  </v-list-tile-content>
-                </v-list-tile>
+<!--                  <v-list-tile-content>-->
+<!--                    <v-list-tile-title>1400 Main Street</v-list-tile-title>-->
+<!--                    <v-list-tile-sub-title>Orlando, FL 79938</v-list-tile-sub-title>-->
+<!--                  </v-list-tile-content>-->
+<!--                </v-list-tile>-->
 
-                <v-list-tile @click="">
-                  <v-list-tile-action></v-list-tile-action>
-
-                  <v-list-tile-content>
-                    <v-list-tile-title>ali_connors@example.com</v-list-tile-title>
-                    <v-list-tile-sub-title>Work</v-list-tile-sub-title>
-                  </v-list-tile-content>
-                </v-list-tile>
-
-                <v-divider inset></v-divider>
-
-                <v-list-tile @click="">
-                  <v-list-tile-action>
-                    <v-icon color="indigo">location_on</v-icon>
-                  </v-list-tile-action>
-
-                  <v-list-tile-content>
-                    <v-list-tile-title>1400 Main Street</v-list-tile-title>
-                    <v-list-tile-sub-title>Orlando, FL 79938</v-list-tile-sub-title>
-                  </v-list-tile-content>
-                </v-list-tile>
-
-                <v-divider inset></v-divider>
+<!--                <v-divider inset></v-divider>-->
 
                 <v-layout>
                   <v-flex sm12>
@@ -319,9 +302,9 @@
                       <v-card-title primary-title>
                         test
                       </v-card-title>
-                      <v-card-actions>
+                      <v-card-text>
                         <toast-editor></toast-editor>
-                      </v-card-actions>
+                      </v-card-text>
                     </v-card>
                   </v-flex>
                 </v-layout>
@@ -374,6 +357,8 @@
 }
 </style>
 <script>
+// ref = https://apis.map.kakao.com/web/guide/
+
 import roulette from '@/components/util/roulette.vue'
 import toastEditor from '@/components/util/toastEditor'
 import VSubheader from "../../static/js/vuetify-v1.5.14.min";
@@ -668,9 +653,10 @@ export default {
   },
   created() {
     // TODO
-    // Vue.set(this, "currentLocation", this.$store.getters.getLocation);
   },
   mounted() {
+    console.log(this.$store.getters.getLocation);
+    Vue.set(this, "currentLocation", this.$store.getters.getLocation);
     // TODO
   },
 }

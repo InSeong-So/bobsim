@@ -44,6 +44,8 @@ batchCrawling((searchKeyword) => {
                             const imgText = $(this).find("img").attr("alt");
                             const pArray = pText.split("-");
                             const pArraySplit = pArray[0].split(" ");
+                            const keyData = $(this).find(".only-desktop_not").attr("href");
+                            const imgSrc = $(this).find("img").attr('data-original');
                             if (aText && pText) {
                                 let loopJson = [];
                                 // locale
@@ -56,13 +58,19 @@ batchCrawling((searchKeyword) => {
                                 let col4 = pArray[1].trim();
                                 // restaurantNm
                                 let col5 = aText;
+                                // restaurantKey
+                                let col6 = keyData;
+                                // image
+                                let col7 = imgSrc;
                                 loopJson.push(col1);
                                 loopJson.push(col2);
                                 loopJson.push(col3);
                                 loopJson.push(col4);
                                 loopJson.push(col5);
+                                loopJson.push(col6);
                                 loopJson.push("Y");
                                 loopJson.push("망고플레이트");
+                                loopJson.push(col7);
                                 restaurantInfo.push(loopJson);
                             }
                         })
@@ -81,14 +89,14 @@ writeJsonFile = (restaurantList) => {
         restaurantList: restaurantList
     };
     let json = JSON.stringify(obj);
-    fs.writeFile('isResult.json', json, 'utf8', res => {
-        connection.query(query.setCrawlingRestaurantList, [restaurantList], (err, row) => {
-            if (err) {
-                console.log(err);
-            }
-            console.log("변환완료!");
-        });
+    // fs.writeFile('isResult.json', json, 'utf8', res => {
+    connection.query(query.setCrawlingRestaurantList, [restaurantList], (err, row) => {
+        if (err) {
+            console.log(err);
+        }
+        console.log("변환완료!");
     });
+    // });
 };
 
 

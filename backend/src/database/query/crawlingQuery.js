@@ -4,6 +4,7 @@ module.exports = {
         "select location,\n" +
         "       locationDetail\n" +
         "  from bs_sigungu\n"
+    //     "  from bs_sigungu\n" +
     // " where location = '서울'\n" +
     // "   and locationDetail = '중랑구'\n"
     , setCrawlingRestaurantList:
@@ -14,8 +15,10 @@ module.exports = {
         "    `address`,\n" +
         "    `category`,\n" +
         "    `restaurantNm`,\n" +
+        "    `restaurantKey`,\n" +
         "    `crawlingYn`,\n" +
-        "    `crawlingSite`\n" +
+        "    `crawlingSite`,\n" +
+        "    `image`\n" +
         "  )\n" +
         " values ?"
 };

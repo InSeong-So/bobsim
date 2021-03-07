@@ -129,8 +129,6 @@
 </template>
 
 <script>
-let Vue = window.Vue;
-
 export default {
   name: 'App',
   data() {
@@ -230,12 +228,12 @@ export default {
     },
   },
   mounted() {
+    // TODO
+  },
+  created() {
     this.getLocation().then(resolve => {
       this.$store.dispatch("setLocation", resolve);
     });
-  },
-  created() {
-    // TODO : History API 참조
   }
 }
 </script>

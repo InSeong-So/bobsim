@@ -92,6 +92,7 @@ export default {
       params.append('y', this.componentData.currentLocation.y);
 
       this.$http.getRouletteData(params).then((response) => {
+        console.log(response.data);
         Vue.set(this.loadData, "restaurantList", response.data);
       }).catch((err) => {
         console.log(err);
