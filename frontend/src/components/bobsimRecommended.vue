@@ -206,11 +206,11 @@
                         <v-btn
                           block
                           flat
-                          @click="getDirections"
+                          @click="findWay"
                           outline color="indigo"
                         >
                           <v-icon left>exit_to_app</v-icon>
-                          상세보기
+                          음식점까지 길찾기
                         </v-btn>
                       </v-flex>
                     </v-layout>
@@ -253,61 +253,61 @@
                     <v-btn large color="primary">Primary</v-btn>
                   </div>
                 </v-flex>
-<!--                <v-list-tile @click="">-->
-<!--                  <v-list-tile-action>-->
-<!--                    <v-icon color="indigo">phone</v-icon>-->
-<!--                  </v-list-tile-action>-->
+                <!--                <v-list-tile @click="">-->
+                <!--                  <v-list-tile-action>-->
+                <!--                    <v-icon color="indigo">phone</v-icon>-->
+                <!--                  </v-list-tile-action>-->
 
-<!--                  <v-list-tile-content>-->
-<!--                    <v-list-tile-title>(650) 555-1234</v-list-tile-title>-->
-<!--                    <v-list-tile-sub-title>Mobile</v-list-tile-sub-title>-->
-<!--                  </v-list-tile-content>-->
+                <!--                  <v-list-tile-content>-->
+                <!--                    <v-list-tile-title>(650) 555-1234</v-list-tile-title>-->
+                <!--                    <v-list-tile-sub-title>Mobile</v-list-tile-sub-title>-->
+                <!--                  </v-list-tile-content>-->
 
-<!--                  <v-list-tile-action>-->
-<!--                    <v-icon>chat</v-icon>-->
-<!--                  </v-list-tile-action>-->
-<!--                </v-list-tile>-->
+                <!--                  <v-list-tile-action>-->
+                <!--                    <v-icon>chat</v-icon>-->
+                <!--                  </v-list-tile-action>-->
+                <!--                </v-list-tile>-->
 
-<!--                <v-divider inset></v-divider>-->
+                <!--                <v-divider inset></v-divider>-->
 
-<!--                <v-list-tile @click="">-->
-<!--                  <v-list-tile-action>-->
-<!--                    <v-icon color="indigo">mail</v-icon>-->
-<!--                  </v-list-tile-action>-->
+                <!--                <v-list-tile @click="">-->
+                <!--                  <v-list-tile-action>-->
+                <!--                    <v-icon color="indigo">mail</v-icon>-->
+                <!--                  </v-list-tile-action>-->
 
-<!--                  <v-list-tile-content>-->
-<!--                    <v-list-tile-title>aliconnors@example.com</v-list-tile-title>-->
-<!--                    <v-list-tile-sub-title>Personal</v-list-tile-sub-title>-->
-<!--                  </v-list-tile-content>-->
-<!--                </v-list-tile>-->
+                <!--                  <v-list-tile-content>-->
+                <!--                    <v-list-tile-title>aliconnors@example.com</v-list-tile-title>-->
+                <!--                    <v-list-tile-sub-title>Personal</v-list-tile-sub-title>-->
+                <!--                  </v-list-tile-content>-->
+                <!--                </v-list-tile>-->
 
-<!--                <v-divider inset></v-divider>-->
+                <!--                <v-divider inset></v-divider>-->
 
-<!--                <v-list-tile @click="">-->
-<!--                  <v-list-tile-action>-->
-<!--                    <v-icon color="indigo">location_on</v-icon>-->
-<!--                  </v-list-tile-action>-->
+                <!--                <v-list-tile @click="">-->
+                <!--                  <v-list-tile-action>-->
+                <!--                    <v-icon color="indigo">location_on</v-icon>-->
+                <!--                  </v-list-tile-action>-->
 
-<!--                  <v-list-tile-content>-->
-<!--                    <v-list-tile-title>1400 Main Street</v-list-tile-title>-->
-<!--                    <v-list-tile-sub-title>Orlando, FL 79938</v-list-tile-sub-title>-->
-<!--                  </v-list-tile-content>-->
-<!--                </v-list-tile>-->
+                <!--                  <v-list-tile-content>-->
+                <!--                    <v-list-tile-title>1400 Main Street</v-list-tile-title>-->
+                <!--                    <v-list-tile-sub-title>Orlando, FL 79938</v-list-tile-sub-title>-->
+                <!--                  </v-list-tile-content>-->
+                <!--                </v-list-tile>-->
 
-<!--                <v-divider inset></v-divider>-->
+                <!--                <v-divider inset></v-divider>-->
 
-                <v-layout>
-                  <v-flex sm12>
-                    <v-card>
-                      <v-card-title primary-title>
-                        test
-                      </v-card-title>
-                      <v-card-text>
-                        <toast-editor></toast-editor>
-                      </v-card-text>
-                    </v-card>
-                  </v-flex>
-                </v-layout>
+                <!--                <v-layout>-->
+                <!--                  <v-flex sm12>-->
+                <!--                    <v-card>-->
+                <!--                      <v-card-title primary-title>-->
+                <!--                        test-->
+                <!--                      </v-card-title>-->
+                <!--                      <v-card-text>-->
+                <!--                        <toast-editor></toast-editor>-->
+                <!--                      </v-card-text>-->
+                <!--                    </v-card>-->
+                <!--                  </v-flex>-->
+                <!--                </v-layout>-->
 
               </v-list>
             </v-layout>
@@ -647,6 +647,9 @@ export default {
     getDirections() {
       Vue.set(this, "directionsDialog", true);
       this.setMap();
+    },
+    findWay() {
+      window.open("https://map.kakao.com/link/to/카카오판교오피스,37.402056,127.108212")
     },
     setOptions() {
     }
