@@ -493,10 +493,30 @@ export default {
           }, function (error) {
             reject({code: "fail", msg: error});
           }, {
+            enableHighAccuracy: true,
+            maximumAge: 0,
+            timeout: Infinity
+          });
+        } else {
+          reject({code: "fail", msg: "not supported"});
+        }
+      });
+    },
+    // 실시간 업데이트
+    getLocation2: function (flag) {
+      return new Promise((resolve, reject) => {
+        if (navigator.geolocation) {
+
+          const watchID = navigator.geolocation.watchPosition((position) => {
+            resolve({x: position.coords.longitude, y: position.coords.latitude});
+          }, function (error) {
+            reject({code: "fail", msg: error});
+          }, {
             enableHighAccuracy: false,
             maximumAge: 0,
             timeout: Infinity
           });
+          // navigator.geolocation.clearWatch(watchID);
         } else {
           reject({code: "fail", msg: "not supported"});
         }
@@ -649,7 +669,17 @@ export default {
       this.setMap();
     },
     findWay() {
-      window.open("https://map.kakao.com/link/to/카카오판교오피스,37.402056,127.108212")
+      let params = new URLSearchParams();
+
+      params.append('address', this.restaurantAddress);
+
+      this.$http.getKakaoMapToAddress(params).then((response) => {
+        const testA = "덕암동 7-3";
+        // window.open("https://map.kakao.com/link/to/"+this.restaurantNm+","+response.data.y+","+response.data.x);
+        window.open("https://map.kakao.com/?sName=" + testA + "&eName=" + this.restaurantAddress);
+      }).catch((err) => {
+        console.log(err);
+      });
     },
     setOptions() {
     }
@@ -658,9 +688,26 @@ export default {
     // TODO
   },
   mounted() {
-    console.log(this.$store.getters.getLocation);
-    Vue.set(this, "currentLocation", this.$store.getters.getLocation);
-    // TODO
+    let $vue = this;
+    this.progressDialog = true;
+    this.getLocation().then(resolve => {
+      this.$store.dispatch("setLocation", resolve);
+      Vue.set(this, "currentLocation", resolve);
+
+      let params = new URLSearchParams();
+      params.append('x', resolve.x);
+      params.append('y', resolve.y);
+      $vue.$http.getCurrentAddress(params).then(response => {
+        console.log(response.data);
+        // Vue.set(this, "currentAddress", response.data);
+        // Vue.set(this, "addAddress", this.currentAddress.newAddress);
+      }).catch(err => {
+        alert("현재 위치를 불러오는 도중 에러가 발생했습니다.");
+      });
+
+
+      this.progressDialog = false;
+    });
   },
 }
 </script>

@@ -91,13 +91,12 @@ app.route('/currentAddress')
                     y: req.query.y
                 };
 
-                getCurrentAddress(param).then((data) => {
-                    const region = {
-                        newAddress: data[0].road_address.address_name,
-                        oldAddress: data[0].address.address_name
-                    };
-
-                    resolve(res.json(region));
+                getCurrentAddress(param).then( data => {
+                    // const region = {
+                    //     newAddress: data[0].road_address.address_name,
+                    //     oldAddress: data[0].address.address_name
+                    // };
+                    resolve(res.json(data[0]));
                 });
             } catch (err) {
                 reject(res.send(err));
